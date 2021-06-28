@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+//dependencies
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+//includes
 import './App.css';
+//components
+import MainPage from './pages/mainpage';
+import BackupCreatePage from './pages/backupcreatepage';
+import ActivateBackupPage from './pages/activatebackuppage';
+import Mail from './sendmail';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//Run
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/Backup" component={BackupCreatePage}/>
+          <Route exact path="/ActivateBackup" component={ActivateBackupPage}/>
+          <Route exact path="/mail" component={Mail}/>
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;
