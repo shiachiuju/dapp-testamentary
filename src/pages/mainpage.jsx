@@ -1,13 +1,16 @@
 //dependencies
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button,  Form, Col, Row} from 'react-bootstrap'
+import ReactBootstrap, { Navbar, Container, Nav, Button,  Form, Col, Row,DropdownButton} from 'react-bootstrap'
 //includes
 import '../App.css';
+//import MainContract from "../contract/MainContract.json"
 //contract address
 import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract.js'
 //components
 import getWeb3 from '../getWeb3'
+import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 //Run maincontract
 /* 執行 deposit and withdraw 的畫面，還會顯示使用者錢包、合約地址、合約餘額、備援機制設定的帳號密碼(檢查用)  */ 
@@ -35,8 +38,10 @@ class MainPage extends Component {
 
         //main contract
         const mainContract = new web3.eth.Contract(MainContract_ABI, MainContract_ADDRESS)
+        //const mainContract = new web3.eth.Contract(MainContract.abi, MainContract.networks[netId].address)
         this.setState({ mainContract })
         const contract_address = MainContract_ADDRESS;
+        //const contract_address = mainContract.networks[netId].address;
         this.setState({ contract_address })
 
         //view contract data
@@ -53,6 +58,7 @@ class MainPage extends Component {
         super(props)
         this.state = {
         account: '',
+        contract_address:'',
         balance: 0,
         email: '',
         password: ''
@@ -86,8 +92,13 @@ class MainPage extends Component {
                 <Container>
                 <Nav className="mr-auto">
                 <Nav.Link href="/">Main</Nav.Link>
-                <Nav.Link href="/Backup">Create</Nav.Link>
-                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
+                <DropdownButton variant="light" id="dropdown-basic-button" title="Create">
+                        <DropdownItem href="/Backup">Back-up</DropdownItem>
+                        <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
+                </DropdownButton>
+                <DropdownButton variant="light" id="dropdown-basic-button" title="Activate">
+                        <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
+                </DropdownButton>
                 </Nav>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
@@ -108,11 +119,13 @@ class MainPage extends Component {
             <p><b>*Contract password:</b> {this.state.password}</p>
             <br></br>
             <div id="ether">
+                <div>
                 <Form>
                     <Form.Group id="ether">
                         <Row>
-                            <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label>
-                            <Col md={{ span: 2, offset: 5 }}>
+                        <Col md={{ span: 4, offset: 4 }}>
+                        <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label></Col>
+                        <Col md={{ span: 2, offset: 5 }}>
                                 <Form.Control
                                     id="Amount"
                                     ref={(input) => { 
@@ -134,6 +147,7 @@ class MainPage extends Component {
                         this.Withdraw(this.amount.value)
                     }}>Withdraw</Button>
                 </Form>
+                </div>
                 {/* <button><a href='/Backup'>back</a></button> */}
             </div>    
         </div>
@@ -143,3 +157,8 @@ class MainPage extends Component {
 }
 
 export default MainPage;
+
+/*<Nav.Link href="/">Main</Nav.Link>
+                <Nav.Link href="/Backup">Create</Nav.Link>
+                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
+                <Nav.Link href="/TestaManage">Testamentary</Nav.Link>*/

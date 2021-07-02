@@ -7,6 +7,7 @@ import './App.css';
 import MainPage from './pages/mainpage';
 import BackupCreatePage from './pages/backupcreatepage';
 import ActivateBackupPage from './pages/activatebackuppage';
+import TestaManagePage from './pages/testamanagepage';
 import Mail from './sendmail';
 
 //Run
@@ -18,6 +19,7 @@ class App extends Component {
           <Route exact path="/" component={MainPage} />
           <Route exact path="/Backup" component={BackupCreatePage}/>
           <Route exact path="/ActivateBackup" component={ActivateBackupPage}/>
+          <Route exact path="/TestaManage" component={TestaManagePage}/>
           <Route exact path="/mail" component={Mail}/>
         </Switch>
       </Router>
