@@ -1,0 +1,13 @@
+/* change the background color */
+.navbar {
+    background-color: cornsilk;
+}
+
+.footer {
+    background-color:lightslategray;
+    opacity:0.3;
+}
+
+.footer-copyright {
+    color: black; 
+}

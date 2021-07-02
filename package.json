@@ -6,8 +6,11 @@
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "bootstrap": "^5.0.2",
+    "jquery": "^3.6.0",
     "js-sha256": "^0.9.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.6.1",
     "react-bootstrap-validation": "^0.1.11",
     "react-dom": "^17.0.2",
     "react-html-email": "^3.0.0",
@@ -38,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "css-loader": "^5.2.6",
+    "style-loader": "^3.0.0"
   }
 }

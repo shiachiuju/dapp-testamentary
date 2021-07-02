@@ -1,13 +1,13 @@
 //dependencies
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button,  Form, Col, Row} from 'react-bootstrap'
+import { Navbar, Button, Col, Container, Form, Row, Nav } from "react-bootstrap"
 //includes
 import '../App.css';
 //contract address
 import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract.js'
 //components
-import getWeb3 from '../getWeb3'
+import getWeb3 from '../getWeb3';
+import Layout from '../layout';
 
 //Run maincontract
 /* 執行 deposit and withdraw 的畫面，還會顯示使用者錢包、合約地址、合約餘額、備援機制設定的帳號密碼(檢查用)  */ 
@@ -32,13 +32,13 @@ class MainPage extends Component {
         const deployedNetwork = MainContract.networks[netId];
         const contract_address = MainContract.networks[netId].address;
         */
-
+        
         //main contract
         const mainContract = new web3.eth.Contract(MainContract_ABI, MainContract_ADDRESS)
         this.setState({ mainContract })
         const contract_address = MainContract_ADDRESS;
         this.setState({ contract_address })
-
+        
         //view contract data
         const balance = await mainContract.methods.getBalance().call()
         this.setState({ balance })
@@ -79,25 +79,13 @@ class MainPage extends Component {
     async refreshPage() { 
         window.location.reload()
     }
+    
     render() {
-        return (
-        <div id="navbar">
-            <Navbar bg="light" variant="light">
-                <Container>
-                <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
-                <Nav.Link href="/Backup">Create</Nav.Link>
-                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
-                </Nav>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                </Container>
-            </Navbar>
+        return (    
+    <Layout>
+        <p>
         <div className="App">
+
             <br></br>
             <h1><b>Hello, user !</b></h1>
             <br></br>
@@ -107,11 +95,12 @@ class MainPage extends Component {
             <p><b>*Contract email:</b> {this.state.email}</p>
             <p><b>*Contract password:</b> {this.state.password}</p>
             <br></br>
+
             <div id="ether">
                 <Form>
                     <Form.Group id="ether">
                         <Row>
-                            <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label>
+                            <Form.Label><b>Deposit or Withdraw Ether:</b></Form.Label><p></p>
                             <Col md={{ span: 2, offset: 5 }}>
                                 <Form.Control
                                     id="Amount"
@@ -137,7 +126,9 @@ class MainPage extends Component {
                 {/* <button><a href='/Backup'>back</a></button> */}
             </div>    
         </div>
-        </div>
+        </p>
+    </Layout>       
+        
         );
     }
 }

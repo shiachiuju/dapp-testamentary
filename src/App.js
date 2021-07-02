@@ -1,6 +1,8 @@
 //dependencies
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 //includes
 import './App.css';
 //components
@@ -8,6 +10,8 @@ import MainPage from './pages/mainpage';
 import BackupCreatePage from './pages/backupcreatepage';
 import ActivateBackupPage from './pages/activatebackuppage';
 import Mail from './sendmail';
+
+
 
 //Run
 class App extends Component {

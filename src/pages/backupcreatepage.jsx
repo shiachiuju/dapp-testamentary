@@ -1,7 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
+import { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
 // import createHash from 'crypto-browserify'
 import sha256 from 'js-sha256';
 //includes
@@ -10,7 +9,11 @@ import '../App.css';
 import { Backup_ABI, Backup_ADDRESS } from '../config_backup.js'
 //components
 import getWeb3 from '../getWeb3';
+import Layout from '../layout';
+
 // import {Email} from 'react-html-email';
+
+
 //run backup
 /* 設定備援機制帳號密碼的畫面，還會顯示使用者錢包、合約地址 */
 class BackupCreatePage extends Component {
@@ -80,23 +83,8 @@ class BackupCreatePage extends Component {
     // }
     render() {
         return (
-            <div id="navbar">
-                <Navbar bg="warning" variant="light">
-                <Container>
-                <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
-                <Nav.Link href="/Backup">Create</Nav.Link>
-                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
-                </Nav>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                </Container>
-            </Navbar>
-            
+        
+        <Layout>    
             <div className="App">
                 <br></br>
                 <h3><b>Create Back-up Mechanism</b></h3>
@@ -143,7 +131,7 @@ class BackupCreatePage extends Component {
                     </Form>
                 </div>
             </div> 
-            </div> 
+        </Layout>   
         ) 
     }
 }

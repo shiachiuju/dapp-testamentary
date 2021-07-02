@@ -1,12 +1,9 @@
 //dependencies
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //includes
 import './App.css';
 //components
-import MainPage from './pages/mainpage';
-import BackupCreatePage from './pages/backupcreatepage';
-import ActivateBackupPage from './pages/activatebackuppage';
+
 import { Email} from 'react-html-email';
 
 //Run

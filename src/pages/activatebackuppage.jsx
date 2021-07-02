@@ -1,7 +1,7 @@
 //dependencies
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
+import { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
+
 import sha256 from 'js-sha256';
 //includes
 import '../App.css';
@@ -9,6 +9,9 @@ import '../App.css';
 import { Activatebackup_ABI, Activatebackup_ADDRESS } from '../config_activatebackup.js'
 //components
 import getWeb3 from '../getWeb3';
+import Layout from '../layout';
+
+
 //run activatebackup
 /* 取回合約錢的畫面，還會顯示使用者錢包、合約地址(檢查用) */
 class ActivateBackupPage extends Component {
@@ -50,22 +53,7 @@ class ActivateBackupPage extends Component {
     }
     render() {
         return (
-            <div id="navbar">
-                <Navbar bg="secondary" variant="light">
-                <Container>
-                <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
-                <Nav.Link href="/Backup">Create</Nav.Link>
-                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
-                </Nav>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                </Container>
-            </Navbar>
+        <Layout>
             <div className="App">
                 <br></br>
                 <h3><b>Activate Back-up Mechanism</b></h3>
@@ -127,7 +115,7 @@ class ActivateBackupPage extends Component {
                     </Form>
                 </div>
             </div> 
-            </div> 
+        </Layout>
         ) 
     }
 }
