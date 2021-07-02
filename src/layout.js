@@ -14,11 +14,11 @@ export default ({ children }) => (
         <Container>
             <Nav className="mr-auto">
                 <Nav.Link href="/">Main</Nav.Link>
-                <DropdownButton variant="secondary" id="dropdown-basic-button" title="Create">
+                <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Create">
                         <DropdownItem href="/Backup">Back-up</DropdownItem>
                         <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
                 </DropdownButton>
-                <DropdownButton variant="secondary" id="dropdown-basic-button" title="Activate">
+                <DropdownButton variant="light" id="dropdown-basic-button" title="Activate">
                         <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
                 </DropdownButton>
             </Nav>
