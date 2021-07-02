@@ -14,7 +14,7 @@ import Layout from '../layout';
 
 //run activatebackup
 /* 取回合約錢的畫面，還會顯示使用者錢包、合約地址(檢查用) */
-class ActivateBackupPage extends Component {
+class ActivateTestamentPage extends Component {
     componentDidMount() {
         this.loadBlockchainData()
     }
@@ -56,7 +56,7 @@ class ActivateBackupPage extends Component {
         <Layout>
             <div className="App">
                 <br></br>
-                <h3><b>Activate Back-up Mechanism</b></h3>
+                <h3><b>Activate Testament Mechanism</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
                 <p><b>*Contract address:</b> {this.state.contract_address}</p>
@@ -119,4 +119,4 @@ class ActivateBackupPage extends Component {
         ) 
     }
 }
-export default ActivateBackupPage;
+export default ActivateTestamentPage;

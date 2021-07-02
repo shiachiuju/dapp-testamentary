@@ -100,7 +100,8 @@ class MainPage extends Component {
                 <Form>
                     <Form.Group id="ether">
                         <Row>
-                            <Form.Label><b>Deposit or Withdraw Ether:</b></Form.Label><p></p>
+                            <Col md={{ span: 4, offset: 4 }}>
+                            <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label></Col><p></p>
                             <Col md={{ span: 2, offset: 5 }}>
                                 <Form.Control
                                     id="Amount"

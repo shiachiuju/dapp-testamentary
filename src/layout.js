@@ -1,6 +1,9 @@
 import React from "react"
-import { Navbar, Container, Nav} from 'react-bootstrap'
+import { Navbar, Container, Nav, Button, Form, Col, Row, DropdownButton} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Dropdown } from 'bootstrap';
+import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 import './layout.css';
 
@@ -10,11 +13,15 @@ export default ({ children }) => (
     <Navbar class="navbar">
         <Container>
             <Nav className="mr-auto">
-            <Nav.Link href="/">Main</Nav.Link>
-            <Nav.Link href="/Backup">Create</Nav.Link>
-            <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
+                <Nav.Link href="/">Main</Nav.Link>
+                <DropdownButton variant="secondary" id="dropdown-basic-button" title="Create">
+                        <DropdownItem href="/Backup">Back-up</DropdownItem>
+                        <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
+                </DropdownButton>
+                <DropdownButton variant="secondary" id="dropdown-basic-button" title="Activate">
+                        <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
+                </DropdownButton>
             </Nav>
-            <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
                     Signed in as: <a href="https://beautygang.fr/">Beauty</a>
