@@ -1,7 +1,7 @@
 //dependencies
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row,DropdownButton} from 'react-bootstrap'
+import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
 import sha256 from 'js-sha256';
 //includes
 import '../App.css';
@@ -9,9 +9,6 @@ import '../App.css';
 import { Activatebackup_ABI, Activatebackup_ADDRESS } from '../config_activatebackup.js'
 //components
 import getWeb3 from '../getWeb3';
-import { Dropdown } from 'bootstrap';
-import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 //run activatebackup
 /* 取回合約錢的畫面，還會顯示使用者錢包、合約地址(檢查用) */
 class ActivateBackupPage extends Component {
@@ -54,17 +51,12 @@ class ActivateBackupPage extends Component {
     render() {
         return (
             <div id="navbar">
-                <Navbar bg="secondary" variant="light" >
+                <Navbar bg="secondary" variant="light">
                 <Container>
                 <Nav className="mr-auto">
                 <Nav.Link href="/">Main</Nav.Link>
-                <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Create">
-                        <DropdownItem href="/Backup">Back-up</DropdownItem>
-                        <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
-                </DropdownButton>
-                <DropdownButton variant="secondary" id="dropdown-basic-button" title="Activate">
-                        <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
-                </DropdownButton>
+                <Nav.Link href="/Backup">Create</Nav.Link>
+                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
                 </Nav>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
@@ -140,7 +132,3 @@ class ActivateBackupPage extends Component {
     }
 }
 export default ActivateBackupPage;
-
-/*<Nav.Link href="/Backup">Create</Nav.Link>
-<Nav.Link href="/ActivateBackup">Activate</Nav.Link>
-<Nav.Link href="/TestaManage">Testamentary</Nav.Link>*/
