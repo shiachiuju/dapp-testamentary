@@ -61,7 +61,7 @@ class TestaManagePage extends Component{
         <Layout>
             <div className="App">
             <br></br>
-            <h1><b>Hello, user !</b></h1>
+            <h1><b>Create Testamentary</b></h1>
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
             <p><b>Contract address:</b> {this.state.contract_address} </p>
@@ -78,7 +78,7 @@ class TestaManagePage extends Component{
                                 </Col>
                             </Row>
                             <br></br>
-                            <Button variant="warning" onClick={this.addBene}>Add Beneficiary</Button>{
+                            <Button variant="warning" onClick={this.addBene}>Add More Beneficiary</Button>{
                                 beneficiary.map((val,idx)=>{
                                     let beneficiaryId='beneficiary-${idx}',rateId='rate-${idx}'
                                     return(
@@ -104,14 +104,17 @@ class TestaManagePage extends Component{
                                             id={rateId}
                                             placeholder="0~100"
                                             className="rate"/>
+                                            &nbsp;&nbsp;
+                                            <Button variant="warning">Add</Button>
                                         </div>
                                     )
                                 })
                     }        <br></br>
                         </Form.Group>
-                        <Button variant="warning" type="submit">Submit</Button>
+                        <Button variant="outline-warning" type="submit">Submit</Button>
                         <br></br>
                         </Form>
+            <br></br>
             <br></br>
             <br></br>
             </div>
