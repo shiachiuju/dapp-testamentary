@@ -1,5 +1,9 @@
 //need to change deployed contract address
+<<<<<<< HEAD
 export const Backup_ADDRESS = '0xf9d090529e88D713286E3D2740136e0091D33AF3'
+=======
+export const Backup_ADDRESS = '0x5D9D7B5446434DD58ab9B5c430d4C318CfEb470b'
+>>>>>>> parent of 0fe5380 (0703)
 export const Backup_ABI = [
     {
         "inputs": [

@@ -1,7 +1,7 @@
 //dependencies
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row,DropdownButton} from 'react-bootstrap'
+import { Button, Form, Col, Row } from 'react-bootstrap'
+
 import sha256 from 'js-sha256';
 //includes
 import '../App.css';
@@ -9,12 +9,12 @@ import '../App.css';
 import { Activatebackup_ABI, Activatebackup_ADDRESS } from '../config_activatebackup.js'
 //components
 import getWeb3 from '../getWeb3';
-import { Dropdown } from 'bootstrap';
-import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+import Layout from '../layout';
+
+
 //run activatebackup
 /* 取回合約錢的畫面，還會顯示使用者錢包、合約地址(檢查用) */
-class ActivateBackupPage extends Component {
+class ActivateTestamentPage extends Component {
     componentDidMount() {
         this.loadBlockchainData()
     }
@@ -53,30 +53,10 @@ class ActivateBackupPage extends Component {
     }
     render() {
         return (
-            <div id="navbar">
-                <Navbar bg="secondary" variant="light" >
-                <Container>
-                <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
-                <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Create">
-                        <DropdownItem href="/Backup">Back-up</DropdownItem>
-                        <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
-                </DropdownButton>
-                <DropdownButton variant="secondary" id="dropdown-basic-button" title="Activate">
-                        <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
-                </DropdownButton>
-                </Nav>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                </Container>
-            </Navbar>
+        <Layout>
             <div className="App">
                 <br></br>
-                <h3><b>Activate Back-up Mechanism</b></h3>
+                <h3><b>Activate Testament Mechanism</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
                 <p><b>*Contract address:</b> {this.state.contract_address}</p>
@@ -135,16 +115,8 @@ class ActivateBackupPage extends Component {
                     </Form>
                 </div>
             </div> 
-<<<<<<< HEAD
-            </div> 
-=======
         </Layout>
->>>>>>> parent of 0fe5380 (0703)
         ) 
     }
 }
-export default ActivateBackupPage;
-
-/*<Nav.Link href="/Backup">Create</Nav.Link>
-<Nav.Link href="/ActivateBackup">Activate</Nav.Link>
-<Nav.Link href="/TestaManage">Testamentary</Nav.Link>*/
+export default ActivateTestamentPage;
