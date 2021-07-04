@@ -1,5 +1,9 @@
 //need to change deployed contract address
+<<<<<<< Updated upstream
 export const Activatebackup_ADDRESS = '0x1454bc52b0fC4c80Bca142FeCe30A18252C51a3b'
+=======
+export const Activatebackup_ADDRESS = '0x72237907511459B7940ACD54C452817ee8b55aa4'
+>>>>>>> Stashed changes
 export const Activatebackup_ABI = [
   {
     "inputs": [
