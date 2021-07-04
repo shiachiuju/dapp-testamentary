@@ -4,6 +4,7 @@ import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row, Dropdow
 import sha256 from 'js-sha256';
 import getWeb3 from '../getWeb3'
 import '../App.css';
+import Layout from '../layout';
 import { Dropdown } from 'bootstrap';
 import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
@@ -51,27 +52,7 @@ class TestaManagePage extends Component{
     render() {
         let {beneficiary}=this.state
         return (
-            <div id="navbar">
-                <Navbar bg="warning" variant="light">
-                <Container>
-                <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
-                <DropdownButton variant="warning" id="dropdown-basic-button" title="Create">
-                        <DropdownItem href="/Backup">Back-up</DropdownItem>
-                        <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
-                </DropdownButton>
-                <DropdownButton variant="warning" id="dropdown-basic-button" title="Activate">
-                        <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
-                </DropdownButton>
-                </Nav>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                </Container>
-            </Navbar>
+            <Layout>
             <div className="App">
             <br></br>
             <h1><b>Hello, user !</b></h1>
@@ -128,7 +109,7 @@ class TestaManagePage extends Component{
             <br></br>
             <br></br>
             </div>
-            </div> 
+            </Layout> 
         ) 
     }
 }

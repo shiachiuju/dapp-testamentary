@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import ReactBootstrap, { Navbar, Container, Nav, Button,  Form, Col, Row,DropdownButton} from 'react-bootstrap'
 //includes
 import '../App.css';
+import Layout from '../layout';
 //import MainContract from "../contract/MainContract.json"
 //contract address
 import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract.js'
@@ -87,27 +88,7 @@ class MainPage extends Component {
     }
     render() {
         return (
-        <div id="navbar">
-            <Navbar bg="light" variant="light">
-                <Container>
-                <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
-                <DropdownButton variant="light" id="dropdown-basic-button" title="Create">
-                        <DropdownItem href="/Backup">Back-up</DropdownItem>
-                        <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
-                </DropdownButton>
-                <DropdownButton variant="light" id="dropdown-basic-button" title="Activate">
-                        <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
-                </DropdownButton>
-                </Nav>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                </Container>
-            </Navbar>
+        <Layout>
         <div className="App">
             <br></br>
             <h1><b>Hello, user !</b></h1>
@@ -151,7 +132,7 @@ class MainPage extends Component {
                 {/* <button><a href='/Backup'>back</a></button> */}
             </div>    
         </div>
-        </div>
+        </Layout>
         );
     }
 }

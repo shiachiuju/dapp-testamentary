@@ -5,6 +5,7 @@ import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row,Dropdown
 import sha256 from 'js-sha256';
 //includes
 import '../App.css';
+import Layout from '../layout';
 //contract
 import { Activatebackup_ABI, Activatebackup_ADDRESS } from '../config_activatebackup.js'
 //components
@@ -53,27 +54,7 @@ class ActivateBackupPage extends Component {
     }
     render() {
         return (
-            <div id="navbar">
-                <Navbar bg="secondary" variant="light" >
-                <Container>
-                <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
-                <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Create">
-                        <DropdownItem href="/Backup">Back-up</DropdownItem>
-                        <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
-                </DropdownButton>
-                <DropdownButton variant="secondary" id="dropdown-basic-button" title="Activate">
-                        <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
-                </DropdownButton>
-                </Nav>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                </Container>
-            </Navbar>
+            <Layout>
             <div className="App">
                 <br></br>
                 <h3><b>Activate Back-up Mechanism</b></h3>
@@ -134,8 +115,8 @@ class ActivateBackupPage extends Component {
                         <Button type="submit" variant="outline-secondary">Activate</Button>
                     </Form>
                 </div>
-            </div> 
-            </div> 
+            </div>
+            </Layout> 
         ) 
     }
 }
