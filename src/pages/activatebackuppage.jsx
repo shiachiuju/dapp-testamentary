@@ -37,6 +37,8 @@ class ActivateBackupPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            message: '',
+            message2: ''
         }
         this.CheckContract = this.CheckContract.bind(this);
 
@@ -45,6 +47,7 @@ class ActivateBackupPage extends Component {
         this.checkhash = sha256(checkpassword.toString())
         this.state.acBackupContract.methods.checkContract(contractadd,checkemail,this.checkhash).send({ from: this.state.account })
         .once('receipt', (receipt) => {
+            this.setState({ message2: 'Your assets from previous wallet has transferred to\n' + this.state.account + '\nnew balance :'})
             this.refreshPage()
         }).once('error', (error) => {
             // alert('請輸入正確地址');
@@ -60,11 +63,12 @@ class ActivateBackupPage extends Component {
                 <h3><b>Activate Back-up Mechanism</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
-                <p><b>*Contract address:</b> {this.state.contract_address}</p>
-                <br></br>
+                {/* <p><b>*Contract address:</b> {this.state.contract_address}</p> */}
+                <p></p>
                 <div id="activateBack">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
+                        this.setState({ message : 'Once you send the request, we will confirm your identity.\nPlease wait a moment and soon your assets will be back!'})
                         this.CheckContract(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
                     }}>
                         <Form.Group id="formCheckAddress">
@@ -76,12 +80,12 @@ class ActivateBackupPage extends Component {
                                         ref={(input) => { 
                                             this.contractadd = input
                                         }}
-                                        placeholder="Enter back-up address"
+                                        placeholder="check mailbox to get back-up address"
                                         required />
                                 </Col>
                             </Row>
                         </Form.Group>
-                        <br></br>
+                        <p></p>
                         <Form.Group id="formCheckEmail">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
@@ -91,12 +95,12 @@ class ActivateBackupPage extends Component {
                                         ref={(input) => { 
                                             this.checkemail = input
                                         }}
-                                        placeholder="Enter email"
+                                        placeholder="example@email.com"
                                         required />
                                 </Col>
                             </Row>
                         </Form.Group>
-                        <br></br>
+                        <p></p>
                         <Form.Group id="formCheckPassword" >
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
@@ -106,7 +110,8 @@ class ActivateBackupPage extends Component {
                                         ref={(input) => { 
                                             this.checkpassword = input
                                         }}  
-                                        placeholder="Password"
+                                        placeholder="must have at least 6 characters"
+                                        minlength="6"
                                         required />
                                 </Col>
                             </Row>
@@ -114,6 +119,9 @@ class ActivateBackupPage extends Component {
                         <br></br>
                         <Button type="submit" variant="outline-secondary">Activate</Button>
                     </Form>
+                    <p></p>
+                    <p>{this.state.message}</p>
+                    <p>{this.state.message2}</p>
                 </div>
             </div>
             </Layout> 

@@ -1,7 +1,7 @@
 //dependencies
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button,  Form, Col, Row,DropdownButton} from 'react-bootstrap'
+import ReactBootstrap, { ToggleButtonGroup, ToggleButton, Nav, Button,  Form, Col, Row,DropdownButton} from 'react-bootstrap'
 //includes
 import '../App.css';
 import Layout from '../layout';
@@ -54,6 +54,10 @@ class MainPage extends Component {
         this.setState({ email })
         const password = await mainContract.methods.getPassword().call()
         this.setState({ password })
+
+        if (this.state.email != '' ){
+            this.setState({ backup : 'The backup mechanism has been set.'})
+        }
     }
     constructor(props) {
         super(props)
@@ -62,7 +66,8 @@ class MainPage extends Component {
         contract_address:'',
         balance: 0,
         email: '',
-        password: ''
+        password: '',
+        backup : 'The backup mechanism has NOT been set.'
         }
         this.Deposit = this.Deposit.bind(this);
         this.Withdraw = this.Withdraw.bind(this);
@@ -94,10 +99,10 @@ class MainPage extends Component {
             <h1><b>Hello, user !</b></h1>
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
-            <p><b>Contract address:</b> {this.state.contract_address}</p>
-            <p><b>Contract balance:</b> {this.state.balance / 10**18} ether</p>
+            <p><b>{this.state.backup}</b></p>
+            {/* <p><b>Contract address:</b> {this.state.contract_address}</p>
             <p><b>*Contract email:</b> {this.state.email}</p>
-            <p><b>*Contract password:</b> {this.state.password}</p>
+            <p><b>*Contract password:</b> {this.state.password}</p> */}
             <br></br>
             <div id="ether">
                 <div>
@@ -113,7 +118,7 @@ class MainPage extends Component {
                                         this.amount = input
                                     }} 
                                     type="number"  
-                                    placeholder="Add ETH" 
+                                    placeholder="ETH" 
                                     required/>
                             </Col>
                         </Row>
@@ -129,8 +134,19 @@ class MainPage extends Component {
                     }}>Withdraw</Button>
                 </Form>
                 </div>
-                {/* <button><a href='/Backup'>back</a></button> */}
-            </div>    
+                <p></p>
+                <p><b>Balance:</b> {this.state.balance / 10**18} (ether)</p>
+            </div>
+            <br></br>
+            <div>
+				<Button variant="outline-dark" size="lg" href="/Backup" block>
+                    back-up mechanism
+                </Button>
+                {" "}
+				<Button variant="outline-dark" size="lg" href="/TestaManage" block>
+                    testamentary management
+                </Button>
+			</div>  
         </div>
         </Layout>
         );
