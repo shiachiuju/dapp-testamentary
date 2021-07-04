@@ -1,10 +1,6 @@
 //need to change deployed contract address
-<<<<<<< Updated upstream
-export const MainContract_ADDRESS = '0x25A5821C98E188012E683856Eb6EeBFfaf694c3d'
-=======
 //export const MainContract_ADDRESS = '0x03ddc42a39861D9AB5C5da25505EE1Ba9Fa9ab95'
 export const MainContract_ADDRESS = '0xC3C38e4Cb1EC79665bBE82d9292Bd1170d6738c6'
->>>>>>> Stashed changes
 export const MainContract_ABI = [
     {
         "inputs": [],
