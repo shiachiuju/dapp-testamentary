@@ -1,13 +1,17 @@
 //dependencies
 import React, { Component } from 'react'
-import { Navbar, Button, Col, Container, Form, Row, Nav } from "react-bootstrap"
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import ReactBootstrap, { ToggleButtonGroup, ToggleButton, Nav, Button,  Form, Col, Row,DropdownButton} from 'react-bootstrap'
 //includes
 import '../App.css';
+import Layout from '../layout';
+//import MainContract from "../contract/MainContract.json"
 //contract address
 import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract.js'
 //components
-import getWeb3 from '../getWeb3';
-import Layout from '../layout';
+import getWeb3 from '../getWeb3'
+import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 //Run maincontract
 /* 執行 deposit and withdraw 的畫面，還會顯示使用者錢包、合約地址、合約餘額、備援機制設定的帳號密碼(檢查用)  */ 
@@ -32,13 +36,15 @@ class MainPage extends Component {
         const deployedNetwork = MainContract.networks[netId];
         const contract_address = MainContract.networks[netId].address;
         */
-        
+
         //main contract
         const mainContract = new web3.eth.Contract(MainContract_ABI, MainContract_ADDRESS)
+        //const mainContract = new web3.eth.Contract(MainContract.abi, MainContract.networks[netId].address)
         this.setState({ mainContract })
         const contract_address = MainContract_ADDRESS;
+        //const contract_address = mainContract.networks[netId].address;
         this.setState({ contract_address })
-        
+
         //view contract data
         const balance = await mainContract.methods.getBalance().call()
         this.setState({ balance })
@@ -48,14 +54,20 @@ class MainPage extends Component {
         this.setState({ email })
         const password = await mainContract.methods.getPassword().call()
         this.setState({ password })
+
+        if (this.state.email != '' ){
+            this.setState({ backup : 'The backup mechanism has been set.'})
+        }
     }
     constructor(props) {
         super(props)
         this.state = {
         account: '',
+        contract_address:'',
         balance: 0,
         email: '',
-        password: ''
+        password: '',
+        backup : 'The backup mechanism has NOT been set.'
         }
         this.Deposit = this.Deposit.bind(this);
         this.Withdraw = this.Withdraw.bind(this);
@@ -79,37 +91,34 @@ class MainPage extends Component {
     async refreshPage() { 
         window.location.reload()
     }
-    
     render() {
-        return (    
-    <Layout>
-        <p>
+        return (
+        <Layout>
         <div className="App">
-
             <br></br>
             <h1><b>Hello, user !</b></h1>
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
-            <p><b>Contract address:</b> {this.state.contract_address}</p>
-            <p><b>Contract balance:</b> {this.state.balance / 10**18} ether</p>
+            <p><b>{this.state.backup}</b></p>
+            {/* <p><b>Contract address:</b> {this.state.contract_address}</p>
             <p><b>*Contract email:</b> {this.state.email}</p>
-            <p><b>*Contract password:</b> {this.state.password}</p>
+            <p><b>*Contract password:</b> {this.state.password}</p> */}
             <br></br>
-
             <div id="ether">
+                <div>
                 <Form>
                     <Form.Group id="ether">
                         <Row>
-                            <Col md={{ span: 4, offset: 4 }}>
-                            <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label></Col><p></p>
-                            <Col md={{ span: 2, offset: 5 }}>
+                        <Col md={{ span: 4, offset: 4 }}>
+                        <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label></Col>
+                        <Col md={{ span: 2, offset: 5 }}>
                                 <Form.Control
                                     id="Amount"
                                     ref={(input) => { 
                                         this.amount = input
                                     }} 
                                     type="number"  
-                                    placeholder="Add ETH" 
+                                    placeholder="ETH" 
                                     required/>
                             </Col>
                         </Row>
@@ -124,12 +133,22 @@ class MainPage extends Component {
                         this.Withdraw(this.amount.value)
                     }}>Withdraw</Button>
                 </Form>
-                {/* <button><a href='/Backup'>back</a></button> */}
-            </div>    
+                </div>
+                <p></p>
+                <p><b>Balance:</b> {this.state.balance / 10**18} (ether)</p>
+            </div>
+            <br></br>
+            <div>
+				<Button variant="outline-dark" size="lg" href="/Backup" block>
+                    back-up mechanism
+                </Button>
+                {" "}
+				<Button variant="outline-dark" size="lg" href="/TestaManage" block>
+                    testamentary management
+                </Button>
+			</div>  
         </div>
-        </p>
-    </Layout>       
-        
+        </Layout>
         );
     }
 }

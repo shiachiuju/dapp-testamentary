@@ -13,7 +13,7 @@ export default ({ children }) => (
     <Navbar class="navbar">
         <Container>
             <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
+                <Nav.Link href="/Main">Main</Nav.Link>
                 <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Create">
                         <DropdownItem href="/Backup">Back-up</DropdownItem>
                         <DropdownItem href="/TestaManage">Testamentary</DropdownItem>

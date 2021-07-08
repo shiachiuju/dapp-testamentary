@@ -41,3 +41,15 @@
   }
 }
 
+.mainpagebutton {
+  position: absolute;
+  width: 394px;
+  height: 149px;
+  left: 740px;
+  top: 666px;
+
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+
+}

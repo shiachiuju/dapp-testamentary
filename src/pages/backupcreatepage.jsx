@@ -38,7 +38,7 @@ class BackupCreatePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            message: ''
         }
         this.createBackup = this.createBackup.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
@@ -50,7 +50,8 @@ class BackupCreatePage extends Component {
         this.state.backupContract.methods.setBackup(email,this.hash).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             // this.sendEmail(email)
-            alert('Successfully created!')
+            // alert('Successfully created!')
+            this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
             this.refreshPage()
       })}
     async refreshPage() { 
@@ -84,18 +85,21 @@ class BackupCreatePage extends Component {
     render() {
         return (
         
-        <Layout>    
+        <Layout>
             <div className="App">
                 <br></br>
                 <h3><b>Create Back-up Mechanism</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
-                <p><b>Contract address:</b> {this.state.contract_address}</p>
-                <br></br>
+                <p></p>
                 <div id="setback">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        this.createBackup(this.email.value,this.password.value)
+                        if (this.password.value == this.checkpassword.value){
+                            this.createBackup(this.email.value,this.password.value)
+                        }else{
+                            alert('Please check the password again. The password is not confirmed.')
+                        }
                     }}>
                         <Form.Group id="formBasicEmail">
                             <Row>
@@ -106,12 +110,12 @@ class BackupCreatePage extends Component {
                                         ref={(input) => { 
                                             this.email = input
                                         }}
-                                        placeholder="Enter email"
+                                        placeholder="example@email.com"
                                         required />
                                 </Col>
                             </Row>
                         </Form.Group>
-                        <br></br>
+                        <p></p>
                         <Form.Group id="formBasicPassword" >
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
@@ -121,7 +125,24 @@ class BackupCreatePage extends Component {
                                         ref={(input) => { 
                                             this.password = input
                                         }}  
-                                        placeholder="Password"
+                                        placeholder="must have at least 6 characters"
+                                        minlength="6"
+                                        required />
+                                </Col>
+                            </Row>
+                        </Form.Group>
+                        <p></p>
+                        <Form.Group id="formBasicPassword" >
+                            <Row>
+                                <Col md={{ span: 4, offset: 4 }}>
+                                    <Form.Label><b>Confirm Password</b></Form.Label>
+                                    <Form.Control 
+                                        type="password"
+                                        ref={(input) => { 
+                                            this.checkpassword = input
+                                        }}  
+                                        placeholder="confirm password again"
+                                        minlength="6"
                                         required />
                                 </Col>
                             </Row>
@@ -130,7 +151,10 @@ class BackupCreatePage extends Component {
                         <Button type="submit" variant="outline-warning">Create</Button>
                     </Form>
                 </div>
-            </div> 
+                <p></p>
+                <p><b>Contract address:</b> {this.state.contract_address}</p>
+                <p>{this.state.message}</p>
+            </div>
         </Layout>   
         ) 
     }
