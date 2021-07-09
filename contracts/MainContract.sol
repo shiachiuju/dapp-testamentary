@@ -9,6 +9,8 @@ contract MainContract {
     address[] owners;
     address mainowner;
     mapping(address => bool) isOwner;
+    uint revisepo;
+    uint totalpo;
     
     //event
     event Deposit(address user,uint deamount);
@@ -97,6 +99,7 @@ contract MainContract {
     mapping(string=>uint) portions;
     mapping(address=>uint) transferamount;
     address payable[] toadds;
+    uint[] reviseportion;
     
     /* beneficiary function */
     
@@ -146,7 +149,7 @@ contract MainContract {
         s.portion = _portion;
         portions[_mail] = _portion;
     }
-    function submitTransaction(address payable _to,uint _portion) payable public {
+    /*function submitTransaction(address payable _to,uint _portion) payable public {
         toadds.push(_to);
         transferamount[_to] = address(this).balance / 100 * _portion;
         if (toadds.length == beneficiarymails.length) {
@@ -154,6 +157,21 @@ contract MainContract {
              toadds[i].transfer(transferamount[toadds[i]]);  
            }
         }
+    }*/
+    function submitTransaction(address _to,uint _portion) payable public {
+        toadds.push(_to);
+        reviseportion.push(_portion);
+        //transferamount[_to]=address(this).balance/100*_portion;
+        if(toadds.length==beneficiarymails.length){
+           for(uint i=0;i<toadds.length;i++){
+               for(uint r=0;r<reviseportion.length;r++){
+             totalpo+=reviseportion[r];
+             revisepo=100*_portion/totalpo;
+             transferamount[_to]=address(this).balance/100*revisepo;
+             toadds[i].transfer(transferamount[toadds[i]]);}  
+           }
+        }
+        //_to.transfer(address(this).balance/100*_portion);}
     }
     
     
