@@ -158,7 +158,7 @@ contract MainContract {
            }
         }
     }*/
-    function submitTransaction(address _to,uint _portion) payable public {
+    function submitTransaction(address payable _to,uint _portion) payable public {
         toadds.push(_to);
         reviseportion.push(_portion);
         //transferamount[_to]=address(this).balance/100*_portion;
