@@ -146,6 +146,7 @@ class MainPage extends Component {
 				<Button variant="outline-dark" size="lg" href="/TestaManage" block>
                     testamentary management
                 </Button>
+                {" "}
 			</div>  
         </div>
         </Layout>

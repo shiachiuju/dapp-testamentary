@@ -49,12 +49,12 @@ class JoinPage extends Component {
             <div className="App">
                 <br></br>
                 <br></br>
-                <Col md={{ span: 6 }}><p>About us:</p></Col>
+                <Col md={{ span: 6 }}><p><b>About us:</b></p></Col>
                 <Col md={{ span: 6 , offset: 3 }}>
-                <p>What if we lose our password for virtual wallet?</p>
+                <p>What if we lose our password for crypto wallet?</p>
                 <p>What if we die without making our testamentary?</p>
-                <p>All the virtual currency we gained will become meaningless.</p>     
-                <p>Here, we can protect your virtual currency from losing or wasting.</p>
+                <p>All the cryptocurrency we gained will become meaningless.</p>     
+                <p>Here, we can protect your cryptocurrency from losing or wasting.</p>
                 </Col>
                 <br></br>
                 <p><b>Press join to start your own testamentary trust mechanism.</b></p>

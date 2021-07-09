@@ -154,7 +154,10 @@ class BackupCreatePage extends Component {
                 <p></p>
                 <p><b>Contract address:</b> {this.state.contract_address}</p>
                 <p>{this.state.message}</p>
+                <br></br>
+                <br></br>
             </div>
+            
         </Layout>   
         ) 
     }
