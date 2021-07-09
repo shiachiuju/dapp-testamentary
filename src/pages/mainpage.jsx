@@ -137,17 +137,16 @@ class MainPage extends Component {
                 <p></p>
                 <p><b>Balance:</b> {this.state.balance / 10**18} (ether)</p>
             </div>
-            <br></br>
             <div>
-				<Button variant="outline-dark" size="lg" href="/Backup" block>
+				<Button variant="outline-dark" size="lg" href="/Backup">
                     back-up mechanism
                 </Button>
                 {" "}
-				<Button variant="outline-dark" size="lg" href="/TestaManage" block>
+				<Button variant="outline-dark" size="lg" href="/TestaManage">
                     testamentary management
                 </Button>
                 {" "}
-			</div>  
+			</div>    
         </div>
         </Layout>
         );

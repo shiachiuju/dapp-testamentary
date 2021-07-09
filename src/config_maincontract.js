@@ -1,6 +1,6 @@
 //need to change deployed contract address
 //export const MainContract_ADDRESS = '0x03ddc42a39861D9AB5C5da25505EE1Ba9Fa9ab95'
-export const MainContract_ADDRESS = '0xfd5d0A656A498CF2fcc40588c380dc0030927031'
+export const MainContract_ADDRESS = '0xd1AABBAE72C3268491490f60Ef5F56c21CCd4a57'
 export const MainContract_ABI = [
     {
         "inputs": [],
