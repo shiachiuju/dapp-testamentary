@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SMTP JS</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta rel="icon" type="image/png" href="http://example.com/myicon.png">
+</head>
+<body>
+
+<form method="post"> 
+請輸入收件人姓名<input type="text" id="name">
+<br>
+請輸入收件人信箱<input type="text" id="email" name="email">
+<p id="newEmail">目前輸入的email</p>
+<input type="button" value="輸入email" onclick="showEmail()">
+<input type="button" value="Send Email" onclick="sendEmail()"/>
+</form>
+<script src="https://smtpjs.com/v3/smtp.js">
+</script>
+<p id="demo"></p>
+<script type="text/javascript">
+
+//"c890713love@gmail.com","yuf918@gmail.com","chiu338920@gmail.com","ctchanjudy@gmail.com","yuzhenchen922@gmail.com","hsikai888@gmail.com","bowen.chen@fubon.com"
+
+	
+
+	//let name = document.getElementById('name').value;
+	//var OriginalFont_1=document.getElementById("StringFont_1").innerHTML;
+   
+    //document.getElementById("StringFont_1").innerHTML='<font color="blue">'+OriginalFont_1+'</font>';
+	
+
+	function showEmail(){ 
+		
+		let mailaddress = document.getElementById('email').value;
+		let receiver = document.getElementById('name').value;
+		if(document.getElementById('email').value==''){
+			alert('請輸入收件人信箱');
+		}else{
+		//var emailRegxp = /^([\w]+)(.[\w]+)*@([\w]+)(.[\w]{2,3}){1,2}$/;
+		//var emailRegxp = /[\w-]+@([\w-]+\.)+[\w-]+/;
+		let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+		//var aa = /^\w ((-\w )|(\.\w ))*\@[A-Za-z0-9] ((\.|-)[A-Za-z0-9] )*\.[A-Za-z0-9] $/
+			
+			//if (emailRegxp.test(document.getElementById("email").value) != true){
+			if (emailRule.test(mailaddress) != true){
+
+				let NewEmailValue=mailaddress+"輸入的電子郵件有誤，請重新輸入";
+				document.getElementById("newEmail").innerHTML=NewEmailValue;
+
+			}else{
+
+				if(document.getElementById('name').value==''){
+					alert('請輸入收件人姓名');
+				}else{
+				let NewEmailValue="目前輸入的email為"+ mailaddress+"寄給"+receiver;
+				document.getElementById("newEmail").innerHTML=NewEmailValue;
+				
+				}
+			}
+		}
+    	
+		//var emailaddress = email ;
+		//return mailaddress;
+		//console.log(emailaddress);
+		//return message => alert(emailaddress);
+	}
+
+
+
+	function sendEmail(){
+		let mailaddress = document.getElementById('email').value;
+		let receiver = document.getElementById('name').value;
+		let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+		if(document.getElementById('email').value==''){
+			alert('請輸入收件人信箱');
+		}else if(document.getElementById('name').value==''){
+					alert('請輸入收件人姓名');
+				}
+			
+		if (emailRule.test(mailaddress) != true){
+
+				let NewEmailValue=mailaddress+"輸入的電子郵件有誤，請重新輸入";
+				document.getElementById("newEmail").innerHTML=NewEmailValue;
+
+			}else if(emailRule.test(mailaddress) == true && document.getElementById('name').value != ''){
+				let NewEmailValue="目前輸入的email為"+ mailaddress+"寄給"+receiver;
+				document.getElementById("newEmail").innerHTML=NewEmailValue;
+				Email.send({
+    				SecureToken : "d087ae4a-9ee1-4235-9dc0-d78d2f9c2c3f",
+    				To : mailaddress,
+    				From : "beautygang4@gmail.com",
+    				Subject : "美麗幫-備援機制建立",
+    				Body : "<b>hey!</b>"+document.getElementById('name').value+"<b> your back-up mechanism is established.</b><p><br><b>Please don't forget your Password so that you can activate it successfully.</b>"
+    			}).then(
+    					message => alert(message)
+					);
+			}
+			
+		
+	}
+
+
+</script>
+</body>
+</html>
+

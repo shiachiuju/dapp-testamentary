@@ -11,6 +11,7 @@ import Layout from '../layout';
 import { Backup_ABI, Backup_ADDRESS } from '../config_backup.js'
 //components
 import getWeb3 from '../getWeb3';
+// import {Email} from "smtpjs";
 import { Dropdown } from 'bootstrap';
 import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
@@ -53,13 +54,16 @@ class BackupCreatePage extends Component {
             // this.sendEmail(email)
             // alert('Successfully created!')
             this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
-            this.refreshPage()
+            // this.refreshPage()
       })}
     async refreshPage() { 
         window.location.reload()
     }
     // src="https://smtpjs.com/v3/smtp.js"
     // async sendEmail(email){
+    //     // const Email = require('https://smtpjs.com/v3/smtp.js')
+    //     // const server = new Server()
+
     //     let mailaddress = email;
     //     // let receiver = document.getElementById('name').value;
 

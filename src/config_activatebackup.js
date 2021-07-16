@@ -1,5 +1,5 @@
 //need to change deployed contract address
-export const Activatebackup_ADDRESS = '0x2a3928d0B9615F24C57E7F876B65C88a2Be54e9F'
+export const Activatebackup_ADDRESS = '0xE2c0dD77297d4C0843a874F904F10bBee7A8E661'
 export const Activatebackup_ABI = [
   {
     "inputs": [
