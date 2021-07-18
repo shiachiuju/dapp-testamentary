@@ -1,19 +1,21 @@
 //dependencies
 import React, { Component } from 'react'
-import { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row,DropdownButton} from 'react-bootstrap'
 // import createHash from 'crypto-browserify'
 import sha256 from 'js-sha256';
 //includes
 import '../App.css';
+import Layout from '../layout';
 //contract
 import { Backup_ABI, Backup_ADDRESS } from '../config_backup.js'
 //components
 import getWeb3 from '../getWeb3';
-import Layout from '../layout';
-
+// import {Email} from "smtpjs";
+import { Dropdown } from 'bootstrap';
+import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 // import {Email} from 'react-html-email';
-
-
 //run backup
 /* 設定備援機制帳號密碼的畫面，還會顯示使用者錢包、合約地址 */
 class BackupCreatePage extends Component {
@@ -52,13 +54,16 @@ class BackupCreatePage extends Component {
             // this.sendEmail(email)
             // alert('Successfully created!')
             this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
-            this.refreshPage()
+            // this.refreshPage()
       })}
     async refreshPage() { 
         window.location.reload()
     }
     // src="https://smtpjs.com/v3/smtp.js"
     // async sendEmail(email){
+    //     // const Email = require('https://smtpjs.com/v3/smtp.js')
+    //     // const server = new Server()
+
     //     let mailaddress = email;
     //     // let receiver = document.getElementById('name').value;
 
@@ -84,8 +89,7 @@ class BackupCreatePage extends Component {
     // }
     render() {
         return (
-        
-        <Layout>
+            <Layout>
             <div className="App">
                 <br></br>
                 <h3><b>Create Back-up Mechanism</b></h3>
@@ -154,12 +158,13 @@ class BackupCreatePage extends Component {
                 <p></p>
                 <p><b>Contract address:</b> {this.state.contract_address}</p>
                 <p>{this.state.message}</p>
-                <br></br>
-                <br></br>
             </div>
-            
-        </Layout>   
+            </Layout>
         ) 
     }
 }
 export default BackupCreatePage;
+
+/*<Nav.Link href="/Backup">Create</Nav.Link>
+                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
+                <Nav.Link href="/TestaManage">Testamentary</Nav.Link>*/

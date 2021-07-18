@@ -16,12 +16,12 @@ export default ({ children }) => (
                 <Nav.Link href="/Main">Main</Nav.Link>
                 <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Create">
                         <DropdownItem href="/Backup">Back-up</DropdownItem>
-                        <DropdownItem href="/TestaManage">Testamentary</DropdownItem>
+                        <DropdownItem href="/TestaManage">Testament</DropdownItem>
                 </DropdownButton>
                 &nbsp;
                 <DropdownButton variant="" id="dropdown-basic-button" title="Activate">
                         <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
-                        <DropdownItem href="/ActivateTestament">Testamentary</DropdownItem>
+                        <DropdownItem href="/ActivateTestament">Testament</DropdownItem>
                 </DropdownButton>
             </Nav>
                 <Navbar.Collapse className="justify-content-end">

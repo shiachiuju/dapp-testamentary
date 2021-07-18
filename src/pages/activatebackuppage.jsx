@@ -1,17 +1,18 @@
 //dependencies
 import React, { Component } from 'react'
-import { Button, Form, Col, Row } from 'react-bootstrap'
-
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row,DropdownButton} from 'react-bootstrap'
 import sha256 from 'js-sha256';
 //includes
 import '../App.css';
+import Layout from '../layout';
 //contract
 import { Activatebackup_ABI, Activatebackup_ADDRESS } from '../config_activatebackup.js'
 //components
 import getWeb3 from '../getWeb3';
-import Layout from '../layout';
-
-
+import { Dropdown } from 'bootstrap';
+import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 //run activatebackup
 /* 取回合約錢的畫面，還會顯示使用者錢包、合約地址(檢查用) */
 class ActivateBackupPage extends Component {
@@ -56,14 +57,14 @@ class ActivateBackupPage extends Component {
     }
     render() {
         return (
-        <Layout>
+            <Layout>
             <div className="App">
                 <br></br>
                 <h3><b>Activate Back-up Mechanism</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
                 {/* <p><b>*Contract address:</b> {this.state.contract_address}</p> */}
-                <br></br>
+                <p></p>
                 <div id="activateBack">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
@@ -122,9 +123,13 @@ class ActivateBackupPage extends Component {
                     <p>{this.state.message}</p>
                     <p>{this.state.message2}</p>
                 </div>
-            </div> 
-        </Layout>
+            </div>
+            </Layout> 
         ) 
     }
 }
 export default ActivateBackupPage;
+
+/*<Nav.Link href="/Backup">Create</Nav.Link>
+<Nav.Link href="/ActivateBackup">Activate</Nav.Link>
+<Nav.Link href="/TestaManage">Testamentary</Nav.Link>*/

@@ -6,7 +6,7 @@ import sha256 from 'js-sha256';
 //includes
 import '../App.css';
 //contract
-import { setpassword_ABI, setpassword_ADDRESS } from '../config_setpassword.js'
+import { Activatebackup_ABI, Activatebackup_ADDRESS } from '../config_activatebackup.js'
 //components
 import getWeb3 from '../getWeb3';
 import Layout from '../layout';
@@ -28,69 +28,56 @@ class ActivateTestamentPage extends Component {
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
         //backup contract
-        const spContract = new web3.eth.Contract(setpassword_ABI, setpassword_ADDRESS)
-        this.setState({ spContract })
-        const contract_address = setpassword_ADDRESS;
+        const acBackupContract = new web3.eth.Contract(Activatebackup_ABI, Activatebackup_ADDRESS)
+        this.setState({ acBackupContract })
+        const contract_address = Activatebackup_ADDRESS;
         this.setState({ contract_address })
     }
     constructor(props) {
         super(props)
         this.state = {
         }
-        //this.CheckContract = this.CheckContract.bind(this);
+        this.CheckContract = this.CheckContract.bind(this);
 
     }
-    /*async CheckContract(contractadd,checkemail,checkpassword) {
+
+    async CheckContract(contractadd,checkemail,checkpassword) {
         this.checkhash = sha256(checkpassword.toString())
-        this.state.spBackupContract.methods.checkContract(contractadd,checkemail,this.checkhash).send({ from: this.state.account })
+        this.state.acBackupContract.methods.checkContract(contractadd,checkemail,this.checkhash).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             this.refreshPage()
         }).once('error', (error) => {
             // alert('請輸入正確地址');
-    })}*/
+    })}
     async refreshPage() { 
         window.location.reload()
     }
+
     render() {
         return (
         <Layout>
             <div className="App">
                 <br></br>
-                <h3><b>Activate Testamentary Mechanism</b></h3>
+                <h3><b>Activate Testament Mechanism</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
                 <p><b>*Contract address:</b> {this.state.contract_address}</p>
                 <br></br>
-                <div id="activateTest">
+                <div id="activateBack">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        //this.CheckContract(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                        this.CheckContract(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
                     }}>
                         <Form.Group id="formCheckAddress">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Testamentary contract address</b></Form.Label>
+                                    <Form.Label><b>Back-up contract address</b></Form.Label>
                                     <Form.Control
                                         type="text" 
                                         ref={(input) => { 
                                             this.contractadd = input
                                         }}
-                                        placeholder="Enter Testamentary Contract Address"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <br></br>
-                        <Form.Group id="formCheckEmail">
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Email address</b></Form.Label>
-                                    <Form.Control
-                                        type="email" 
-                                        ref={(input) => { 
-                                            this.checkemail = input
-                                        }}
-                                        placeholder="Enter email"
+                                        placeholder="Enter back-up address"
                                         required />
                                 </Col>
                             </Row>
@@ -102,28 +89,20 @@ class ActivateTestamentPage extends Component {
                                     <Form.Label><b>Password</b></Form.Label>
                                     <Form.Control 
                                         type="password"
-                                        minLength="6" 
-                                        maxLength="8"
                                         ref={(input) => { 
                                             this.checkpassword = input
                                         }}  
-                                        placeholder="Password(6~8)"
+                                        placeholder="Password"
                                         required />
                                 </Col>
                             </Row>
                         </Form.Group>
                         <br></br>
-                        <Button type="submit" variant="outline-secondary">Set</Button>
-                        &nbsp;&nbsp;&nbsp;
                         <Button type="submit" variant="outline-secondary">Activate</Button>
                     </Form>
                 </div>
             </div> 
-            <br></br>
-        <br></br>
-        <br></br>
         </Layout>
-        
         ) 
     }
 }

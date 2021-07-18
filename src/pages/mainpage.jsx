@@ -7,9 +7,11 @@ import '../App.css';
 import Layout from '../layout';
 //import MainContract from "../contract/MainContract.json"
 //contract address
+import MainContract from '../contract/MainContract.json'
 import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract.js'
 //components
 import getWeb3 from '../getWeb3'
+import Axios from 'axios'
 import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
@@ -20,10 +22,11 @@ class MainPage extends Component {
         //window.location.reload(); 
         this.loadBlockchainData()
     }
-
+    
     async loadBlockchainData() {
         //web3
         const web3 = await getWeb3();
+        this.setState({ web3: web3})
         //netid
         const netId = await web3.eth.net.getId();
         this.setState({ netid: netId })
@@ -31,6 +34,23 @@ class MainPage extends Component {
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
 
+        
+
+        // for(var i=0;i<=this.state.atoc.length;i++){
+        //     if (i == this.state.atoc.id){
+        //         if (this.state.atoc.account == accounts.toString()){
+        //             const mainContract = new web3.eth.Contract(MainContract.abi, this.state.atoc.contract)
+        //             this.setState({ mainContract })
+        //             const contract_address = this.state.atoc.contract;
+        //             this.setState({ contract_address })
+        //             const has = true;
+        //             this.setState({ has })
+        //         }
+        //     }
+        // }
+        // if (this.state.has != true){
+        //     this.Deploy()
+        // }
         /*
         error
         const deployedNetwork = MainContract.networks[netId];
@@ -38,21 +58,23 @@ class MainPage extends Component {
         */
 
         //main contract
+        // const mainContract = new web3.eth.Contract(MainContract.abi, JoinPage.readadd())
+        // const mainContract = new web3.eth.Contract(MainContract.abi, MainContract.networks[netId].address)
         const mainContract = new web3.eth.Contract(MainContract_ABI, MainContract_ADDRESS)
-        //const mainContract = new web3.eth.Contract(MainContract.abi, MainContract.networks[netId].address)
         this.setState({ mainContract })
+        // const contract_address = JoinPage.readadd();
+        // const contract_address = mainContract.networks[netId].address;
         const contract_address = MainContract_ADDRESS;
-        //const contract_address = mainContract.networks[netId].address;
         this.setState({ contract_address })
 
         //view contract data
-        const balance = await mainContract.methods.getBalance().call()
+        const balance = await this.state.mainContract.methods.getBalance().call()
         this.setState({ balance })
-        const owners = await mainContract.methods.getOwners().call()
+        const owners = await this.state.mainContract.methods.getOwners().call()
         this.setState({ owners })
-        const email = await mainContract.methods.getEmail().call()
+        const email = await this.state.mainContract.methods.getEmail().call()
         this.setState({ email })
-        const password = await mainContract.methods.getPassword().call()
+        const password = await this.state.mainContract.methods.getPassword().call()
         this.setState({ password })
 
         if (this.state.email != '' ){
@@ -62,8 +84,9 @@ class MainPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+        // atoc: [{id:0,account:'', contract:''}],
         account: '',
-        contract_address:'',
+        contract_address: '',
         balance: 0,
         email: '',
         password: '',
@@ -71,6 +94,7 @@ class MainPage extends Component {
         }
         this.Deposit = this.Deposit.bind(this);
         this.Withdraw = this.Withdraw.bind(this);
+        this.Deploy = this.Deploy.bind(this);
         
     }
     async Deposit(Amount) {
@@ -90,6 +114,39 @@ class MainPage extends Component {
     }
     async refreshPage() { 
         window.location.reload()
+    }
+    async Deploy() {
+        const contract = new this.state.web3.eth.Contract(MainContract.abi);
+        contract.deploy({
+            data: MainContract.bytecode
+            // arguments: [123, 'My String']
+        })
+        .send({
+            from: this.state.account,
+            gas: 2100000,
+            // gasPrice: '30000000000000'
+        })
+        .then((newContractInstance) => {
+            console.log('successfully deployed!');
+            console.log(newContractInstance.options.address);
+            // setAccount_address(this.state.account);
+            // setMaincontract_address(newContractInstance.options.address);
+            submitNew(newContractInstance.options.address)
+            // this.refreshPage()
+        }).catch((err) => {
+            console.log(err);
+        });
+        // const [account_address, setAccount_address] = useState('')
+        // const [maincontract_address, setMaincontract_address] = useState('')
+        // setAccount_address(this.state.account);
+        // setMaincontract_address(newinfo.options.address);
+        const submitNew = (newcontract) => {
+            Axios.post('http://localhost:3002/api/insert', {account_address: this.state.account, maincontract_address: newcontract})
+            .then(() => {
+                alert('success insert!')
+            })
+        }
+        
     }
     render() {
         return (
@@ -136,7 +193,27 @@ class MainPage extends Component {
                 </div>
                 <p></p>
                 <p><b>Balance:</b> {this.state.balance / 10**18} (ether)</p>
+                <Button size="sm" variant="outline-warning" onClick={(event) => {
+                        event.preventDefault()
+                        this.Deploy()
+                }}>Deploy</Button> 
+                {/* <p>{this.state.contract_address}</p>
+                <p>{this.state.has.toString()}</p>
+                <ul>
+                {
+                    this.state.atoc.map((todo) => {
+
+                    // 傳回 jsx
+                    return (
+                        <li>
+                        id{todo.id}account:{todo.account}, {todo.contract}
+                        </li>
+                    );
+                    })
+                }
+                </ul> */}
             </div>
+            <br></br>
             <div>
 				<Button variant="outline-dark" size="lg" href="/Backup">
                     back-up mechanism
@@ -145,8 +222,8 @@ class MainPage extends Component {
 				<Button variant="outline-dark" size="lg" href="/TestaManage">
                     testamentary management
                 </Button>
-                {" "}
-			</div>    
+			</div>
+             
         </div>
         </Layout>
         );
@@ -154,3 +231,8 @@ class MainPage extends Component {
 }
 
 export default MainPage;
+
+/*<Nav.Link href="/">Main</Nav.Link>
+                <Nav.Link href="/Backup">Create</Nav.Link>
+                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
+                <Nav.Link href="/TestaManage">Testamentary</Nav.Link>*/
