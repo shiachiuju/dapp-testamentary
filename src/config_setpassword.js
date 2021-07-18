@@ -1,4 +1,4 @@
-export const setpassword_ADDRESS = '0x8c4cDFde8BF990f91d08466BA8DA1A791a79007C'
+export const setpassword_ADDRESS = '0x2388F420624982978F89a959618D0AdfF8a67af9'
 export const setpassword_ABI = [
         {
             "constant": true,

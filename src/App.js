@@ -10,6 +10,7 @@ import ActivateBackupPage from './pages/activatebackuppage';
 import TestaManagePage from './pages/testamanagepage';
 import JoinPage from './pages/joinpage';
 import Mail from './sendmail';
+import ActivateTestamentPage from './pages/activatetestament';
 
 //Run
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
           <Route exact path="/Backup" component={BackupCreatePage}/>
           <Route exact path="/ActivateBackup" component={ActivateBackupPage}/>
           <Route exact path="/TestaManage" component={TestaManagePage}/>
+          <Route exact path="/ActivateTestament" component={ActivateTestamentPage}/>
           <Route exact path="/mail" component={Mail}/>
         </Switch>
       </Router>
