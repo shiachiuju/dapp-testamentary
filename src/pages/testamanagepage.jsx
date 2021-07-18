@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { Button, Form, Col, Row } from 'react-bootstrap'
+import ReactBootstrap, { Button, Form, Col, Row } from 'react-bootstrap'
+import sha256 from 'js-sha256';
 import getWeb3 from '../getWeb3'
 import '../App.css';
 import Layout from '../layout';
-
+import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract';
 
 class TestaManagePage extends Component{
+    //state={
+        //beneficiary:[{mail:"",rate:""}],
+    //}
     componentDidMount() {
         this.loadBlockchainData()
     }
@@ -18,21 +22,32 @@ class TestaManagePage extends Component{
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
-       
+        //backup contract
+        //const backupContract = new web3.eth.Contract(Backup_ABI, Backup_ADDRESS)
+        //this.setState({ backupContract })
+        //const contract_address = Backup_ADDRESS;
+        //this.setState({ contract_address })
+        //main contract
+        const mainContract = new web3.eth.Contract(MainContract_ABI, MainContract_ADDRESS)
+        this.setState({ mainContract })
+        const contract_address = MainContract_ADDRESS;
+        this.setState({ contract_address })
+        
+        //view contract data
+        const balance = await mainContract.methods.getBalance().call()
+        this.setState({ balance })
     }
     constructor(props) {
         super(props)
         this.state = {
             //beneficiary:[{mail:"",rate:""}],
-            message:''
+            message: ''
         }
-        //this.createBackup = this.createBackup.bind(this);
+        this.addHa = this.addHa.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
-        this.addOne = this.addOne.bind(this)
-        // this.sendEmail = this.sendEmail.bind(this);
     }
 
-    async addOne(mail,rate) {
+    async addHa(mail,rate) {
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
@@ -50,17 +65,18 @@ class TestaManagePage extends Component{
     handleSubmit=(e)=>{e.preventDefalut()}
     render() {
         return (
-            <Layout>
+            
+        <Layout>
             <div className="App">
             <br></br>
-            <h1><b>Hello, user !</b></h1>
+            <h1><b>Create Testamentary</b></h1>
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
-            <p><b>Contract address:</b>*</p>
-            <p><b>Contract balance:</b>*</p>
+            <p><b>Contract address:</b> {this.state.contract_address} </p>
+            <p><b>Contract balance:</b> {this.state.balance / 10**18} ether </p>
             <Form onSubmit={(event) => {
                         event.preventDefault()
-                        this.addOne(this.mail.value,this.rate.value)
+                        this.addHa(this.mail.value,this.rate.value)
                         }
                     }>
             <p></p>
@@ -98,9 +114,11 @@ class TestaManagePage extends Component{
             </Form>
             <br></br>
             <br></br>
+            <br></br>
             </div>
-            </Layout> 
+             
+        </Layout>
         ) 
     }
 }
-export default TestaManagePage;
+export default TestaManagePage
