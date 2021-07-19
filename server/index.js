@@ -24,6 +24,17 @@ app.post("/api/insert", (req,res)=>{
         console.log(result)
     });   
 });
+app.get("/api/getcontract/:add", (req,res)=>{
+
+    const accaddress = req.params.add;
+        db.query("SELECT maincontract_address FROM maincontract WHERE account_address = ?", accaddress, (err,result)=>{
+            if(err) {
+            console.log(err)
+            } 
+        res.send(result)
+        }
+        );   
+        });
 
 
 
