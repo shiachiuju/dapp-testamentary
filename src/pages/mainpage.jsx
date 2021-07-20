@@ -1,6 +1,7 @@
 //dependencies
 import React, { Component } from 'react'
 import ReactBootstrap, { Button,  Form, Col, Row } from 'react-bootstrap'
+import Axios from 'axios'
 //includes
 import '../App.css';
 import Layout from '../layout';
@@ -8,7 +9,7 @@ import Layout from '../layout';
 import MainContract from '../contract/MainContract.json'
 //components
 import getWeb3 from '../getWeb3'
-import Axios from 'axios'
+
 
 
 //Run maincontract
@@ -22,9 +23,6 @@ class MainPage extends Component {
         //web3
         const web3 = await getWeb3();
         this.setState({ web3: web3})
-        //netid
-        const netId = await web3.eth.net.getId();
-        this.setState({ netid: netId })
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })

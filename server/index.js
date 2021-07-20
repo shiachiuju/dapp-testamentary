@@ -16,7 +16,6 @@ app.use(cors());
 app.use(express.json())
 
 app.post("/api/insert", (req,res)=>{
-
     const account_address = req.body.account_address;
     const maincontract_address = req.body.maincontract_address;
     const sqlInsert = "INSERT INTO maincontract (account_address, maincontract_address) VALUES (?,?)"
@@ -24,17 +23,36 @@ app.post("/api/insert", (req,res)=>{
         console.log(result)
     });   
 });
+app.post("/api/insertbackup", (req,res)=>{
+    const account_address = req.body.account_address;
+    const maincontract_address = req.body.maincontract_address;
+    const backupcontract_address = req.body.backupcontract_address;
+    const sqlInsert = "INSERT INTO backupcontract (account_address, maincontract_address, backupcontract_address) VALUES (?,?,?)"
+    db.query(sqlInsert, [account_address, maincontract_address, backupcontract_address],(err,result)=>{
+        console.log(result)
+    });   
+});
 app.get("/api/getcontract/:add", (req,res)=>{
-
     const accaddress = req.params.add;
-        db.query("SELECT maincontract_address FROM maincontract WHERE account_address = ?", accaddress, (err,result)=>{
-            if(err) {
-            console.log(err)
-            } 
-        res.send(result)
-        }
-        );   
-        });
+    db.query("SELECT maincontract_address FROM maincontract WHERE account_address = ?", accaddress, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+    );   
+    });
+
+app.get("/api/getbackupcontract/:add", (req,res)=>{
+    const accaddress = req.params.add;
+    db.query("SELECT backupcontract_address FROM backupcontract WHERE account_address = ?", accaddress, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+    );   
+    });
 
 
 
