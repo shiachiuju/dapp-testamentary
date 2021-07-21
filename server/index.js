@@ -19,13 +19,22 @@ app.post("/api/insert", (req,res)=>{
 
     const account_address = req.body.account_address;
     const maincontract_address = req.body.maincontract_address;
-    const sqlInsert = "INSERT INTO maincontract (account_address, maincontract_address) VALUES (?,?)"
-    db.query(sqlInsert, [account_address, maincontract_address],(err,result)=>{
+    const sqlInsert_1 = "INSERT INTO maincontract (account_address, maincontract_address) VALUES (?,?)"
+    db.query(sqlInsert_1, [account_address, maincontract_address],(err,result)=>{
         console.log(result)
     });   
 });
 
+app.post("/api/add", (req,res)=>{
 
+    const account_address = req.body.account_address;
+    const bene_mail = req.body.bene_mail;
+    const bene_rate = req.body.bene_rate;
+    const sqlInsert_2 = "INSERT INTO testament_rate (account_address, bene_mail, bene_rate) VALUES (?,?,?)"
+    db.query(sqlInsert_2, [account_address, bene_mail, bene_rate],(err,result)=>{
+        console.log(result)
+    });
+})
 
 
 

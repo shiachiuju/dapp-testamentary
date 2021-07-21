@@ -4,6 +4,7 @@ import sha256 from 'js-sha256';
 import getWeb3 from '../getWeb3'
 import '../App.css';
 import Layout from '../layout';
+import Axios from 'axios'
 import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract';
 
 class TestaManagePage extends Component{
@@ -50,9 +51,26 @@ class TestaManagePage extends Component{
     async addHa(mail,rate) {
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
         .once('receipt', (receipt) => {
-            this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
-            this.refreshPage()
-    })}
+            //this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
+        })
+        .then((mail,rate) => {
+            submitBeneInfo(this.mail.value,this.rate.value)
+            console.log('successfully deployed!');
+            // console.log(this.state.account)
+            // console.log(this.mail.value)
+            // console.log(this.rate.value)
+            //this.refreshPage()
+        }).catch((err) => {
+            console.log(err);
+        });
+        
+        const submitBeneInfo = (mail,rate) => {
+            Axios.post('http://localhost:3002/api/add', {account_address: this.state.account, bene_mail: mail, bene_rate: rate})
+            .then(() => {
+                alert('success insert!')
+            })
+        }
+    }
 
     async refreshPage() { 
         window.location.reload()
@@ -74,11 +92,7 @@ class TestaManagePage extends Component{
             <p><b>Wallet account:</b> {this.state.account}</p>
             <p><b>Contract address:</b> {this.state.contract_address} </p>
             <p><b>Contract balance:</b> {this.state.balance / 10**18} ether </p>
-            <Form onSubmit={(event) => {
-                        event.preventDefault()
-                        this.addHa(this.mail.value,this.rate.value)
-                        }
-                    }>
+            <Form>
             <p></p>
             <Form.Group id="formBeneEmail">
                             <Row>
@@ -110,7 +124,11 @@ class TestaManagePage extends Component{
                             </Row>
             </Form.Group>
             <br></br>
-            <Button type="submit" variant="outline-warning">Create</Button>
+            <Button variant="outline-warning"  onClick={(event) => {
+                        event.preventDefault()
+                        this.addHa(this.mail.value,this.rate.value)
+                        }
+                    }>Create</Button>
             </Form>
             <br></br>
             <br></br>
