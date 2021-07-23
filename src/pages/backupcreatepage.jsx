@@ -10,6 +10,8 @@ import Layout from '../layout';
 import Backup from '../contract/Backup.json'
 //components
 import getWeb3 from '../getWeb3';
+import emailjs, { init } from 'emailjs-com';
+init("user_hGl6i7zIJBqfYWp8WEBfY");
 
 
 //run backup
@@ -50,11 +52,13 @@ class BackupCreatePage extends Component {
         this.createBackup = this.createBackup.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
         this.Deploy = this.Deploy.bind(this);
+        this.checkEmail = this.checkEmail.bind(this);
     }
     async createBackup(email,password) {
         this.hash = sha256(password.toString())
         this.state.backupContract.methods.setBackup(email,this.hash).send({ from: this.state.account })
         .once('receipt', (receipt) => {
+            this.sendEmail(email)
             this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
             // this.refreshPage()
       })}
@@ -87,6 +91,34 @@ class BackupCreatePage extends Component {
         }
         
     }
+    sendEmail(e) {
+        
+        let service_id = "beautygang";
+        let template_id = "backup";
+        let name = "coco";
+        //let userMail = e;
+        emailjs.send(service_id,template_id,{
+            to_name: name,
+            userMail:e,
+        });
+        this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})     
+          
+    }
+    checkEmail = ( email ) => {
+
+        // checkemail
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
+        if ( re.test(email) ) {
+            // this is a valid email address
+            return true
+        }
+        else {
+            // invalid email, show an error to the user.
+            return false
+        }
+    
+    }
     render() {
         return (
             <Layout>
@@ -99,8 +131,10 @@ class BackupCreatePage extends Component {
                 <div id="setback">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        if (this.password.value == this.checkpassword.value){
+                        if (this.password.value == this.checkpassword.value && this.checkEmail(this.email.value) == true){
                             this.createBackup(this.email.value,this.password.value)
+                        }else if (this.checkEmail(this.email.value) != true){
+                            alert('Please enter correct email!')
                         }else{
                             alert('Please check the password again. The password is not confirmed.')
                         }
