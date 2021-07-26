@@ -32,6 +32,15 @@ app.post("/api/insertbackup", (req,res)=>{
         console.log(result)
     });   
 });
+app.post("/api/insertactivatebackup", (req,res)=>{
+    const account_address = req.body.account_address;
+    const backupcontract_address = req.body.backupcontract_address;
+    const activatebackup_address = req.body.activatebackup_address;
+    const sqlInsert = "INSERT INTO activatebackupcontract (account_address, backupcontract_address, activatebackup_address) VALUES (?,?,?)"
+    db.query(sqlInsert, [account_address, backupcontract_address, activatebackup_address],(err,result)=>{
+        console.log(result)
+    });   
+});
 app.get("/api/getcontract/:add", (req,res)=>{
     const accaddress = req.params.add;
     db.query("SELECT maincontract_address FROM maincontract WHERE account_address = ?", accaddress, (err,result)=>{
@@ -54,7 +63,69 @@ app.get("/api/getbackupcontract/:add", (req,res)=>{
     );   
     });
 
+app.get("/api/getactivatebackupcontract/:acc/:back", (req,res)=>{
+    const accaddress = req.params.acc;
+    const backaddress = req.params.back;
+    db.query("SELECT activatebackup_address FROM activatebackupcontract WHERE account_address = ? AND backupcontract_address = ?", [accaddress,backaddress], (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+    );   
+    });
 
+app.get("/api/getbackupcontract/:back", (req,res)=>{
+    const backaddress = req.params.back;
+    db.query("SELECT backupcontract_address FROM backupcontract WHERE backupcontract_address = ?", backaddress, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+    );   
+    });
+
+app.get("/api/getmaincontract/:back", (req,res)=>{
+    const backaddress = req.params.back;
+    db.query("SELECT maincontract_address FROM backupcontract WHERE backupcontract_address = ?", backaddress, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+    );   
+    });
+
+app.delete('/api/deletemain/:main',(req,res)=>{
+    const maincontract_address = req.params.main;
+    
+    db.query("DELETE FROM maincontract WHERE maincontract_address= ?", maincontract_address, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    })
+})
+
+app.delete('/api/deleteback/:back',(req,res)=>{
+    const backupcontract_address = req.params.back;
+    
+    db.query("DELETE FROM backupcontract WHERE backupcontract_address= ?", backupcontract_address, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    })
+})
+
+app.delete('/api/deleteactivateback/:back',(req,res)=>{
+    const backupcontract_address = req.params.back;
+    
+    db.query("DELETE FROM activatebackupcontract WHERE backupcontract_address= ?", backupcontract_address, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    })
+})
 
 
 

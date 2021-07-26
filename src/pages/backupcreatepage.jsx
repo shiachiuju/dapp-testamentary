@@ -1,6 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
-import ReactBootstrap, { Button, Form, Col, Row } from 'react-bootstrap'
+import { Button, Form, Col, Row } from 'react-bootstrap'
 import Axios from 'axios'
 import sha256 from 'js-sha256';
 //includes
@@ -79,7 +79,7 @@ class BackupCreatePage extends Component {
             console.log('successfully deployed!');
             console.log(newContractInstance.options.address);
             submitNew(mainaddr,newContractInstance.options.address.toString())
-            // this.refreshPage()
+            this.refreshPage()
         }).catch((err) => {
             console.log(err);
         });

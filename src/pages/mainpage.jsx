@@ -1,6 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
-import ReactBootstrap, { Button,  Form, Col, Row } from 'react-bootstrap'
+import { Button,  Form, Col, Row } from 'react-bootstrap'
 import Axios from 'axios'
 //includes
 import '../App.css';

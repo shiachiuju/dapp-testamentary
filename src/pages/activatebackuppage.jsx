@@ -1,18 +1,16 @@
 //dependencies
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row,DropdownButton} from 'react-bootstrap'
+import { Button, Form, Col, Row } from 'react-bootstrap'
 import sha256 from 'js-sha256';
+import Axios from 'axios'
 //includes
 import '../App.css';
 import Layout from '../layout';
 //contract
-import { Activatebackup_ABI, Activatebackup_ADDRESS } from '../config_activatebackup.js'
+import ActivateBackup from '../contract/ActivateBackup.json'
 //components
 import getWeb3 from '../getWeb3';
-import { Dropdown } from 'bootstrap';
-import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+
 //run activatebackup
 /* 取回合約錢的畫面，還會顯示使用者錢包、合約地址(檢查用) */
 class ActivateBackupPage extends Component {
@@ -22,17 +20,10 @@ class ActivateBackupPage extends Component {
     async loadBlockchainData() {
         //web3
         const web3 = await getWeb3();
-        //netid
-        const netId = await web3.eth.net.getId();
-        this.setState({ netid: netId })
+        this.setState({ web3: web3 })
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
-        //backup contract
-        const acBackupContract = new web3.eth.Contract(Activatebackup_ABI, Activatebackup_ADDRESS)
-        this.setState({ acBackupContract })
-        const contract_address = Activatebackup_ADDRESS;
-        this.setState({ contract_address })
     }
     constructor(props) {
         super(props)
@@ -40,18 +31,82 @@ class ActivateBackupPage extends Component {
             message: '',
             message2: ''
         }
-        this.CheckContract = this.CheckContract.bind(this);
-
+        this.BackEth = this.BackEth.bind(this);
+        this.Deploy = this.Deploy.bind(this);
+        this.Activate = this.Activate.bind(this);
+        this.Delete = this.Delete.bind(this);
     }
-    async CheckContract(contractadd,checkemail,checkpassword) {
-        this.checkhash = sha256(checkpassword.toString())
-        this.state.acBackupContract.methods.checkContract(contractadd,checkemail,this.checkhash).send({ from: this.state.account })
+    async BackEth(backaddr,address,checkemail,checkpassword) {
+        const acBackupContract = new this.state.web3.eth.Contract(ActivateBackup.abi, address)
+        this.setState({ acBackupContract });
+        console.log(address);
+        this.state.acBackupContract.methods.activateBackup(checkemail,checkpassword)
+        .send({ from: this.state.account })
         .once('receipt', (receipt) => {
             this.setState({ message2: 'Your assets from previous wallet has transferred to\n' + this.state.account + '\nnew balance :'})
-            this.refreshPage()
+            this.Delete(backaddr);
         }).once('error', (error) => {
             // alert('請輸入正確地址');
     })}
+    async Delete(backaddr) {
+        Axios.get(`http://localhost:3002/api/getmaincontract/${backaddr}`)
+        .then((con) => {
+            const deletemain = con.data[0].maincontract_address.toString();
+            console.log(deletemain);
+            Axios.delete(`http://localhost:3002/api/deletemain/${deletemain}`).then((response)=>{
+                alert("deleted!")
+            })
+            Axios.delete(`http://localhost:3002/api/deleteback/${backaddr}`).then((response)=>{
+                alert("deleted!")
+            })
+            Axios.delete(`http://localhost:3002/api/deleteactivateback/${backaddr}`).then((response)=>{
+                alert("deleted!")
+            })
+        }).catch((err) => {
+                
+        });
+    }
+    async Deploy(backaddr,checkemail,checkpassword) {
+        const contract = new this.state.web3.eth.Contract(ActivateBackup.abi);
+        contract.deploy({
+            data: ActivateBackup.bytecode,
+            arguments: [backaddr]
+        })
+        .send({
+            from: this.state.account,
+            gas: 2100000,
+        })
+        .then((newContractInstance) => {
+            console.log('successfully deployed!');
+            submitNew(backaddr,newContractInstance.options.address.toString())
+            this.BackEth(backaddr,newContractInstance.options.address.toString(),checkemail,checkpassword)     
+        }).catch((err) => {
+            console.log(err);
+        });
+        const submitNew = (backaddr,newcontract) => {
+            Axios.post('http://localhost:3002/api/insertactivatebackup', {account_address: this.state.account, backupcontract_address: backaddr, activatebackup_address: newcontract})
+            .then(() => {
+                alert('success insert!')
+            })
+        }
+        
+    }
+    async Activate(contractadd,checkemail,checkpassword){
+        this.checkhash = sha256(checkpassword.toString())
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getbackupcontract/${contractadd}`)
+        .then(() => {
+            Axios.get(`http://localhost:3002/api/getactivatebackupcontract/${acc}/${contractadd}`)
+            .then((con) => {
+                this.BackEth(contractadd,con.data[0].activatebackup_address.toString(),checkemail,this.checkhash)
+            }).catch((err) => {
+                this.Deploy(contractadd,checkemail,this.checkhash)
+            });
+        }).catch((err) => {
+            alert('this address not create!')
+        });
+
+    }
     async refreshPage() { 
         window.location.reload()
     }
@@ -69,7 +124,7 @@ class ActivateBackupPage extends Component {
                     <Form onSubmit={(event) => {
                         event.preventDefault()
                         this.setState({ message : 'Once you send the request, we will confirm your identity.\nPlease wait a moment and soon your assets will be back!'})
-                        this.CheckContract(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                        this.Activate(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
                     }}>
                         <Form.Group id="formCheckAddress">
                             <Row>
