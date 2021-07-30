@@ -6,7 +6,7 @@ import sha256 from 'js-sha256';
 //includes
 import '../App.css';
 //contract
-import { Activatebackup_ABI, Activatebackup_ADDRESS } from '../config_activatebackup.js'
+import { setpassword_ABI, setpassword_ADDRESS } from '../config_setpassword.js'
 //components
 import getWeb3 from '../getWeb3';
 import Layout from '../layout';
@@ -28,9 +28,9 @@ class ActivateTestamentPage extends Component {
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
         //backup contract
-        const acBackupContract = new web3.eth.Contract(Activatebackup_ABI, Activatebackup_ADDRESS)
-        this.setState({ acBackupContract })
-        const contract_address = Activatebackup_ADDRESS;
+        const spContract = new web3.eth.Contract(setpassword_ABI, setpassword_ADDRESS)
+        this.setState({ spContract })
+        const contract_address = setpassword_ADDRESS;
         this.setState({ contract_address })
     }
     constructor(props) {
@@ -41,14 +41,14 @@ class ActivateTestamentPage extends Component {
 
     }
 
-    async CheckContract(contractadd,checkemail,checkpassword) {
-        this.checkhash = sha256(checkpassword.toString())
-        this.state.acBackupContract.methods.checkContract(contractadd,checkemail,this.checkhash).send({ from: this.state.account })
+    async CheckContract(contractadd, checkemail, checkpassword) {
+        this.state.spContract.methods.checkContract(contractadd, checkemail, checkpassword).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             this.refreshPage()
         }).once('error', (error) => {
             // alert('請輸入正確地址');
     })}
+
     async refreshPage() { 
         window.location.reload()
     }
@@ -63,32 +63,49 @@ class ActivateTestamentPage extends Component {
                 <p><b>Wallet account:</b> {this.state.account}</p>
                 <p><b>*Contract address:</b> {this.state.contract_address}</p>
                 <br></br>
-                <div id="activateBack">
+                <div id="activateTest">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        this.CheckContract(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                        this.CheckContract(this.contractadd.value, this.checkemail.value, this.checkpassword)
                     }}>
                         <Form.Group id="formCheckAddress">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Back-up contract address</b></Form.Label>
+                                    <Form.Label><b>Testamentary contract address</b></Form.Label>
                                     <Form.Control
                                         type="text" 
                                         ref={(input) => { 
                                             this.contractadd = input
                                         }}
-                                        placeholder="Enter back-up address"
+                                        placeholder="Enter testamentary address"
                                         required />
                                 </Col>
                             </Row>
                         </Form.Group>
                         <br></br>
+                        <Form.Group id="formCheckEmail">
+                            <Row>
+                                <Col md={{ span: 4, offset: 4 }}>
+                                    <Form.Label><b>Email address</b></Form.Label>
+                                    <Form.Control
+                                        type="email" 
+                                        ref={(input) => { 
+                                            this.checkemail = input
+                                        }}
+                                        placeholder="Enter email"
+                                        required />
+                                </Col>
+                            </Row>
+                        </Form.Group>
+                        <br></br>        
                         <Form.Group id="formCheckPassword" >
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
                                     <Form.Label><b>Password</b></Form.Label>
                                     <Form.Control 
                                         type="password"
+                                        minLength="6" 
+                                        maxLength="8"
                                         ref={(input) => { 
                                             this.checkpassword = input
                                         }}  
@@ -98,7 +115,7 @@ class ActivateTestamentPage extends Component {
                             </Row>
                         </Form.Group>
                         <br></br>
-                        <Button type="submit" variant="outline-secondary">Activate</Button>
+                        <Button type="submit" variant="outline-secondary">Set</Button>
                     </Form>
                 </div>
             </div> 

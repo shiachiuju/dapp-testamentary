@@ -23,11 +23,6 @@ class TestaManagePage extends Component{
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
-        //backup contract
-        //const backupContract = new web3.eth.Contract(Backup_ABI, Backup_ADDRESS)
-        //this.setState({ backupContract })
-        //const contract_address = Backup_ADDRESS;
-        //this.setState({ contract_address })
         //main contract
         const mainContract = new web3.eth.Contract(MainContract_ABI, MainContract_ADDRESS)
         this.setState({ mainContract })
@@ -41,7 +36,7 @@ class TestaManagePage extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            //beneficiary:[{mail:"",rate:""}],
+            beneficiary:[{mail:"",rate:""}],
             message: ''
         }
         this.addHa = this.addHa.bind(this);
@@ -59,7 +54,7 @@ class TestaManagePage extends Component{
             // console.log(this.state.account)
             // console.log(this.mail.value)
             // console.log(this.rate.value)
-            //this.refreshPage()
+            this.refreshPage()
         }).catch((err) => {
             console.log(err);
         });
@@ -75,6 +70,7 @@ class TestaManagePage extends Component{
     async refreshPage() { 
         window.location.reload()
     }
+
     addBene=(e)=>{
         this.setState((prevState)=>({
            beneficiary:[...prevState.beneficiary,{mail:"",rate:""}] 
@@ -82,8 +78,8 @@ class TestaManagePage extends Component{
     }
     handleSubmit=(e)=>{e.preventDefalut()}
     render() {
+        let {beneficiary} = this.state
         return (
-            
         <Layout>
             <div className="App">
             <br></br>
@@ -122,8 +118,38 @@ class TestaManagePage extends Component{
                                         required />
                                 </Col>
                             </Row>
-            </Form.Group>
+            <Button variant="warning" onClick={this.addBene}>Add Beneficiary</Button>{
+                beneficiary.map((val,idx)=>{
+                        let beneficiaryId='beneficiary-${idx}',rateId='rate-${idx}'
+                        return(
+                            <div key={idx}>
+                                <br></br>
+                                <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                                &nbsp;
+                                <input
+                                type="email"
+                                size='30'
+                                name={beneficiaryId}
+                                data-id={idx}
+                                id={beneficiaryId}
+                                placeholder="Enter email"
+                                className="mail"/>
+                                &nbsp;&nbsp;&nbsp;
+                                <label htmlFor={rateId}>Distribution rate:</label>
+                                &nbsp;
+                                <input
+                                type="number"
+                                name={rateId}
+                                data-id={idx}
+                                id={rateId}
+                                placeholder="0~100"
+                                className="rate"/>
+                                </div>
+                            )
+                        })
+                    }        
             <br></br>
+            </Form.Group>
             <Button variant="outline-warning"  onClick={(event) => {
                         event.preventDefault()
                         this.addHa(this.mail.value,this.rate.value)

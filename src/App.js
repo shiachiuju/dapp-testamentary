@@ -11,6 +11,7 @@ import TestaManagePage from './pages/testamanagepage';
 import JoinPage from './pages/joinpage';
 import Mail from './sendmail';
 import ActivateTestamentPage from './pages/activatetestament';
+import ConductTestaPage from './pages/conducttestapage';
 
 //Run
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
           <Route exact path="/TestaManage" component={TestaManagePage}/>
           <Route exact path="/ActivateTestament" component={ActivateTestamentPage}/>
           <Route exact path="/mail" component={Mail}/>
+          <Route exact path="/ConductTestament" component={ConductTestaPage}/>
         </Switch>
       </Router>
     );

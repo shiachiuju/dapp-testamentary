@@ -146,7 +146,6 @@ class MainPage extends Component {
                 alert('success insert!')
             })
         }
-        
     }
     render() {
         return (
