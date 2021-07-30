@@ -42,6 +42,7 @@ class ActivateTestamentPage extends Component {
     }
 
     async CheckContract(contractadd, checkemail, checkpassword) {
+        // checkpassword 只是名字
         this.state.spContract.methods.checkContract(contractadd, checkemail, checkpassword).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             this.refreshPage()

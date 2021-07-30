@@ -1,4 +1,4 @@
-export const setpassword_ADDRESS = '0xb0c13A65f3e65905456B04DA749D604eDb53F3BD'
+export const setpassword_ADDRESS = '0xDa7B087B43D009Ff5E487bbe1E179ab550DFfe32'
 export const setpassword_ABI = [
     {
       "inputs": [

@@ -7,6 +7,7 @@ import sha256 from 'js-sha256';
 import '../App.css';
 //contract
 import { setpassword_ABI, setpassword_ADDRESS } from '../config_setpassword.js'
+
 //components
 import getWeb3 from '../getWeb3';
 import Layout from '../layout';
@@ -37,17 +38,18 @@ class ConductTestaPage extends Component {
         super(props)
         this.state = {
         }
-        //this.CheckContract = this.CheckContract.bind(this);
+        this.execute = this.execute.bind(this);
 
     }
-    /*async CheckContract(contractadd,checkemail,checkpassword) {
-        this.checkhash = sha256(checkpassword.toString())
-        this.state.spBackupContract.methods.checkContract(contractadd,checkemail,this.checkhash).send({ from: this.state.account })
+    async execute(checkpassword) {
+        // checkpassword 真的有 check
+        this.state.spContract.methods.execute(checkpassword).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             this.refreshPage()
         }).once('error', (error) => {
             // alert('請輸入正確地址');
-    })}*/
+    })}
+
     async refreshPage() { 
         window.location.reload()
     }
@@ -65,8 +67,9 @@ class ConductTestaPage extends Component {
                     <Form onSubmit={(event) => {
                         event.preventDefault()
                         //this.CheckContract(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                        this.execute(this.checkpassword.value)
                     }}>
-                        <Form.Group id="formCheckAddress">
+                        {/* <Form.Group id="formCheckAddress">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
                                     <Form.Label><b>Testamentary contract address</b></Form.Label>
@@ -94,7 +97,7 @@ class ConductTestaPage extends Component {
                                         required />
                                 </Col>
                             </Row>
-                        </Form.Group>
+                        </Form.Group> */}
                         <br></br>
                         <Form.Group id="formCheckPassword" >
                             <Row>

@@ -116,6 +116,8 @@ app.post("/api/add", (req,res)=>{
     db.query(sqlInsert_2, [account_address, bene_mail, bene_rate],(err,result)=>{
         console.log(result)
     });
+})
+   
 app.delete('/api/deleteback/:back',(req,res)=>{
     const backupcontract_address = req.params.back;
     

@@ -24,7 +24,6 @@ class App extends Component {
           <Route exact path="/ActivateBackup" component={ActivateBackupPage}/>
           <Route exact path="/TestaManage" component={TestaManagePage}/>
           <Route exact path="/ActivateTestament" component={ActivateTestamentPage}/>
-          <Route exact path="/mail" component={Mail}/>
           <Route exact path="/ConductTestament" component={ConductTestaPage}/>
         </Switch>
       </Router>

@@ -1,5 +1,5 @@
 //need to change deployed contract address
-export const MainContract_ADDRESS = '0xc999d0e947aF7d0489D3E5860CE89d3E7f0865BA'
+export const MainContract_ADDRESS = '0x43a089AbC335949a4b19d0f03C16bb6A9d1DBD2a'
 export const MainContract_ABI = [
   {
     "inputs": [],
@@ -307,8 +307,8 @@ export const MainContract_ABI = [
     ],
     "name": "submitTransaction",
     "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -392,6 +392,4 @@ export const MainContract_ABI = [
     "stateMutability": "view",
     "type": "function"
   }
-    
-        
 ]
