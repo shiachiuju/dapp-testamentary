@@ -9,7 +9,6 @@ import BackupCreatePage from './pages/backupcreatepage';
 import ActivateBackupPage from './pages/activatebackuppage';
 import TestaManagePage from './pages/testamanagepage';
 import JoinPage from './pages/joinpage';
-import Mail from './sendmail';
 import ActivateTestamentPage from './pages/activatetestament';
 import ConductTestaPage from './pages/conducttestapage';
 

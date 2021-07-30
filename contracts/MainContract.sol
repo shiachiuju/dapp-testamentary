@@ -213,9 +213,12 @@ contract Backup {
         maincontract.setBackup(_email,_password,msg.sender);
         
     }
-    
     function activateBackup(string calldata _email,string calldata _password,address payable _to) external {
         maincontract.checksubmitTransaction(_email,_password,_to);
+    }
+
+    function getEmail() public view returns (string memory){
+        return maincontract.getEmail();
     }
     
     
@@ -226,19 +229,25 @@ contract ActivateBackup {
     constructor (address _oneContractAddr) public {
         backup = Backup(_oneContractAddr);
     }
-    function getbackaddress() public view returns (Backup){
-        return backup;
-    }
-    function checkContract(address _contractaddress,string memory _email,string memory _password) public {
-        Backup a = backup;
-        backup = Backup(_contractaddress);
-        activateBackup(_email,_password);
-        backup = a;
-    }
-    
-    function activateBackup(string memory _email,string memory _password) internal {
+    // function getbackaddress() public view returns (Backup){
+    //     return backup;
+    // }
+    // function checkContract(address _contractaddress,string memory _email,string memory _password) public {
+    //     Backup a = backup;
+    //     backup = Backup(_contractaddress);
+    //     activateBackup(_email,_password);
+    //     backup = a;
+    // }
+    // constructor (address _oneContractAddr,string memory _email,string memory _password) public {
+    //     backup = Backup(_oneContractAddr);
+    //     email = _email;
+    //     password = _password;
+
+    // }
+    function activateBackup(string memory _email,string memory _password) public {
         backup.activateBackup(_email,_password,msg.sender);
     }
+    
 }
 
 contract setpassword {
