@@ -183,7 +183,7 @@ class MainPage extends Component {
             <div id="outer">
                 <div class="inner"><form method="get" action="/Backup">
                     <button class="mainpagebutton" type="submit">Back-up</button>
-                </form></div>
+                </form></div>{" "}
                 <div class="inner"><form method="get" action="/TestaManage">
                     <button class="mainpagebutton" type="submit">Testament</button>
                 </form></div>

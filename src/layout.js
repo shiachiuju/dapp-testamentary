@@ -14,14 +14,15 @@ export default ({ children }) => (
         <Container>
             <Nav className="mr-auto">
                 <Nav.Link href="/Main">Main</Nav.Link>
-                <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Create">
-                        <DropdownItem href="/Backup">Back-up</DropdownItem>
-                        <DropdownItem href="/TestaManage">Testament</DropdownItem>
+                <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Back-up">
+                        <DropdownItem href="/Backup">Create</DropdownItem>
+                        <DropdownItem href="/ActivateBackup">Activate</DropdownItem>
                 </DropdownButton>
                 &nbsp;
-                <DropdownButton variant="" id="dropdown-basic-button" title="Activate">
-                        <DropdownItem href="/ActivateBackup">Back-up</DropdownItem>
-                        <DropdownItem href="/ActivateTestament">Testament</DropdownItem>
+                <DropdownButton variant="" id="dropdown-basic-button" title="Testament">
+                        <DropdownItem href="/TestaManage">Manage</DropdownItem>
+                        <DropdownItem href="/ActivateTestament">Set</DropdownItem>
+                        <DropdownItem href="/ConductTestament">Acvtivate</DropdownItem>
                 </DropdownButton>
             </Nav>
                 <Navbar.Collapse className="justify-content-end">
