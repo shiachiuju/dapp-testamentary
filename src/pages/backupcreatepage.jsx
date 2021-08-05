@@ -95,7 +95,7 @@ class BackupCreatePage extends Component {
         
         let service_id = "beautygang";
         let template_id = "backup";
-        let name = "coco";
+        let name = this.state.account;
         //let userMail = e;
         emailjs.send(service_id,template_id,{
             to_name: name,
