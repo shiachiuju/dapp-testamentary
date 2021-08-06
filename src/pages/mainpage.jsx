@@ -137,8 +137,7 @@ class MainPage extends Component {
             <h1><b>Hello, user !</b></h1>
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
-            <p><b>{this.state.backup}</b></p>
-            <p><b>{this.state.beneficiary}</b></p>
+            {/* <p><b>{this.state.backup}</b></p> */}
             {/* <p><b>Contract address:</b> {this.state.contract_address}</p>
             <p><b>*Contract email:</b> {this.state.email}</p>
             <p><b>*Contract password:</b> {this.state.password}</p> */}
@@ -162,7 +161,7 @@ class MainPage extends Component {
                             </Col>
                         </Row>
                     </Form.Group>
-                    <br></br>
+                    <p></p>
                     <Button variant="warning" onClick={(event) => {
                         event.preventDefault()
                         this.Deposit(this.amount.value * 10**18)
@@ -185,14 +184,13 @@ class MainPage extends Component {
                 }}>fetch</Button>  */}
             </div>
             <br></br>
-            <div>
-				<Button variant="outline-dark" size="lg" href="/Backup">
-                    back-up mechanism
-                </Button>
-                {" "}
-				<Button variant="outline-dark" size="lg" href="/TestaManage">
-                    testamentary management
-                </Button>
+            <div id="outer">
+                <div class="inner"><form method="get" action="/Backup">
+                    <button class="mainpagebutton" type="submit">Back-up</button>
+                </form></div>{" "}
+                <div class="inner"><form method="get" action="/TestaManage">
+                    <button class="mainpagebutton" type="submit">Testament</button>
+                </form></div>
 			</div>
              
         </div>
