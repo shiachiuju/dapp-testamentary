@@ -6,6 +6,8 @@ import '../App.css';
 import Layout from '../layout';
 import Axios from 'axios'
 import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract';
+import emailjs, { init } from 'emailjs-com';
+init("user_hGl6i7zIJBqfYWp8WEBfY");
 
 class TestaManagePage extends Component{
     //state={
@@ -41,12 +43,15 @@ class TestaManagePage extends Component{
         }
         this.addHa = this.addHa.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
+        this.checkEmail = this.checkEmail.bind(this);
     }
 
-    async addHa(mail,rate) {
+    async addHa(mail, rate) {
+        this.sendEmailtoB(mail)
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
-        .once('receipt', (receipt) => {
-            //this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
+            .once('receipt', (receipt) => {
+            
+            this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
         })
         .then((mail,rate) => {
             submitBeneInfo(this.mail.value,this.rate.value)
@@ -76,7 +81,55 @@ class TestaManagePage extends Component{
            beneficiary:[...prevState.beneficiary,{mail:"",rate:""}] 
         }))
     }
-    handleSubmit=(e)=>{e.preventDefalut()}
+    handleSubmit = (e) => { e.preventDefalut() }
+
+    sendEmailtoB(e) {
+        let service_id = "beautygang";
+        let template_id = "testamentary";
+        let name = e.split('@')[0];
+        let testamen = this.state.account;
+
+        emailjs.send(service_id, template_id, {
+            to_name: name,
+            userMail: e,
+            message: "Here to notify that you have been set as one of " + testamen + "'s beneficiaries.",
+            subject: 'Notification'
+        });
+        this.setState({ message: "We have sent an e-mail to your beneficiary's mailbox, please check it out!" })
+
+    }
+
+    sendEmailtoT(e) {
+        let service_id = "beautygang";
+        let template_id = "testamentary";
+        let testamen = this.state.account;
+
+        emailjs.send(service_id, template_id, {
+            to_name: testamen,
+            userMail: e,
+            message: "Your testamentary has been set.",
+            subject: "Notification"
+        });
+        this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
+
+    }
+
+    checkEmail = (email) => {
+
+        // checkemail
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (re.test(email)) {
+            // this is a valid email address
+            return true
+        }
+        else {
+            // invalid email, show an error to the user.
+            return false
+        }
+
+    }
+
     render() {
         let {beneficiary} = this.state
         return (
@@ -105,7 +158,8 @@ class TestaManagePage extends Component{
                             </Row>
             </Form.Group>
             <p></p>
-            <Form.Group id="formBasicEmail" onSubmit={this.handleSubmit}>
+
+                        <Form.Group id="formBasicEmail" onSubmit={this.handleSubmit}>
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
                                     <Form.Label><b>Please enter your bene rate</b></Form.Label>
@@ -150,11 +204,14 @@ class TestaManagePage extends Component{
                     }        
             <br></br>
             </Form.Group>
-            <Button variant="outline-warning"  onClick={(event) => {
-                        event.preventDefault()
-                        this.addHa(this.mail.value,this.rate.value)
-                        }
-                    }>Create</Button>
+                        <Button variant="outline-warning" onClick={(event) => {
+                            event.preventDefault()
+                            if (this.checkEmail(this.mail.value) == true) {
+                                this.addHa(this.mail.value, this.rate.value)
+                            } else if (this.checkEmail(this.mail.value) != true) {
+                                alert('Please enter correct email!' + this.mail.value)
+                            }
+                        }}>Create</Button>
             </Form>
             <br></br>
             <br></br>
