@@ -1,12 +1,14 @@
 //dependencies
 import React, { Component } from 'react'
 import { Button, Form, Col, Row } from 'react-bootstrap'
+import Axios from 'axios'
 
-import sha256 from 'js-sha256';
 //includes
 import '../App.css';
 //contract
 import { setpassword_ABI, setpassword_ADDRESS } from '../config_setpassword.js'
+//contractabi
+import Setpassword from '../contract/setpassword.json'
 //components
 import getWeb3 from '../getWeb3';
 import Layout from '../layout';
@@ -21,24 +23,22 @@ class ActivateTestamentPage extends Component {
     async loadBlockchainData() {
         //web3
         const web3 = await getWeb3();
-        //netid
-        const netId = await web3.eth.net.getId();
-        this.setState({ netid: netId })
+        this.setState({ web3: web3 })
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
         //backup contract
-        const spContract = new web3.eth.Contract(setpassword_ABI, setpassword_ADDRESS)
-        this.setState({ spContract })
-        const contract_address = setpassword_ADDRESS;
-        this.setState({ contract_address })
+        // const spContract = new web3.eth.Contract(setpassword_ABI, setpassword_ADDRESS)
+        // this.setState({ spContract })
+        // const contract_address = setpassword_ADDRESS;
+        // this.setState({ contract_address })
     }
     constructor(props) {
         super(props)
         this.state = {
         }
         this.CheckContract = this.CheckContract.bind(this);
-
+        this.Deploy = this.Deploy.bind(this);
     }
 
     async CheckContract(contractadd, checkemail, checkpassword) {
@@ -50,6 +50,33 @@ class ActivateTestamentPage extends Component {
             // alert('請輸入正確地址');
     })}
 
+    async Deploy() {
+        const spContract = new this.state.web3.eth.Contract(Setpassword.abi)
+        spContract.deploy({
+            data: Setpassword.bytecode,
+            arguments: []
+        })
+        .send({
+            from: this.state.account,
+            gas: 2100000,
+        })
+        .then((newContractInstance) => {
+            console.log('successfully deployed!');
+            console.log(newContractInstance.options.address);
+            submitNew(newContractInstance.options.address.toString())
+            this.refreshPage()
+        }).catch((err) => {
+            console.log(err);
+        });
+        const submitNew = (newcontract) => {
+            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, settestamentcontract_address: newcontract})
+            .then(() => {
+                alert('success insert!')
+            })
+        }
+        
+    }
+
     async refreshPage() { 
         window.location.reload()
     }
@@ -59,7 +86,7 @@ class ActivateTestamentPage extends Component {
         <Layout>
             <div className="App">
                 <br></br>
-                <h3><b>Activate Testament Mechanism</b></h3>
+                <h3><b>Set Activated Information</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
                 <p><b>*Contract address:</b> {this.state.contract_address}</p>
@@ -68,6 +95,7 @@ class ActivateTestamentPage extends Component {
                     <Form onSubmit={(event) => {
                         event.preventDefault()
                         this.CheckContract(this.contractadd.value, this.checkemail.value, this.checkpassword)
+                        this.Deploy()
                     }}>
                         <Form.Group id="formCheckAddress">
                             <Row>

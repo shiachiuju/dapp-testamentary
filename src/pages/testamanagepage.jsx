@@ -5,34 +5,52 @@ import getWeb3 from '../getWeb3'
 import '../App.css';
 import Layout from '../layout';
 import Axios from 'axios'
-import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract';
+//import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract';
+import MainContract from '../contract/MainContract.json'
 
 class TestaManagePage extends Component{
-    //state={
-        //beneficiary:[{mail:"",rate:""}],
-    //}
+    
     componentDidMount() {
         this.loadBlockchainData()
     }
+
     async loadBlockchainData() {
         //web3
         const web3 = await getWeb3();
-        //netid
-        const netId = await web3.eth.net.getId();
-        this.setState({ netid: netId })
+        this.setState({ web3: web3})
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
-        //main contract
-        const mainContract = new web3.eth.Contract(MainContract_ABI, MainContract_ADDRESS)
-        this.setState({ mainContract })
-        const contract_address = MainContract_ADDRESS;
-        this.setState({ contract_address })
-        
-        //view contract data
-        const balance = await mainContract.methods.getBalance().call()
-        this.setState({ balance })
+        //contract address
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
+        .then((con) => {
+            const mainContract = new web3.eth.Contract(MainContract.abi, con.data[0].maincontract_address.toString())
+            this.setState({ mainContract });
+            this.getinfo();
+            this.setState({ contract_address: con.data[0].maincontract_address.toString()})
+            console.log(con.data[0].maincontract_address);
+        }).catch((err) => {
+            console.log(err);
+        });
+
     }
+
+    async getinfo(){
+        const balance = await this.state.mainContract.methods.getBalance().call()
+        this.setState({ balance })
+        const owners = await this.state.mainContract.methods.getOwners().call()
+        this.setState({ owners })
+        const email = await this.state.mainContract.methods.getEmail().call()
+        this.setState({ email })
+        const password = await this.state.mainContract.methods.getPassword().call()
+        this.setState({ password })
+        if (this.state.email != '' ){
+            this.setState({ backup : 'The backup mechanism has been set.'})
+        }
+
+    }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -51,9 +69,6 @@ class TestaManagePage extends Component{
         .then((mail,rate) => {
             submitBeneInfo(this.mail.value,this.rate.value)
             console.log('successfully deployed!');
-            // console.log(this.state.account)
-            // console.log(this.mail.value)
-            // console.log(this.rate.value)
             this.refreshPage()
         }).catch((err) => {
             console.log(err);
@@ -83,7 +98,7 @@ class TestaManagePage extends Component{
         <Layout>
             <div className="App">
             <br></br>
-            <h1><b>Create Testamentary</b></h1>
+            <h3><b>Create Testament</b></h3>
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
             <p><b>Contract address:</b> {this.state.contract_address} </p>

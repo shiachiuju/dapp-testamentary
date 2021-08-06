@@ -37,7 +37,6 @@ class MainPage extends Component {
         }).catch((err) => {
             this.Deploy()
         });
-
     }
     async getinfo(){
         const balance = await this.state.mainContract.methods.getBalance().call()
@@ -48,8 +47,13 @@ class MainPage extends Component {
         this.setState({ email })
         const password = await this.state.mainContract.methods.getPassword().call()
         this.setState({ password })
+        const beneficiarymail = await this.state.mainContract.methods.returnlen().call()
+        this.setState({ beneficiarymail })
         if (this.state.email != '' ){
             this.setState({ backup : 'The backup mechanism has been set.'})
+        }
+        if (this.state.beneficiarymail != 0 ){
+            this.setState({ beneficiary : 'The testament mechanism has been set.'})
         }
 
     }
@@ -61,7 +65,8 @@ class MainPage extends Component {
         balance: 0,
         email: '',
         password: '',
-        backup : 'The backup mechanism has NOT been set.'
+        backup : 'The backup mechanism has NOT been set.',
+        beneficiary : 'The testament mechanism has NOT been set.'
         }
         this.Deposit = this.Deposit.bind(this);
         this.Withdraw = this.Withdraw.bind(this);
@@ -133,6 +138,7 @@ class MainPage extends Component {
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
             <p><b>{this.state.backup}</b></p>
+            <p><b>{this.state.beneficiary}</b></p>
             {/* <p><b>Contract address:</b> {this.state.contract_address}</p>
             <p><b>*Contract email:</b> {this.state.email}</p>
             <p><b>*Contract password:</b> {this.state.password}</p> */}

@@ -21,8 +21,8 @@ export default ({ children }) => (
                 &nbsp;
                 <DropdownButton variant="" id="dropdown-basic-button" title="Testament">
                         <DropdownItem href="/TestaManage">Manage</DropdownItem>
-                        <DropdownItem href="/ActivateTestament">Set</DropdownItem>
-                        <DropdownItem href="/ConductTestament">Acvtivate</DropdownItem>
+                        <DropdownItem href="/SetTestament">Set</DropdownItem>
+                        <DropdownItem href="/ActivateTestament">Acvtivate</DropdownItem>
                 </DropdownButton>
             </Nav>
                 <Navbar.Collapse className="justify-content-end">

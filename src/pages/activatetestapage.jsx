@@ -22,9 +22,6 @@ class ConductTestaPage extends Component {
     async loadBlockchainData() {
         //web3
         const web3 = await getWeb3();
-        //netid
-        const netId = await web3.eth.net.getId();
-        this.setState({ netid: netId })
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
