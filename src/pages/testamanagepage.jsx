@@ -47,18 +47,22 @@ class TestaManagePage extends Component{
     }
 
     async addHa(mail, rate) {
-        this.sendEmailtoB(mail)
+        this.sendEmailtoB(this.mail.value)
+        this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
             .once('receipt', (receipt) => {
-            
-            this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
+            //this.sendEmailtoB(this.mail.value)
+            //this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
         })
         .then((mail,rate) => {
+
             submitBeneInfo(this.mail.value,this.rate.value)
             console.log('successfully deployed!');
             // console.log(this.state.account)
             // console.log(this.mail.value)
             // console.log(this.rate.value)
+            //this.sendEmailtoB(this.mail.value)
+            //this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
             this.refreshPage()
         }).catch((err) => {
             console.log(err);
@@ -91,7 +95,7 @@ class TestaManagePage extends Component{
 
         emailjs.send(service_id, template_id, {
             to_name: name,
-            userMail: e,
+            email: e,
             message: "Here to notify that you have been set as one of " + testamen + "'s beneficiaries.",
             subject: 'Notification'
         });
@@ -207,9 +211,11 @@ class TestaManagePage extends Component{
                         <Button variant="outline-warning" onClick={(event) => {
                             event.preventDefault()
                             if (this.checkEmail(this.mail.value) == true) {
+                                //this.sendEmailtoB(this.mail.value)
                                 this.addHa(this.mail.value, this.rate.value)
+                             
                             } else if (this.checkEmail(this.mail.value) != true) {
-                                alert('Please enter correct email!' + this.mail.value)
+                                alert('Please enter correct email!')
                             }
                         }}>Create</Button>
             </Form>
