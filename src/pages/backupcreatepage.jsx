@@ -27,22 +27,6 @@ class BackupCreatePage extends Component {
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
-        //contract address
-        const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
-        .then((con) => {
-            const backupContract = new web3.eth.Contract(Backup.abi, con.data[0].backupcontract_address.toString())
-            this.setState({ backupContract });
-            this.setState({ contract_address: con.data[0].backupcontract_address.toString()})
-            console.log(con.data[0].backupcontract_address);
-        }).catch((err) => {
-            Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
-            .then((con) => {
-                console.log(con.data[0].maincontract_address);
-                this.Deploy(con.data[0].maincontract_address)
-            }).catch((err) => {
-            });
-        });
     }
     constructor(props) {
         super(props)
@@ -52,20 +36,42 @@ class BackupCreatePage extends Component {
         this.createBackup = this.createBackup.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
         this.Deploy = this.Deploy.bind(this);
+        this.Enterinfo = this.Enterinfo.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
     }
     async createBackup(email,password) {
         this.hash = sha256(password.toString())
-        this.state.backupContract.methods.setBackup(email,this.hash).send({ from: this.state.account })
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
+        .then((con) => {
+            this.Enterinfo(con.data[0].backupcontract_address.toString(),email,this.hash);
+        }).catch((err) => {
+            Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
+            .then((con) => {
+                this.Deploy(con.data[0].maincontract_address.toString(),email,this.hash)
+            }).catch((err) => {
+            });
+        });
+    }
+    async Enterinfo(address,email,password) {
+        const backupContract = new this.state.web3.eth.Contract(Backup.abi, address)
+        this.setState({ backupContract });
+        const getemail = await this.state.backupContract.methods.getEmail().call()
+        this.setState({ getemail })
+        if (this.state.getemail != '' ){
+            alert('Your backup mechanism has been set. \nClick confirm to change a new one!')
+            // this.setState({ backup : 'The backup mechanism has been set.'})
+        }
+        this.state.backupContract.methods.setBackup(email,password).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             this.sendEmail(email)
-            this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
+            // this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
             // this.refreshPage()
       })}
     async refreshPage() { 
         window.location.reload()
     }
-    async Deploy(mainaddr) {
+    async Deploy(mainaddr,email,password) {
         const contract = new this.state.web3.eth.Contract(Backup.abi);
         contract.deploy({
             data: Backup.bytecode,
@@ -77,9 +83,8 @@ class BackupCreatePage extends Component {
         })
         .then((newContractInstance) => {
             console.log('successfully deployed!');
-            console.log(newContractInstance.options.address);
             submitNew(mainaddr,newContractInstance.options.address.toString())
-            this.refreshPage()
+            this.Enterinfo(newContractInstance.options.address.toString(),email,password);
         }).catch((err) => {
             console.log(err);
         });
@@ -102,7 +107,6 @@ class BackupCreatePage extends Component {
             userMail:e,
         });
         this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})     
-          
     }
     checkEmail = ( email ) => {
 
@@ -191,7 +195,7 @@ class BackupCreatePage extends Component {
                     
                 </div>
                 <p></p>
-                <p><b>Contract address:</b> {this.state.contract_address}</p>
+                {/* <p><b>Contract address:</b> {this.state.contract_address}</p> */}
                 <p>{this.state.message}</p>
             </div>
             </Layout>
