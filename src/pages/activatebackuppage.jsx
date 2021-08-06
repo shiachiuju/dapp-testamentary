@@ -48,6 +48,7 @@ class ActivateBackupPage extends Component {
         }).once('error', (error) => {
             // alert('請輸入正確地址');
     })}
+    
     async Delete(backaddr) {
         Axios.get(`http://localhost:3002/api/getmaincontract/${backaddr}`)
         .then((con) => {
@@ -105,8 +106,8 @@ class ActivateBackupPage extends Component {
         }).catch((err) => {
             alert('this address not create!')
         });
-
     }
+
     async refreshPage() { 
         window.location.reload()
     }
