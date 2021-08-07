@@ -5,8 +5,6 @@ import Axios from 'axios'
 
 //includes
 import '../App.css';
-//contract
-import { setpassword_ABI, setpassword_ADDRESS } from '../config_setpassword.js'
 //contractabi
 import Setpassword from '../contract/setpassword.json'
 //components
@@ -33,27 +31,23 @@ class ActivateTestamentPage extends Component {
         this.state = {
         }
         this.refreshPage = this.refreshPage.bind(this);
-        this.CheckContract = this.CheckContract.bind(this);
         this.Deploy = this.Deploy.bind(this);
-        this.createSetpass = this.createSetpass.bind(this);
+        this.testaEth = this.testaEth.bind(this);
+        this.Set = this.Set.bind(this);
     }
 
-    async CheckContract(contractadd, checkemail, checkpassword) {
-        // checkpassword 只是名字
-        const spContract = new this.state.web3.eth.Contract(Setpassword.abi, contractadd)
+    async testaEth(address,checkemail,checkpassword) {
+        const spContract = new this.state.web3.eth.Contract(Setpassword.abi, address)
         this.setState({ spContract });
-        this.state.spContract.methods.checkContract(contractadd, checkemail, checkpassword).send({ from: this.state.account })
-        .once('receipt', (receipt) => {
-            this.refreshPage()
-        }).once('error', (error) => {
-            // alert('請輸入正確地址');
-    })}
+        console.log(address);
+        this.state.spContract.methods.passset(checkemail, checkpassword).send({ from: this.state.account })
+    }
 
-    async Deploy(mainaddr,email,password) {
-        const spContract = new this.state.web3.eth.Contract(Setpassword.abi)
-        spContract.deploy({
+    async Deploy(addr,checkemail,checkpassword) {
+        const contract = new this.state.web3.eth.Contract(Setpassword.abi);
+        contract.deploy({
             data: Setpassword.bytecode,
-            arguments: [mainaddr]
+            arguments: [addr]
         })
         .send({
             from: this.state.account,
@@ -61,48 +55,34 @@ class ActivateTestamentPage extends Component {
         })
         .then((newContractInstance) => {
             console.log('successfully deployed!');
-            submitNew(newContractInstance.options.address.toString())
-            this.refreshPage()
+            submitNew(addr,newContractInstance.options.address.toString())
+            this.testaEth(newContractInstance.options.address.toString(),checkemail,checkpassword)     
         }).catch((err) => {
             console.log(err);
         });
-        const submitNew = (newcontract) => {
-            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_adress: mainaddr, settestamentcontract_address: newcontract})
+        const submitNew = (addr,newcontract) => {
+            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract})
             .then(() => {
                 alert('success insert!')
             })
         }
     }
 
-    async createSetpass(addr, email, password) {
+    async Set(contractadd,checkemail,checkpassword){
         const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/getsetpasscontract/${acc}`)
-             .then((con) => {
-                this.CheckContract(con.data[0].settestamentcontract_address.toString(), email, password);
-           }).catch((err) => {
-                Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
-                    .then((con) => {
-                        this.Deploy(con.data[0].maincontract_address.toString(),email,password)
-                    }).catch((err) => {
-                        });
-            }); 
-        }
-    
-    // async Enterinfo(address,email,password) {
-    //     const spContract = new this.state.web3.eth.Contract(Setpassword.abi, address)
-    //     this.setState({ spContract });
-    //     const getemail = await this.state.spContract.methods.getEmail().call()
-    //     this.setState({ getemail })
-    //     if (this.state.getemail != '' ){
-    //         alert('Your backup mechanism has been set. \nClick confirm to change a new one!')
-    //     }
-    //     this.state.backupContract.methods.setBackup(email,password).send({ from: this.state.account })
-    //     .once('receipt', (receipt) => {
-    //         this.sendEmail(email)
-    //         // this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
-    //         // this.refreshPage()
-    // })}
-            
+        Axios.get(`http://localhost:3002/api/getcontract/${contractadd}`)
+        .then(() => {
+            Axios.get(`http://localhost:3002/api/getsetcontract/${acc}/${contractadd}`)
+            .then((con) => {
+                this.testaEth(con.data[0].settestamentcontract_address.toString(),checkemail,checkpassword)
+            }).catch((err) => {
+                this.Deploy(contractadd,checkemail,checkpassword)
+            });
+        }).catch((err) => {
+            alert('this address not create!')
+        });
+    }
+
     async refreshPage() { 
         window.location.reload()
     }
@@ -115,13 +95,11 @@ class ActivateTestamentPage extends Component {
                 <h3><b>Set Activated Information</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
-                {/* <p><b>*Contract address:</b> {this.state.contract_address}</p> */}
                 <br></br>
                 <div id="activateTest">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        this.createSetpass(this.checkemail.value, this.checkpassword.value)
-                        //this.CheckContract(this.contractadd.value, this.checkemail.value, this.checkpassword)
+                        this.Set(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
                     }}>
                         <Form.Group id="formCheckAddress">
                             <Row>
