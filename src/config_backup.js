@@ -1,6 +1,10 @@
 //need to change deployed contract address
 <<<<<<< HEAD
+<<<<<<< HEAD
 export const Backup_ADDRESS = '0xB6315919284E5ca47D2B802e7131b4FcB017e87f'
+=======
+export const Backup_ADDRESS = '0xf9d090529e88D713286E3D2740136e0091D33AF3'
+>>>>>>> parent of 4a7be88 (no message)
 =======
 export const Backup_ADDRESS = '0xf9d090529e88D713286E3D2740136e0091D33AF3'
 >>>>>>> parent of 4a7be88 (no message)

@@ -1,7 +1,12 @@
 //dependencies
 import React, { Component } from 'react'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Button, Form, Col, Row } from 'react-bootstrap'
+=======
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
+>>>>>>> parent of 4a7be88 (no message)
 =======
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
@@ -16,7 +21,10 @@ import ActivateBackup from '../contract/ActivateBackup.json'
 //components
 import getWeb3 from '../getWeb3';
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 4a7be88 (no message)
 =======
 >>>>>>> parent of 4a7be88 (no message)
 //run activatebackup
@@ -122,8 +130,11 @@ class ActivateBackupPage extends Component {
     render() {
         return (
 <<<<<<< HEAD
+<<<<<<< HEAD
             <Layout>
 =======
+=======
+>>>>>>> parent of 4a7be88 (no message)
             <div id="navbar">
                 <Navbar bg="secondary" variant="light">
                 <Container>
@@ -140,6 +151,9 @@ class ActivateBackupPage extends Component {
                 </Navbar.Collapse>
                 </Container>
             </Navbar>
+<<<<<<< HEAD
+>>>>>>> parent of 4a7be88 (no message)
+=======
 >>>>>>> parent of 4a7be88 (no message)
             <div className="App">
                 <br></br>
@@ -212,6 +226,9 @@ class ActivateBackupPage extends Component {
 =======
             </div> 
             </div> 
+<<<<<<< HEAD
+>>>>>>> parent of 4a7be88 (no message)
+=======
 >>>>>>> parent of 4a7be88 (no message)
         ) 
     }

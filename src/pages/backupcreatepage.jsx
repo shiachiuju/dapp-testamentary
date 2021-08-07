@@ -1,9 +1,12 @@
 //dependencies
 import React, { Component } from 'react'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import Axios from 'axios'
 =======
+=======
+>>>>>>> parent of 4a7be88 (no message)
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
 // import createHash from 'crypto-browserify'
@@ -17,10 +20,14 @@ import Backup from '../contract/Backup.json'
 //components
 import getWeb3 from '../getWeb3';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import emailjs, { init } from 'emailjs-com';
 init("user_hGl6i7zIJBqfYWp8WEBfY");
 
 
+=======
+// import {Email} from 'react-html-email';
+>>>>>>> parent of 4a7be88 (no message)
 =======
 // import {Email} from 'react-html-email';
 >>>>>>> parent of 4a7be88 (no message)
@@ -154,8 +161,11 @@ class BackupCreatePage extends Component {
     render() {
         return (
 <<<<<<< HEAD
+<<<<<<< HEAD
             <Layout>
 =======
+=======
+>>>>>>> parent of 4a7be88 (no message)
             <div id="navbar">
                 <Navbar bg="warning" variant="light">
                 <Container>
@@ -173,6 +183,9 @@ class BackupCreatePage extends Component {
                 </Container>
             </Navbar>
             
+<<<<<<< HEAD
+>>>>>>> parent of 4a7be88 (no message)
+=======
 >>>>>>> parent of 4a7be88 (no message)
             <div className="App">
                 <br></br>
@@ -251,6 +264,9 @@ class BackupCreatePage extends Component {
 =======
             </div> 
             </div> 
+<<<<<<< HEAD
+>>>>>>> parent of 4a7be88 (no message)
+=======
 >>>>>>> parent of 4a7be88 (no message)
         ) 
     }
