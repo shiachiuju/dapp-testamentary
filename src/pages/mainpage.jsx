@@ -1,6 +1,5 @@
 //dependencies
 import React, { Component } from 'react'
-<<<<<<< HEAD
 import { Button,  Form, Col, Row } from 'react-bootstrap'
 import Axios from 'axios'
 //includes
@@ -12,16 +11,6 @@ import MainContract from '../contract/MainContract.json'
 import getWeb3 from '../getWeb3'
 
 
-=======
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import ReactBootstrap, { Navbar, Container, Nav, Button,  Form, Col, Row} from 'react-bootstrap'
-//includes
-import '../App.css';
-//contract address
-import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract.js'
-//components
-import getWeb3 from '../getWeb3'
->>>>>>> parent of 4a7be88 (no message)
 
 //Run maincontract
 /* 執行 deposit and withdraw 的畫面，還會顯示使用者錢包、合約地址、合約餘額、備援機制設定的帳號密碼(檢查用)  */ 
@@ -37,7 +26,6 @@ class MainPage extends Component {
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
-<<<<<<< HEAD
         //contract address
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
@@ -52,23 +40,6 @@ class MainPage extends Component {
     }
     async getinfo(){
         const balance = await this.state.mainContract.methods.getBalance().call()
-=======
-
-        /*
-        error
-        const deployedNetwork = MainContract.networks[netId];
-        const contract_address = MainContract.networks[netId].address;
-        */
-
-        //main contract
-        const mainContract = new web3.eth.Contract(MainContract_ABI, MainContract_ADDRESS)
-        this.setState({ mainContract })
-        const contract_address = MainContract_ADDRESS;
-        this.setState({ contract_address })
-
-        //view contract data
-        const balance = await mainContract.methods.getBalance().call()
->>>>>>> parent of 4a7be88 (no message)
         this.setState({ balance })
         const owners = await this.state.mainContract.methods.getOwners().call()
         this.setState({ owners })
@@ -121,7 +92,6 @@ class MainPage extends Component {
     async refreshPage() { 
         window.location.reload()
     }
-<<<<<<< HEAD
     // async FetchContract() {
     //     const acc = this.state.account
     //     Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
@@ -162,26 +132,6 @@ class MainPage extends Component {
     render() {
         return (
         <Layout>
-=======
-    render() {
-        return (
-        <div id="navbar">
-            <Navbar bg="light" variant="light">
-                <Container>
-                <Nav className="mr-auto">
-                <Nav.Link href="/">Main</Nav.Link>
-                <Nav.Link href="/Backup">Create</Nav.Link>
-                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
-                </Nav>
-                <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                </Container>
-            </Navbar>
->>>>>>> parent of 4a7be88 (no message)
         <div className="App">
             <br></br>
             <h1><b>Hello, user !</b></h1>
@@ -197,14 +147,9 @@ class MainPage extends Component {
                 <Form>
                     <Form.Group id="ether">
                         <Row>
-<<<<<<< HEAD
                         <Col md={{ span: 4, offset: 4 }}>
                         <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label></Col>
                         <Col md={{ span: 2, offset: 5 }}>
-=======
-                            <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label>
-                            <Col md={{ span: 2, offset: 5 }}>
->>>>>>> parent of 4a7be88 (no message)
                                 <Form.Control
                                     id="Amount"
                                     ref={(input) => { 
@@ -249,11 +194,7 @@ class MainPage extends Component {
 			</div>
              
         </div>
-<<<<<<< HEAD
         </Layout>
-=======
-        </div>
->>>>>>> parent of 4a7be88 (no message)
         );
     }
 }

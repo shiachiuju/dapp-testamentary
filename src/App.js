@@ -7,14 +7,10 @@ import './App.css';
 import MainPage from './pages/mainpage';
 import BackupCreatePage from './pages/backupcreatepage';
 import ActivateBackupPage from './pages/activatebackuppage';
-<<<<<<< HEAD
 import TestaManagePage from './pages/testamanagepage';
 import JoinPage from './pages/joinpage';
 import SetTestamentPage from './pages/settestapage';
 import ActivateTestamentPage from './pages/activatetestapage';
-=======
-import Mail from './sendmail';
->>>>>>> parent of 4a7be88 (no message)
 
 //Run
 class App extends Component {
