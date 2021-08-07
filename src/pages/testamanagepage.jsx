@@ -5,7 +5,6 @@ import getWeb3 from '../getWeb3'
 import '../App.css';
 import Layout from '../layout';
 import Axios from 'axios'
-//import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract';
 import MainContract from '../contract/MainContract.json'
 import emailjs, { init } from 'emailjs-com';
 init("user_hGl6i7zIJBqfYWp8WEBfY");
@@ -47,37 +46,47 @@ class TestaManagePage extends Component{
         this.setState({ email })
         const password = await this.state.mainContract.methods.getPassword().call()
         this.setState({ password })
-        if (this.state.email != '' ){
-            this.setState({ backup : 'The backup mechanism has been set.'})
+        const len = await this.state.mainContract.methods.returnlen().call()
+        this.setState({ len })
+        for(let i=1;i<=this.state.len;i++) {
+            const checkbenes = await this.state.mainContract.methods.getBeneficiary(i).call()
+            const a = this.state.benes
+            a.push({mail: checkbenes[0],rate: checkbenes[1]})
+            this.setState({ benes: a })
         }
+        
 
     }
 
     constructor(props) {
         super(props)
         this.state = {
-            beneficiary:[{mail:"",rate:""}],
-            message: ''
+            beneficiary:[{mail:"",rate:0}],
+            benes:[],
+            message: '',
         }
         this.addHa = this.addHa.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
     }
 
-    async addHa(mail, rate) {
-        this.sendEmailtoB(this.mail.value)
-        this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
+    async addHa(mail,rate) {
+        // this.sendEmailtoB(mail)
+        // this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
-            .once('receipt', (receipt) => {
+        .once('receipt', (receipt) => {
+            submitBeneInfo(mail,rate)
+            console.log('successfully deployed!');
             //this.sendEmailtoB(this.mail.value)
             //this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
         })
-        .then((mail,rate) => {
-
-            submitBeneInfo(this.mail.value,this.rate.value)
-            console.log('successfully deployed!');
-            this.refreshPage()
-        }).catch((err) => {
+        // .then((mail,rate) => {
+        //     // const int_rate = parseInt(rate,10)
+        //     submitBeneInfo(mail,rate)
+        //     console.log('successfully deployed!');
+        //     // this.refreshPage()
+        // })
+        .catch((err) => {
             console.log(err);
         });
         
@@ -95,7 +104,7 @@ class TestaManagePage extends Component{
 
     addBene=(e)=>{
         this.setState((prevState)=>({
-           beneficiary:[...prevState.beneficiary,{mail:"",rate:""}] 
+           beneficiary:[...prevState.beneficiary,{mail:"",rate:0}] 
         }))
     }
     handleSubmit = (e) => { e.preventDefalut() }
@@ -158,81 +167,136 @@ class TestaManagePage extends Component{
             <p><b>Wallet account:</b> {this.state.account}</p>
             <p><b>Contract address:</b> {this.state.contract_address} </p>
             <p><b>Contract balance:</b> {this.state.balance / 10**18} ether </p>
+            {/* <p>{this.state.len}</p> */}
             <Form>
             <p></p>
-            <Form.Group id="formBeneEmail">
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Please enter your bene's email address</b></Form.Label>
-                                    <Form.Control
-                                        type="email"
-                                        ref={(input) => { 
-                                            this.mail = input
-                                        }} 
-                                        placeholder="Enter bene email"
-                                        required />
-                                </Col>
-                            </Row>
-            </Form.Group>
+            {this.state.benes.map((val, key) => {
+                return (
+                    <div className="emailandrate">
+                    <div>
+                        <li>Email: {val.mail} Rate: {val.rate}</li>
+                    </div>
+                    </div>
+                )}
+            )}
+            {/* <Form.Group id="formBeneEmail">
+                <Row>
+                    <Col md={{ span: 4, offset: 4 }}>
+                        <Form.Label><b>Please enter your bene's email address</b></Form.Label>
+                        <Form.Control
+                            type="email"
+                            ref={(input) => { 
+                                this.mail = input
+                            }} 
+                            placeholder="Enter bene email"
+                            required />
+                    </Col>
+                </Row>
+            </Form.Group> */}
             <p></p>
-
-                        <Form.Group id="formBasicEmail" onSubmit={this.handleSubmit}>
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Please enter your bene rate</b></Form.Label>
-                                    <Form.Control
-                                        type="number"
-                                        ref={(input) => { 
-                                            this.rate = input
-                                        }}
-                                        placeholder="Enter rate"
-                                        required />
-                                </Col>
-                            </Row>
-            <Button variant="warning" onClick={this.addBene}>Add Beneficiary</Button>{
-                beneficiary.map((val,idx)=>{
-                        let beneficiaryId='beneficiary-${idx}',rateId='rate-${idx}'
-                        return(
-                            <div key={idx}>
-                                <br></br>
-                                <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
-                                &nbsp;
-                                <input
-                                type="email"
-                                size='30'
-                                name={beneficiaryId}
-                                data-id={idx}
-                                id={beneficiaryId}
-                                placeholder="Enter email"
-                                className="mail"/>
-                                &nbsp;&nbsp;&nbsp;
-                                <label htmlFor={rateId}>Distribution rate:</label>
-                                &nbsp;
-                                <input
-                                type="number"
-                                name={rateId}
-                                data-id={idx}
-                                id={rateId}
-                                placeholder="0~100"
-                                className="rate"/>
-                                </div>
-                            )
-                        })
-                    }        
+            {/* <Form.Group id="formBasicEmail" onSubmit={this.handleSubmit}>
+                <Row>
+                    <Col md={{ span: 4, offset: 4 }}>
+                        <Form.Label><b>Please enter your bene rate</b></Form.Label>
+                        <Form.Control
+                            type="number"
+                            ref={(input) => { 
+                                this.rate = input
+                            }}
+                            placeholder="Enter rate"
+                            required />
+                    </Col>
+                </Row> */}
+            <Button variant="warning" onClick={this.addBene}>Add Beneficiary</Button>
+            {   beneficiary.map((val,idx)=>{
+                    let beneficiaryId='beneficiary-${idx}',rateId='rate-${idx}'
+                    return(
+                        <div key={idx}>
+                        <br></br>
+                        <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                        &nbsp;
+                        <input
+                            type="email"
+                            size='30'
+                            name={beneficiaryId}
+                            onChange={(e) => {
+                                this.setState(state => ({
+                                    beneficiary: state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                mail: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            data-id={idx}
+                            id={beneficiaryId}
+                            placeholder="Enter email"
+                            className="mail"/>
+                        &nbsp;&nbsp;&nbsp;
+                        <label htmlFor={rateId}>Distribution rate:</label>
+                        &nbsp;
+                        <input
+                            type="number"
+                            name={rateId}
+                            data-id={idx}
+                            id={rateId}
+                            onChange={(e) => {
+                                this.setState(state => ({
+                                    beneficiary: state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                rate: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            placeholder="0~100"
+                            className="rate"/>
+                        </div>
+                    )
+                })
+            }        
             <br></br>
-            </Form.Group>
-                        <Button variant="outline-warning" onClick={(event) => {
-                            event.preventDefault()
-                            if (this.checkEmail(this.mail.value) == true) {
+            <Button variant="outline-warning" onClick={(event) => {
+                event.preventDefault()
+                for(let i = 0;i<=this.state.beneficiary.length;i++){
+                    const a = this.state.benes
+                    beneficiary.map((data, j) => {
+                        if (j === i) {
+                            const mail = data.mail
+                            const rate = data.rate
+                            if (this.checkEmail(mail) == true) {
                                 //this.sendEmailtoB(this.mail.value)
-                                this.addHa(this.mail.value, this.rate.value)
-                             
-                            } else if (this.checkEmail(this.mail.value) != true) {
+                                this.addHa(mail, rate)
+                            } else if (this.checkEmail(mail) != true) {
                                 alert('Please enter correct email!')
                             }
-                        }}>Create</Button>
+                            // this.addHa(id, rate)
+                        }
+                        
+                    })
+                    
+                }
+                // if (this.checkEmail(this.mail.value) == true) {
+                //     //this.sendEmailtoB(this.mail.value)
+                //     this.addHa(this.mail.value, this.rate.value)
+                    
+                // } else if (this.checkEmail(this.mail.value) != true) {
+                //     alert('Please enter correct email!')
+                // }
+            }}>Create</Button>
             </Form>
             <br></br>
+            <p></p>
             <br></br>
             <br></br>
             </div>
