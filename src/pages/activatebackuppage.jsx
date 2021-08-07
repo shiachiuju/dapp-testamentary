@@ -1,6 +1,11 @@
 //dependencies
 import React, { Component } from 'react'
+<<<<<<< HEAD
 import { Button, Form, Col, Row } from 'react-bootstrap'
+=======
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ReactBootstrap, { Navbar, Container, Nav, Button, Form, Col, Row} from 'react-bootstrap'
+>>>>>>> parent of 4a7be88 (no message)
 import sha256 from 'js-sha256';
 import Axios from 'axios'
 //includes
@@ -10,7 +15,10 @@ import Layout from '../layout';
 import ActivateBackup from '../contract/ActivateBackup.json'
 //components
 import getWeb3 from '../getWeb3';
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 4a7be88 (no message)
 //run activatebackup
 /* 取回合約錢的畫面，還會顯示使用者錢包、合約地址(檢查用) */
 class ActivateBackupPage extends Component {
@@ -112,7 +120,26 @@ class ActivateBackupPage extends Component {
     }
     render() {
         return (
+<<<<<<< HEAD
             <Layout>
+=======
+            <div id="navbar">
+                <Navbar bg="secondary" variant="light">
+                <Container>
+                <Nav className="mr-auto">
+                <Nav.Link href="/">Main</Nav.Link>
+                <Nav.Link href="/Backup">Create</Nav.Link>
+                <Nav.Link href="/ActivateBackup">Activate</Nav.Link>
+                </Nav>
+                <Navbar.Toggle />
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text>
+                    Signed in as: <a href="https://beautygang.fr/">Beauty</a>
+                    </Navbar.Text>
+                </Navbar.Collapse>
+                </Container>
+            </Navbar>
+>>>>>>> parent of 4a7be88 (no message)
             <div className="App">
                 <br></br>
                 <h3><b>Activate Back-up Mechanism</b></h3>
@@ -178,8 +205,13 @@ class ActivateBackupPage extends Component {
                     <p>{this.state.message}</p>
                     <p>{this.state.message2}</p>
                 </div>
+<<<<<<< HEAD
             </div>
             </Layout> 
+=======
+            </div> 
+            </div> 
+>>>>>>> parent of 4a7be88 (no message)
         ) 
     }
 }
