@@ -1,12 +1,12 @@
 //dependencies
 import React, { Component } from 'react'
 import { Button, Form, Col, Row } from 'react-bootstrap'
-import Axios from 'axios';
+
 import sha256 from 'js-sha256';
 //includes
 import '../App.css';
 //contract
-import Setpassword from '../contract/setpassword.json'
+import { setpassword_ABI, setpassword_ADDRESS } from '../config_setpassword.js'
 
 //components
 import getWeb3 from '../getWeb3';
@@ -22,42 +22,30 @@ class ConductTestaPage extends Component {
     async loadBlockchainData() {
         //web3
         const web3 = await getWeb3();
-        this.setState({  web3: web3 })
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
+        //backup contract
+        const spContract = new web3.eth.Contract(setpassword_ABI, setpassword_ADDRESS)
+        this.setState({ spContract })
+        const contract_address = setpassword_ADDRESS;
+        this.setState({ contract_address })
     }
-
     constructor(props) {
         super(props)
         this.state = {
         }
-        this.activate = this.activate.bind(this);
-        this.checkset = this.checkset.bind(this);
-        this.refreshPage = this.refreshPage.bind(this);
-    }
+        this.execute = this.execute.bind(this);
 
-    async checkset(setpassaddr, checkpassword) {
-        const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
-        .then(() => {
-            Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
-            .then((con) => {
-                this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
-            }).catch((err) => {
-                console.log(setpassaddr)
-            });
-        }).catch((err) => {
-            this.refreshPage();
-        });
     }
-
-    async activate(address,checkpassword) {
-        const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
-        this.setState({ activatesetcontract });
-        //console.log(address);
-        this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
-    }
+    async execute(checkpassword) {
+        // checkpassword 真的有 check
+        this.state.spContract.methods.execute(checkpassword).send({ from: this.state.account })
+        .once('receipt', (receipt) => {
+            this.refreshPage()
+        }).once('error', (error) => {
+            // alert('請輸入正確地址');
+    })}
 
     async refreshPage() { 
         window.location.reload()
@@ -70,28 +58,30 @@ class ConductTestaPage extends Component {
                 <h3><b>Activate Testamentary Mechanism</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
+                <p><b>*Contract address:</b> {this.state.contract_address}</p>
                 <br></br>
                 <div id="activateTest">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        this.checkset(this.contractadd.value, this.checkpassword.value)
+                        //this.CheckContract(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                        this.execute(this.checkpassword.value)
                     }}>
-                        <Form.Group id="formCheckAddress">
+                        {/* <Form.Group id="formCheckAddress">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Settestament contract address</b></Form.Label>
+                                    <Form.Label><b>Testamentary contract address</b></Form.Label>
                                     <Form.Control
                                         type="text" 
                                         ref={(input) => { 
                                             this.contractadd = input
                                         }}
-                                        placeholder="Enter Settestament Contract Address"
+                                        placeholder="Enter Testamentary Contract Address"
                                         required />
                                 </Col>
                             </Row>
                         </Form.Group>
                         <br></br>
-                        {/* <Form.Group id="formCheckEmail">
+                        <Form.Group id="formCheckEmail">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
                                     <Form.Label><b>Email address</b></Form.Label>
@@ -104,8 +94,8 @@ class ConductTestaPage extends Component {
                                         required />
                                 </Col>
                             </Row>
-                        </Form.Group>
-                        <br></br> */}
+                        </Form.Group> */}
+                        <br></br>
                         <Form.Group id="formCheckPassword" >
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
