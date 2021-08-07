@@ -14,9 +14,6 @@ import SetTestamentPage from './pages/settestapage';
 import ActivateTestamentPage from './pages/activatetestapage';
 =======
 import Mail from './sendmail';
-<<<<<<< HEAD
->>>>>>> parent of 4a7be88 (no message)
-=======
 >>>>>>> parent of 4a7be88 (no message)
 
 //Run

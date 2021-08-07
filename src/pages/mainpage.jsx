@@ -1,7 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
 <<<<<<< HEAD
-<<<<<<< HEAD
 import { Button,  Form, Col, Row } from 'react-bootstrap'
 import Axios from 'axios'
 //includes
@@ -14,8 +13,6 @@ import getWeb3 from '../getWeb3'
 
 
 =======
-=======
->>>>>>> parent of 4a7be88 (no message)
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import ReactBootstrap, { Navbar, Container, Nav, Button,  Form, Col, Row} from 'react-bootstrap'
 //includes
@@ -24,9 +21,6 @@ import '../App.css';
 import { MainContract_ABI, MainContract_ADDRESS } from '../config_maincontract.js'
 //components
 import getWeb3 from '../getWeb3'
-<<<<<<< HEAD
->>>>>>> parent of 4a7be88 (no message)
-=======
 >>>>>>> parent of 4a7be88 (no message)
 
 //Run maincontract
@@ -128,7 +122,6 @@ class MainPage extends Component {
         window.location.reload()
     }
 <<<<<<< HEAD
-<<<<<<< HEAD
     // async FetchContract() {
     //     const acc = this.state.account
     //     Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
@@ -172,10 +165,6 @@ class MainPage extends Component {
 =======
     render() {
         return (
-=======
-    render() {
-        return (
->>>>>>> parent of 4a7be88 (no message)
         <div id="navbar">
             <Navbar bg="light" variant="light">
                 <Container>
@@ -192,9 +181,6 @@ class MainPage extends Component {
                 </Navbar.Collapse>
                 </Container>
             </Navbar>
-<<<<<<< HEAD
->>>>>>> parent of 4a7be88 (no message)
-=======
 >>>>>>> parent of 4a7be88 (no message)
         <div className="App">
             <br></br>
@@ -212,13 +198,10 @@ class MainPage extends Component {
                     <Form.Group id="ether">
                         <Row>
 <<<<<<< HEAD
-<<<<<<< HEAD
                         <Col md={{ span: 4, offset: 4 }}>
                         <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label></Col>
                         <Col md={{ span: 2, offset: 5 }}>
 =======
-=======
->>>>>>> parent of 4a7be88 (no message)
                             <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label>
                             <Col md={{ span: 2, offset: 5 }}>
 >>>>>>> parent of 4a7be88 (no message)
@@ -267,11 +250,7 @@ class MainPage extends Component {
              
         </div>
 <<<<<<< HEAD
-<<<<<<< HEAD
         </Layout>
-=======
-        </div>
->>>>>>> parent of 4a7be88 (no message)
 =======
         </div>
 >>>>>>> parent of 4a7be88 (no message)
