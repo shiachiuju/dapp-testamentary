@@ -67,12 +67,13 @@ class TestaManagePage extends Component{
         }
         this.addHa = this.addHa.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
+        this.modify = this.modify.bind(this);
         this.checkEmail = this.checkEmail.bind(this);
     }
 
     async addHa(mail,rate) {
-        // this.sendEmailtoB(mail)
-        // this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
+        this.sendEmailtoB(mail)
+        this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             submitBeneInfo(mail,rate)
@@ -101,12 +102,42 @@ class TestaManagePage extends Component{
     async refreshPage() { 
         window.location.reload()
     }
+    async modify(id,mail,newrate) {
+        this.state.mainContract.methods.modifybene(id,mail,newrate).send({ from: this.state.account })
+        .once('receipt', (receipt) => {
+            // alert('receipt')
+        })
+        .once('error', (error) => {
+        })
 
+    }
     addBene=(e)=>{
         this.setState((prevState)=>({
            beneficiary:[...prevState.beneficiary,{mail:"",rate:0}] 
         }))
     }
+    // newportion = (e) => {
+    //     this.state.benes.map((val, key) => {
+    //         <input
+    //         type="number"
+    //         placeholder={val.rate}
+    //         onChange={(e) => {
+    //             this.setState({
+    //                 benes: this.state.benes.map((item, j) => {
+    //                     if (j === key) {
+    //                         return {
+    //                             ...item,
+    //                             newrate: e.target.value
+    //                         }
+    //                     }
+            
+    //                     return item
+    //                 })
+    //             })
+    //         }}
+    //         className="rate"/>
+    //     })
+    // }
     handleSubmit = (e) => { e.preventDefalut() }
 
     sendEmailtoB(e) {
@@ -174,7 +205,27 @@ class TestaManagePage extends Component{
                 return (
                     <div className="emailandrate">
                     <div>
-                        <li>Email: {val.mail} Rate: {val.rate}</li>
+                        <li>
+                        Email: {val.mail} Rate: {val.rate} Modity: {" "}
+                        <input
+                        type="number"
+                        placeholder={val.rate}
+                        onChange={(e) => {
+                            this.setState({
+                                benes: this.state.benes.map((item, j) => {
+                                    if (j === key) {
+                                        return {
+                                            ...item,
+                                            newrate: e.target.value
+                                        }
+                                    }
+                        
+                                    return item
+                                })
+                            })
+                        }}
+                        className="rate"/>
+                        </li>
                     </div>
                     </div>
                 )}
@@ -268,23 +319,69 @@ class TestaManagePage extends Component{
             <br></br>
             <Button variant="outline-warning" onClick={(event) => {
                 event.preventDefault()
+                var count = 100
                 for(let i = 0;i<=this.state.beneficiary.length;i++){
-                    const a = this.state.benes
+                    // const a = this.state.benes
                     beneficiary.map((data, j) => {
                         if (j === i) {
                             const mail = data.mail
                             const rate = data.rate
                             if (this.checkEmail(mail) == true) {
-                                //this.sendEmailtoB(this.mail.value)
-                                this.addHa(mail, rate)
-                            } else if (this.checkEmail(mail) != true) {
+                                count-=rate
+                            }
+                            else{
                                 alert('Please enter correct email!')
                             }
-                            // this.addHa(id, rate)
                         }
                         
                     })
-                    
+                }
+                for(let i = 0;i<this.state.len;i++){
+                    this.state.benes.map((val, key) => {
+                        if (key === i) {
+                            const newrate = val.newrate
+                            const rate = val.rate
+                            if (newrate != ""){
+                                count-=newrate
+                            }else if(newrate == ""){
+                                count-=rate
+                            }
+                        }
+                    }        
+                )}
+                if (count === 0){
+                    for(let i = 0;i<=this.state.beneficiary.length;i++){
+                        const a = this.state.benes
+                        beneficiary.map((data, j) => {
+                            if (j === i) {
+                                const mail = data.mail
+                                const rate = data.rate
+                                if (this.checkEmail(mail) == true) {
+                                    //this.sendEmailtoB(this.mail.value)
+                                    this.addHa(mail, rate)
+                                } else if (this.checkEmail(mail) != true) {
+                                    alert('Please enter correct email!')
+                                }
+                                // this.addHa(id, rate)
+                            }
+                            
+                        })
+                        
+                    }
+                    for(let i = 0;i<this.state.len;i++){
+                        this.state.benes.map((val, key) => {
+                            if (key === i) {
+                                const mail = val.mail
+                                const newrate = val.newrate
+                                const rate = val.rate
+                                if (newrate != "" && rate != newrate){
+                                    this.modify(i+1,mail,newrate)
+                                }
+                            }
+                        }        
+                    )}
+                }else{
+                    alert('The distribution rate should be added to 100 %')
                 }
                 // if (this.checkEmail(this.mail.value) == true) {
                 //     //this.sendEmailtoB(this.mail.value)
