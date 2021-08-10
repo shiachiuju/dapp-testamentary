@@ -1,5 +1,5 @@
 //need to change deployed contract address
-export const Activatebackup_ADDRESS = '0x84E33670b28F42711c349a2Ff59db375aFB25659'
+export const Activatebackup_ADDRESS = '0x654f483C54C2D5289a72A3AB06F4CB93B7cA3d6f'
 export const Activatebackup_ABI = [
   {
     "inputs": [
@@ -14,28 +14,8 @@ export const Activatebackup_ABI = [
     "type": "constructor"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "getbackaddress",
-    "outputs": [
-      {
-        "internalType": "contract Backup",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "constant": false,
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "_contractaddress",
-        "type": "address"
-      },
       {
         "internalType": "string",
         "name": "_email",
@@ -47,11 +27,10 @@ export const Activatebackup_ABI = [
         "type": "string"
       }
     ],
-    "name": "checkContract",
+    "name": "activateBackup",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-  }
-        
+  }   
 ]

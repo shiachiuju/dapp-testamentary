@@ -18,11 +18,12 @@ app.use(express.json())
 app.post("/api/insert", (req,res)=>{
     const account_address = req.body.account_address;
     const maincontract_address = req.body.maincontract_address;
-    const sqlInsert = "INSERT INTO maincontract (account_address, maincontract_address) VALUES (?,?)"
-    db.query(sqlInsert, [account_address, maincontract_address],(err,result)=>{
+    const sqlInsert_1 = "INSERT INTO maincontract (account_address, maincontract_address) VALUES (?,?)"
+    db.query(sqlInsert_1, [account_address, maincontract_address],(err,result)=>{
         console.log(result)
     });   
 });
+
 app.post("/api/insertbackup", (req,res)=>{
     const account_address = req.body.account_address;
     const maincontract_address = req.body.maincontract_address;
@@ -32,6 +33,17 @@ app.post("/api/insertbackup", (req,res)=>{
         console.log(result)
     });   
 });
+
+app.post("/api/insertsettestament", (req,res)=>{
+    const account_address = req.body.account_address;
+    const maincontract_address = req.body.maincontract_address;
+    const settestamentcontract_address = req.body.settestamentcontract_address;
+    const sqlInsert = "INSERT INTO settestamentcontract (account_address, maincontract_address, settestamentcontract_address) VALUES (?,?,?)"
+    db.query(sqlInsert, [account_address, maincontract_address, settestamentcontract_address],(err,result)=>{
+        console.log(result)
+    });   
+});
+
 app.post("/api/insertactivatebackup", (req,res)=>{
     const account_address = req.body.account_address;
     const backupcontract_address = req.body.backupcontract_address;
@@ -41,6 +53,18 @@ app.post("/api/insertactivatebackup", (req,res)=>{
         console.log(result)
     });   
 });
+
+app.post("/api/add", (req,res)=>{
+    const account_address = req.body.account_address;
+    const bene_mail = req.body.bene_mail;
+    const bene_rate = req.body.bene_rate;
+    const sqlInsert_2 = "INSERT INTO testament_rate (account_address, bene_mail, bene_rate) VALUES (?,?,?)"
+    db.query(sqlInsert_2, [account_address, bene_mail, bene_rate],(err,result)=>{
+        console.log(result)
+    });
+})
+
+
 app.get("/api/getcontract/:add", (req,res)=>{
     const accaddress = req.params.add;
     db.query("SELECT maincontract_address FROM maincontract WHERE account_address = ?", accaddress, (err,result)=>{
@@ -62,6 +86,7 @@ app.get("/api/getbackupcontract/:add", (req,res)=>{
     }
     );   
     });
+
 
 app.get("/api/getactivatebackupcontract/:acc/:back", (req,res)=>{
     const accaddress = req.params.acc;
@@ -97,6 +122,41 @@ app.get("/api/getmaincontract/:back", (req,res)=>{
     );   
     });
 
+app.get("/api/getsetcontract/:add", (req,res)=>{
+    const accaddress = req.params.acc;
+    const mainaddress = req.params.back;
+    db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? AND maincontract_address = ?", [accaddress,mainaddress], (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+);   
+});
+
+app.get("/api/getsetcontractt/:acc", (req,res)=>{
+    const accaddress = req.params.acc;
+    db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? ", [accaddress], (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+);   
+});
+
+app.get("/api/getcontractforset/:add", (req,res)=>{
+    const accaddress = req.params.add;
+    db.query("SELECT maincontract_address FROM settestamentcontract WHERE account_address = ?", [accaddress], (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+);   
+});
+
+// delete
 app.delete('/api/deletemain/:main',(req,res)=>{
     const maincontract_address = req.params.main;
     
@@ -107,6 +167,7 @@ app.delete('/api/deletemain/:main',(req,res)=>{
     })
 })
 
+   
 app.delete('/api/deleteback/:back',(req,res)=>{
     const backupcontract_address = req.params.back;
     

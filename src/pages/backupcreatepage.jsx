@@ -27,10 +27,28 @@ class BackupCreatePage extends Component {
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
+        .then((con) => {
+            const backupContract = new this.state.web3.eth.Contract(Backup.abi, con.data[0].backupcontract_address.toString())
+            this.setState({ backupContract });
+            getemail()
+        }).catch((err) => {
+            
+        });
+        const getemail = () => {
+            const email = this.state.backupContract.methods.getEmail().call()
+            this.setState({ email })
+            if (this.state.email != '' ){
+                this.setState({ set: 'Backup mechanism has been set' })
+            }
+        }
+
     }
     constructor(props) {
         super(props)
         this.state = {
+            set: '',
             message: ''
         }
         this.createBackup = this.createBackup.bind(this);
@@ -132,80 +150,80 @@ class BackupCreatePage extends Component {
     render() {
         return (
             <Layout>
-            <div className="App">
-                <br></br>
-                <h3><b>Create Back-up Mechanism</b></h3>
-                <br></br>
+                <div className="App">
+                    <br></br>
+                    <h3><b>Create Back-up Mechanism</b></h3>
+                    <br></br>
                     <p><b>Wallet account:</b> {this.state.account}</p>
-                <p></p>
-                <div id="setback">
-                    <Form onSubmit={(event) => {
-                        event.preventDefault()
-                        if (this.password.value == this.checkpassword.value && this.checkEmail(this.email.value) == true){
-                            this.createBackup(this.email.value,this.password.value)
-                        }else if (this.checkEmail(this.email.value) != true){
-                            alert('Please enter correct email!')
-                        }else{
-                            alert('Please check the password again. The password is not confirmed.')
-                        }
-                    }}>
-                        <Form.Group id="formBasicEmail">
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Email address</b></Form.Label>
-                                    <Form.Control
-                                        type="email" 
-                                        ref={(input) => { 
-                                            this.email = input
-                                        }}
-                                        placeholder="example@email.com"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <p></p>
-                        <Form.Group id="formBasicPassword" >
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Password</b></Form.Label>
-                                    <Form.Control 
-                                        type="password"
-                                        ref={(input) => { 
-                                            this.password = input
-                                        }}  
-                                        placeholder="must have at least 6 characters"
-                                        minlength="6"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <p></p>
-                        <Form.Group id="formBasicPassword" >
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Confirm Password</b></Form.Label>
-                                    <Form.Control 
-                                        type="password"
-                                        ref={(input) => { 
-                                            this.checkpassword = input
-                                        }}  
-                                        placeholder="confirm password again"
-                                        minlength="6"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <br></br>
-                        <Button type="submit" variant="outline-warning">Create</Button>
-                    </Form>
-                    
+                    <p><b>{this.state.set}</b></p>
+                    <div id="setback">
+                        <Form onSubmit={(event) => {
+                            event.preventDefault()
+                            if (this.password.value == this.checkpassword.value && this.checkEmail(this.email.value) == true) {
+                                this.createBackup(this.email.value, this.password.value)
+                            } else if (this.checkEmail(this.email.value) != true) {
+                                alert('Please enter correct email!')
+                            } else {
+                                alert('Please check the password again. The password is not confirmed.')
+                            }
+                        }}>
+                            <Form.Group id="formBasicEmail">
+                                <Row>
+                                    <Col md={{ span: 4, offset: 4 }}>
+                                        <Form.Label><b>Email address</b></Form.Label>
+                                        <Form.Control
+                                            type="email"
+                                            ref={(input) => {
+                                                this.email = input
+                                            }}
+                                            placeholder="example@email.com"
+                                            required />
+                                    </Col>
+                                </Row>
+                            </Form.Group>
+                            <p></p>
+                            <Form.Group id="formBasicPassword" >
+                                <Row>
+                                    <Col md={{ span: 4, offset: 4 }}>
+                                        <Form.Label><b>Password</b></Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            ref={(input) => {
+                                                this.password = input
+                                            }}
+                                            placeholder="must have at least 6 characters"
+                                            minlength="6"
+                                            required />
+                                    </Col>
+                                </Row>
+                            </Form.Group>
+                            <p></p>
+                            <Form.Group id="formBasicPassword" >
+                                <Row>
+                                    <Col md={{ span: 4, offset: 4 }}>
+                                        <Form.Label><b>Confirm Password</b></Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            ref={(input) => {
+                                                this.checkpassword = input
+                                            }}
+                                            placeholder="confirm password again"
+                                            minlength="6"
+                                            required />
+                                    </Col>
+                                </Row>
+                            </Form.Group>
+                            <br></br>
+                            <Button type="submit" variant="outline-warning">Create</Button>
+                        </Form>
+
+                    </div>
+                    <p></p>
+                    {/* <p><b>Contract address:</b> {this.state.contract_address}</p> */}
+                    <p>{this.state.message}</p>
                 </div>
-                <p></p>
-                {/* <p><b>Contract address:</b> {this.state.contract_address}</p> */}
-                <p>{this.state.message}</p>
-            </div>
             </Layout>
-        ) 
+        )
     }
 }
 export default BackupCreatePage;
