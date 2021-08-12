@@ -1,36 +1,29 @@
 //dependencies
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ReactBootstrap, { NavbPar, Container, Nav, Button, Form, Col, Row,DropdownButton} from 'react-bootstrap'
-import sha256 from 'js-sha256';
+import { Button, Col} from 'react-bootstrap'
+import $ from 'jquery';
+import Swal from 'sweetalert2'
 //includes
 import '../App.css';
 import Layout from '../layout';
-//contract
-import MainContract from '../contract/MainContract.json'
-//components
-import Web3 from 'web3';
-import getWeb3 from '../getWeb3';
-import { Dropdown } from 'bootstrap';
-import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 
 class JoinPage extends Component {
     componentDidMount() {
         this.loadBlockchainData()
+        
     }
 
     async loadBlockchainData() {
         //web3
-        const web3 = await getWeb3();
-        this.setState({ web3: web3 })
-        //netid
-        const netId = await web3.eth.net.getId();
-        this.setState({ netid: netId })
-        //wallet accounts
-        const accounts = await web3.eth.getAccounts()
-        this.setState({ account: accounts[0] })
+        // const web3 = await getWeb3();
+        // this.setState({ web3: web3 })
+        // //netid
+        // const netId = await web3.eth.net.getId();
+        // this.setState({ netid: netId })
+        // //wallet accounts
+        // const accounts = await web3.eth.getAccounts()
+        // this.setState({ account: accounts[0] })
 
         // const Contract = require('web3-eth-contract');
         // const contract = new web3.eth.Contract(MainContract.abi);
@@ -100,6 +93,7 @@ class JoinPage extends Component {
     //         console.log(err);
     //     });
     // }
+    
     render() {
         return (
             <Layout>
@@ -117,10 +111,6 @@ class JoinPage extends Component {
                 <p><b>Press join to start your own testamentary trust mechanism.</b></p>
                 <br></br>
                 <Button size="lg" href="/Main" variant="outline-warning">Join !</Button>
-                {/* <Button size="lg" variant="outline-warning" onClick={(event) => {
-                        event.preventDefault()
-                        this.Deploy()
-                }}>Join !</Button> */}
                 {/* <p>{this.state.contractAddress}</p> */}
             </div>
             </Layout> 

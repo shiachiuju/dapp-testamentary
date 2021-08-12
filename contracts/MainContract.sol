@@ -44,8 +44,8 @@ contract MainContract {
     
     //withdraw
     function withdraw(uint _amount) public payable checkSameOwner(msg.sender){
-        require((_amount*1000000000000000000) <= address(this).balance, "not enough funds");
-        (bool sent, ) = msg.sender.call.value(_amount*1000000000000000000)("");
+        require((_amount) <= address(this).balance, "not enough funds");
+        (bool sent, ) = msg.sender.call.value(_amount)("");
         require(sent, "Failed to send Ether");
         emit Withdraw(msg.sender,_amount*10**18);
     }

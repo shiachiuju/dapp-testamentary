@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import sha256 from 'js-sha256';
 import Axios from 'axios'
+import Swal from 'sweetalert2'
 //includes
 import '../App.css';
 import Layout from '../layout';
@@ -96,15 +97,31 @@ class ActivateBackupPage extends Component {
         this.checkhash = sha256(checkpassword.toString())
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getbackupcontract/${contractadd}`)
-        .then(() => {
-            Axios.get(`http://localhost:3002/api/getactivatebackupcontract/${acc}/${contractadd}`)
-            .then((con) => {
-                this.BackEth(contractadd,con.data[0].activatebackup_address.toString(),checkemail,this.checkhash)
-            }).catch((err) => {
-                this.Deploy(contractadd,checkemail,this.checkhash)
-            });
+        .then((con) => {
+            if(con.data.length == 0){
+                new Swal({
+                    title: 'Please enter the right address.',
+                    width: 600,
+                    padding: '3em',
+                    background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                    backdrop: `
+                        rgba(0,0,123,0.4)
+                        url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                        left top
+                        no-repeat
+                    `
+                }).then(function() {
+                });
+            }else{
+                Axios.get(`http://localhost:3002/api/getactivatebackupcontract/${acc}/${contractadd}`)
+                .then((con) => {
+                    this.BackEth(contractadd,con.data[0].activatebackup_address.toString(),checkemail,this.checkhash)
+                }).catch((err) => {
+                    this.Deploy(contractadd,checkemail,this.checkhash)
+                });
+                }
         }).catch((err) => {
-            alert('this address not create!')
+            
         });
     }
 

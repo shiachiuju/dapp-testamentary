@@ -5,6 +5,8 @@ import Axios from 'axios'
 //includes
 import '../App.css';
 import Layout from '../layout';
+import $ from 'jquery';
+import Swal from 'sweetalert2'
 //contractabi
 import MainContract from '../contract/MainContract.json'
 //components
@@ -17,6 +19,7 @@ import getWeb3 from '../getWeb3'
 class MainPage extends Component {
     componentDidMount() {
         this.loadBlockchainData()
+
     }
     
     async loadBlockchainData() {
@@ -26,6 +29,9 @@ class MainPage extends Component {
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
+        const walletb = await web3.eth.getBalance(this.state.account)
+        const maximum = (walletb/10**18)*0.99
+        this.setState({ maximum: maximum })
         //contract address
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
@@ -49,12 +55,12 @@ class MainPage extends Component {
         this.setState({ password })
         const beneficiarymail = await this.state.mainContract.methods.returnlen().call()
         this.setState({ beneficiarymail })
-        if (this.state.email != '' ){
-            this.setState({ backup : 'The backup mechanism has been set.'})
-        }
-        if (this.state.beneficiarymail != 0 ){
-            this.setState({ beneficiary : 'The testament mechanism has been set.'})
-        }
+        // if (this.state.email != '' ){
+        //     this.setState({ backup : 'The backup mechanism has been set.'})
+        // }
+        // if (this.state.beneficiarymail != 0 ){
+        //     this.setState({ beneficiary : 'The testament mechanism has been set.'})
+        // }
 
     }
     constructor(props) {
@@ -75,7 +81,7 @@ class MainPage extends Component {
         
     }
     async Deposit(Amount) {
-        this.state.mainContract.methods.deposit().send({ value: Amount.toString(), from: this.state.account })
+        this.state.mainContract.methods.deposit().send({ value: Amount, from: this.state.account })
         .once('receipt', (receipt) => {
             this.refreshPage()
     })}
@@ -152,10 +158,12 @@ class MainPage extends Component {
                         <Col md={{ span: 2, offset: 5 }}>
                                 <Form.Control
                                     id="Amount"
+                                    type="number"
+                                    min="0"
                                     ref={(input) => { 
                                         this.amount = input
                                     }} 
-                                    type="number"  
+                                    // type="number"  
                                     placeholder="ETH" 
                                     required/>
                             </Col>
@@ -164,11 +172,106 @@ class MainPage extends Component {
                     <p></p>
                     <Button variant="warning" onClick={(event) => {
                         event.preventDefault()
-                        this.Deposit(this.amount.value * 10**18)
+                        if (this.amount.value > this.state.maximum){
+                            // alert('not enough')
+                            new Swal({
+                                title: 'Not enough ether',
+                                text: `The maximum amount is ${this.state.maximum} ether`,
+                                confirmButtonColor: '#eea13c',
+                                confirmButtonText: 'OK!',
+                                width: 600,
+                                padding: '3em',
+                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                backdrop: `
+                                    rgba(0,0,123,0.4)
+                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    left top
+                                    no-repeat
+                                `
+                            }).then(function() {
+                                // window.location.reload()
+                            });
+                        }else if(this.amount.value <= 0){
+                            new Swal({
+                                title: 'Please enter the amount',
+                                text: `The minimum amount should more than 0 ether`,
+                                confirmButtonColor: '#eea13c',
+                                confirmButtonText: 'OK!',
+                                width: 600,
+                                padding: '3em',
+                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                backdrop: `
+                                    rgba(0,0,123,0.4)
+                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    left top
+                                    no-repeat
+                                `
+                            }).then(function() {
+                                // window.location.reload()
+                            });
+                        }else if(this.amount.value === ""){
+                            new Swal({
+                                title: 'Please enter the amount',
+
+                                confirmButtonColor: '#eea13c',
+                                confirmButtonText: 'OK!',
+                                width: 600,
+                                padding: '3em',
+                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                backdrop: `
+                                    rgba(0,0,123,0.4)
+                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    left top
+                                    no-repeat
+                                `
+                            }).then(function() {
+                                // window.location.reload()
+                            });
+                        }else{
+                            this.Deposit((this.amount.value * (10**18)).toString()) 
+                        }
                     }}>Deposit</Button>{' '}
                     <Button  variant="secondary" onClick={(event) => {
                         event.preventDefault()
-                        this.Withdraw(this.amount.value)
+                        if (this.amount.value > this.state.balance){
+                            new Swal({
+                                title: 'Not enough ether',
+                                text: `The balance is ${this.state.balance} ether`,
+                                confirmButtonColor: '#eea13c',
+                                confirmButtonText: 'OK!',
+                                width: 600,
+                                padding: '3em',
+                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                backdrop: `
+                                    rgba(0,0,123,0.4)
+                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    left top
+                                    no-repeat
+                                `
+                            }).then(function() {
+                                // window.location.reload()
+                            });
+                        }else if(this.amount.value <= 0){
+                            new Swal({
+                                title: 'Please enter the amount',
+                                text: `The minimum amount should more than 0 ether`,
+                                confirmButtonColor: '#eea13c',
+                                confirmButtonText: 'OK!',
+                                width: 600,
+                                padding: '3em',
+                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                backdrop: `
+                                    rgba(0,0,123,0.4)
+                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    left top
+                                    no-repeat
+                                `
+                            }).then(function() {
+                                // window.location.reload()
+                            });
+                        }else{
+                            this.Withdraw((this.amount.value* (10**18)).toString())
+                        }
                     }}>Withdraw</Button>
                 </Form>
                 </div>

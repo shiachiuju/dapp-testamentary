@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import Axios from 'axios'
 import sha256 from 'js-sha256';
+import $ from 'jquery';
+import Swal from 'sweetalert2'
 //includes
 import '../App.css';
 import Layout from '../layout';
@@ -30,9 +32,14 @@ class BackupCreatePage extends Component {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
         .then((con) => {
-            const backupContract = new this.state.web3.eth.Contract(Backup.abi, con.data[0].backupcontract_address.toString())
-            this.setState({ backupContract });
-            getemail()
+            console.log(con.data)
+            if(con.data.length == 0){
+                this.setState({ set: 'Backup mechanism has not been set' });
+            }else{
+                const backupContract = new this.state.web3.eth.Contract(Backup.abi, con.data[0].backupcontract_address.toString())
+                this.setState({ backupContract });
+                getemail()
+            }
         }).catch((err) => {
             
         });
@@ -48,6 +55,7 @@ class BackupCreatePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            account:'',
             set: '',
             message: ''
         }
@@ -55,7 +63,6 @@ class BackupCreatePage extends Component {
         this.refreshPage = this.refreshPage.bind(this);
         this.Deploy = this.Deploy.bind(this);
         this.Enterinfo = this.Enterinfo.bind(this);
-        this.checkEmail = this.checkEmail.bind(this);
     }
     async createBackup(email,password) {
         this.hash = sha256(password.toString())
@@ -76,16 +83,35 @@ class BackupCreatePage extends Component {
         this.setState({ backupContract });
         const getemail = await this.state.backupContract.methods.getEmail().call()
         this.setState({ getemail })
+        const setBack = () =>{
+            this.state.backupContract.methods.setBackup(email,password).send({ from: this.state.account })
+            .once('receipt', (receipt) => {
+                // this.sendEmail(email)
+                // this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
+                // this.refreshPage()
+            })
+        }
         if (this.state.getemail != '' ){
-            alert('Your backup mechanism has been set. \nClick confirm to change a new one!')
+            new Swal({
+                title: 'Are you sure to change the email and password?',
+                confirmButtonColor: '#eea13c',
+                confirmButtonText: 'OK!',
+                width: 600,
+                padding: '3em',
+                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                    left top
+                    no-repeat
+                `
+            }).then(function() {
+                setBack()
+            });
+            // alert('Your backup mechanism has been set. \nClick confirm to change a new one!')
             // this.setState({ backup : 'The backup mechanism has been set.'})
         }
-        this.state.backupContract.methods.setBackup(email,password).send({ from: this.state.account })
-        .once('receipt', (receipt) => {
-            this.sendEmail(email)
-            // this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
-            // this.refreshPage()
-      })}
+        }
     async refreshPage() { 
         window.location.reload()
     }
@@ -126,42 +152,123 @@ class BackupCreatePage extends Component {
         });
         this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})     
     }
-    checkEmail = ( email ) => {
 
-        // checkemail
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    
-        if ( re.test(email) ) {
-            // this is a valid email address
-            return true
-        }
-        else {
-            // invalid email, show an error to the user.
-            return false
-        }
-    
-    }
     render() {
         return (
             <Layout>
             <div className="App">
+
                 <br></br>
                 <h3><b>Create Back-up Mechanism</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
                 <p><b>{this.state.set}</b></p>
+                <p>Click the button to create your back-up mechanism!</p>
+                {/* <button onClick={ async (event) => {
+                    event.preventDefault()
+                    
+                }}>cc</button> */}
                 <div id="setback">
-                    <Form onSubmit={(event) => {
+                    <Form onSubmit={ async (event) => {
                         event.preventDefault()
-                        if (this.password.value == this.checkpassword.value && this.checkEmail(this.email.value) == true){
-                            this.createBackup(this.email.value,this.password.value)
-                        }else if (this.checkEmail(this.email.value) != true){
-                            alert('Please enter correct email!')
-                        }else{
-                            alert('Please check the password again. The password is not confirmed.')
+                        if ( this.state.account == "" ){
+                            this.refreshPage()
+                        }
+                        // if (this.password.value == this.checkpassword.value && this.checkEmail(this.email.value) == true){
+                        //     this.createBackup(this.email.value,this.password.value)
+                        // }else if (this.checkEmail(this.email.value) != true){
+                        //     alert('Please enter correct email!')
+                        // }else{
+                        //     alert('Please check the password again. The password is not confirmed.')
+                        // }
+                        const checkEmail = ( email ) => {
+
+                            // checkemail
+                            let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        
+                            if ( re.test(email) ) {
+                                // this is a valid email address
+                                return true
+                            }
+                            else {
+                                // invalid email, show an error to the user.
+                                return false
+                            }
+                        
+                        }
+                        const { value: formValues } = await Swal.fire({
+                            title: 'Enter the email and password',
+                            width: 600,
+                            confirmButtonColor: '#eea13c',
+                            confirmButtonText: 'OK!',
+                            html:
+                                '<form role="form">'+
+                                    '<div class="form-group row">'+
+                                        '<label for="email" class="col-sm-4" style="margin-top:.5em;text-align:left;">Email :</label>'+
+                                        '<div class="col-sm-8">'+
+                                            '<input id="email" type="email" class="form-control" placeholder="example@email.com" required/>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group row">'+
+                                        '<label for="password" class="col-sm-4" style="margin-top:.5em;text-align:left;">Password :</label>'+
+                                        '<div class="col-sm-8">'+
+                                            '<input id="password" type="password" class="form-control" placeholder="must have at least 6 characters" required/>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group row">'+
+                                        '<label for="cpassword" class="col-sm-4" style="margin-top:.5em;text-align:left;">Confirm Password :</label>'+
+                                        '<div class="col-sm-8 ">'+
+                                            '<input id="cpassword" type="password" class="form-control" placeholder="confirm password again" required/>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</form>',
+                            focusConfirm: false,
+                            didOpen : ()=> {
+                                // document.getElementById('email').focus()
+                                $('#email').blur(function(){
+                                    if(checkEmail($('#email').val()) != true) {
+                                        Swal.showValidationMessage('Please enter correct email!')
+                                    } else {
+                                        Swal.resetValidationMessage()
+                                    }
+                                })
+                                $('#password').blur(function(){
+                                    if ($('#password').val().length<6) {
+                                        Swal.showValidationMessage('The password should at least 6 characters!')
+                                    } else {
+                                        Swal.resetValidationMessage()
+                                    }
+                                })
+                                $('#cpassword').blur(function(){
+                                    if ($('#cpassword').val().length<6) {
+                                        Swal.showValidationMessage('The confirm password should at least 6 characters!')
+                                    } else {
+                                        Swal.resetValidationMessage()
+                                    }
+                                })
+                            },
+                            preConfirm: ()=> {
+                                if(checkEmail($('#email').val()) != true) {
+                                    Swal.showValidationMessage('Please enter correct email!')
+                                }
+                                if ($('#password').val().length<6) {
+                                    Swal.showValidationMessage('Please check the password again!')
+                                }
+                                if ($('#password').val() != $('#cpassword').val()) {
+                                    Swal.showValidationMessage('Please check the password again!\nThe confirm password should be the same with password!')
+                                }
+                                return [
+                                    document.getElementById('email').value,
+                                    document.getElementById('password').value,
+                                    document.getElementById('cpassword').value
+                                ]
+                            }
+                        })
+                        if (formValues) {
+                            this.createBackup($('#email').val(),$('#password').val())
                         }
                     }}>
-                        <Form.Group id="formBasicEmail">
+                        {/* <Form.Group id="formBasicEmail">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
                                     <Form.Label><b>Email address</b></Form.Label>
@@ -207,7 +314,7 @@ class BackupCreatePage extends Component {
                                 </Col>
                             </Row>
                         </Form.Group>
-                        <br></br>
+                        <br></br> */}
                         <Button type="submit" variant="outline-warning">Create</Button>
                     </Form>
                     

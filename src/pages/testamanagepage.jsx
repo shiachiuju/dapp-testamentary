@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom';
 import ReactBootstrap, { Button, Form, Col, Row } from 'react-bootstrap'
 import sha256 from 'js-sha256';
 import getWeb3 from '../getWeb3'
+import $ from 'jquery';
+import Swal from 'sweetalert2'
 import '../App.css';
 import Layout from '../layout';
 import Axios from 'axios'
@@ -13,6 +16,7 @@ class TestaManagePage extends Component{
     
     componentDidMount() {
         this.loadBlockchainData()
+        
     }
 
     async loadBlockchainData() {
@@ -64,6 +68,7 @@ class TestaManagePage extends Component{
             beneficiary:[{mail:"",rate:0}],
             benes:[],
             message: '',
+            value:[],
         }
         this.addHa = this.addHa.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
@@ -186,6 +191,8 @@ class TestaManagePage extends Component{
         }
 
     }
+    
+
 
     render() {
         let {beneficiary} = this.state
@@ -201,35 +208,98 @@ class TestaManagePage extends Component{
             {/* <p>{this.state.len}</p> */}
             <Form>
             <p></p>
-            {this.state.benes.map((val, key) => {
-                return (
-                    <div className="emailandrate">
-                    <div>
-                        <li>
-                        Email: {val.mail} Rate: {val.rate} Modity: {" "}
-                        <input
-                        type="number"
-                        placeholder={val.rate}
-                        onChange={(e) => {
-                            this.setState({
-                                benes: this.state.benes.map((item, j) => {
-                                    if (j === key) {
-                                        return {
-                                            ...item,
-                                            newrate: e.target.value
+            <div align="center">
+            {this.state.benes.map((val, key) =>{
+                if (this.state.value.length == 0) {
+                    var beneId=`bene-${key}`
+                    return(
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Email: {val.mail}</td>
+                                    <td>Rate: {val.rate}</td>
+                                    <td><button type="button" class={beneId}
+                                    onClick={
+                                        ()=>{
+                                            const a = this.state.value
+                                            a.push(key)
+                                            this.setState({ value: a })
+                                            // console.log(key)
+                                            // console.log(this.state.value.toString())
                                         }
                                     }
-                        
-                                    return item
-                                })
-                            })
-                        }}
-                        className="rate"/>
-                        </li>
-                    </div>
-                    </div>
-                )}
-            )}
+                                    >modify</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    )
+                }
+            })
+            }
+            
+            {this.state.benes.map((val, key) =>{
+                if(this.state.value.length != 0){
+                    var beneId=`bene-${key}`
+                    var a = <td><button type="button" class={beneId}
+                            onClick={
+                                ()=>{
+                                    const a = this.state.value
+                                    a.push(key)
+                                    this.setState({ value: a })
+                                    // console.log(key)
+                                    // console.log(this.state.value.toString())
+                                }
+                            }
+                            >modify</button></td>;
+                    var b = null;
+                    for(var i=0;i<=this.state.value.length;i++){
+                        this.state.value.map((val2, key2) =>{
+                            if (val2.toString()==key.toString()) {
+                                a = <td>New Rate: <input 
+                                    type="number" 
+                                    onChange={(e) => {
+                                        this.setState(()=> ({
+                                            benes: this.state.benes.map((item, j) => {
+                                                if (j === key) {
+                                                    return {
+                                                        ...item,
+                                                        newrate: e.target.value
+                                                    }
+                                                }
+                                    
+                                                return item
+                                            })
+                                        }))
+                                    }}>
+                                    </input></td>;
+                                b = <td><button type="button" class={beneId}
+                                onClick={
+                                    ()=>{
+                                        var no = [...this.state.value]
+                                        no.splice(key2,1)
+                                        this.setState({ value: no })
+                                        // console.log(this.state.value.toString())
+                                    }
+                                }
+                                >unchange</button></td>;
+                            }
+                        })
+                    }
+                    return(
+                        <table>
+                        <tbody>
+                            <tr>
+                                <td>Email: {val.mail}</td>
+                                <td>Rate: {val.rate}</td>
+                                <td>{a}</td>
+                                <td>{b}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    )
+                }
+            })}
+            </div>
             {/* <Form.Group id="formBeneEmail">
                 <Row>
                     <Col md={{ span: 4, offset: 4 }}>
@@ -260,7 +330,7 @@ class TestaManagePage extends Component{
                 </Row> */}
             <Button variant="warning" onClick={this.addBene}>Add Beneficiary</Button>
             {   beneficiary.map((val,idx)=>{
-                    let beneficiaryId='beneficiary-${idx}',rateId='rate-${idx}'
+                    let beneficiaryId=`beneficiary-${idx}`,rateId='rate-${idx}'
                     return(
                         <div key={idx}>
                         <br></br>
@@ -321,7 +391,6 @@ class TestaManagePage extends Component{
                 event.preventDefault()
                 var count = 100
                 for(let i = 0;i<=this.state.beneficiary.length;i++){
-                    // const a = this.state.benes
                     beneficiary.map((data, j) => {
                         if (j === i) {
                             const mail = data.mail
@@ -341,10 +410,14 @@ class TestaManagePage extends Component{
                         if (key === i) {
                             const newrate = val.newrate
                             const rate = val.rate
-                            if (newrate != ""){
-                                count-=newrate
+                            // console.log(newrate,rate)
+                            // console.log(count)
+                            if (newrate == undefined){
+                                count-=parseInt(rate,10)
                             }else if(newrate == ""){
-                                count-=rate
+                                count-=parseInt(rate,10)
+                            }else{
+                                count-=newrate
                             }
                         }
                     }        
@@ -374,7 +447,7 @@ class TestaManagePage extends Component{
                                 const mail = val.mail
                                 const newrate = val.newrate
                                 const rate = val.rate
-                                if (newrate != "" && rate != newrate){
+                                if (newrate != "" && newrate != undefined && rate != newrate){
                                     this.modify(i+1,mail,newrate)
                                 }
                             }
