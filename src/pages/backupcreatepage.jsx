@@ -64,21 +64,21 @@ class BackupCreatePage extends Component {
         this.Deploy = this.Deploy.bind(this);
         this.Enterinfo = this.Enterinfo.bind(this);
     }
-    async createBackup(email,password) {
+    async createBackup(email, password) {
         this.hash = sha256(password.toString())
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
-        .then((con) => {
-            this.Enterinfo(con.data[0].backupcontract_address.toString(),email,this.hash);
-        }).catch((err) => {
-            Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
             .then((con) => {
-                this.Deploy(con.data[0].maincontract_address.toString(),email,this.hash)
+                this.Enterinfo(con.data[0].backupcontract_address.toString(), email, this.hash);
             }).catch((err) => {
+                Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
+                    .then((con) => {
+                        this.Deploy(con.data[0].maincontract_address.toString(), email, this.hash)
+                    }).catch((err) => {
+                    });
             });
-        });
     }
-    async Enterinfo(address,email,password) {
+    async Enterinfo(address, email, password) {
         const backupContract = new this.state.web3.eth.Contract(Backup.abi, address)
         this.setState({ backupContract });
         const getemail = await this.state.backupContract.methods.getEmail().call()
@@ -112,52 +112,55 @@ class BackupCreatePage extends Component {
             // this.setState({ backup : 'The backup mechanism has been set.'})
         }
         }
-    async refreshPage() { 
+
+    async refreshPage() {
         window.location.reload()
     }
-    async Deploy(mainaddr,email,password) {
+    async Deploy(mainaddr, email, password) {
         const contract = new this.state.web3.eth.Contract(Backup.abi);
         contract.deploy({
             data: Backup.bytecode,
             arguments: [mainaddr]
         })
-        .send({
-            from: this.state.account,
-            gas: 2100000,
-        })
-        .then((newContractInstance) => {
-            console.log('successfully deployed!');
-            submitNew(mainaddr,newContractInstance.options.address.toString())
-            this.Enterinfo(newContractInstance.options.address.toString(),email,password);
-        }).catch((err) => {
-            console.log(err);
-        });
-        const submitNew = (mainaddr,newcontract) => {
-            Axios.post('http://localhost:3002/api/insertbackup', {account_address: this.state.account, maincontract_address: mainaddr, backupcontract_address: newcontract})
-            .then(() => {
-                alert('success insert!')
+            .send({
+                from: this.state.account,
+                gas: 2100000,
             })
+            .then((newContractInstance) => {
+                console.log('successfully deployed!');
+                submitNew(mainaddr, newContractInstance.options.address.toString())
+                this.Enterinfo(newContractInstance.options.address.toString(), email, password);
+            }).catch((err) => {
+                console.log(err);
+            });
+        const submitNew = (mainaddr, newcontract) => {
+            Axios.post('http://localhost:3002/api/insertbackup', { account_address: this.state.account, maincontract_address: mainaddr, backupcontract_address: newcontract })
+                .then(() => {
+                    alert('success insert!')
+                })
         }
-        
+
     }
-    sendEmail(e) {
+
+
+    sendEmail(e,address) {
         
         let service_id = "beautygang";
         let template_id = "backup";
         let name = this.state.account;
-        //let userMail = e;
+        let backadd = address;
         emailjs.send(service_id,template_id,{
             to_name: name,
-            userMail:e,
+            userMail: e,
+            message: "We are here to notify that your back-up mechanism has been created.Your backup contract address is " + backadd + ". \n\r Don't forget your email and password so that you can activated it when needed.",
         });
-        this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})     
+        this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!'})     
     }
 
     render() {
         return (
             <Layout>
             <div className="App">
-
                 <br></br>
                 <h3><b>Create Back-up Mechanism</b></h3>
                 <br></br>
@@ -317,14 +320,14 @@ class BackupCreatePage extends Component {
                         <br></br> */}
                         <Button type="submit" variant="outline-warning">Create</Button>
                     </Form>
-                    
+
+                    </div>
+                    <p></p>
+                    {/* <p><b>Contract address:</b> {this.state.contract_address}</p> */}
+                    <p>{this.state.message}</p>
                 </div>
-                <p></p>
-                {/* <p><b>Contract address:</b> {this.state.contract_address}</p> */}
-                <p>{this.state.message}</p>
-            </div>
             </Layout>
-        ) 
+        )
     }
 }
 export default BackupCreatePage;
