@@ -134,8 +134,8 @@ app.get("/api/getsetcontract/:add", (req,res)=>{
 );   
 });
 
-app.get("/api/getsetcontractt/:acc", (req,res)=>{
-    const accaddress = req.params.acc;
+app.get("/api/getsetcontractt/:add", (req,res)=>{
+    const accaddress = req.params.add;
     db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? ", [accaddress], (err,result)=>{
         if(err) {
         console.log(err)

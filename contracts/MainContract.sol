@@ -160,15 +160,15 @@ contract MainContract {
     }*/
     function submitTransaction(address payable _to,uint _portion) public {
         toadds.push(_to);
-        reviseportion.push(_portion);
-        //transferamount[_to]=address(this).balance/100*_portion;
+        //reviseportion.push(_portion);
+        transferamount[_to]=address(this).balance/100*_portion;
         if(toadds.length==beneficiarymails.length){
            for(uint i=0;i<toadds.length;i++){
-               for(uint r=0;r<reviseportion.length;r++){
-             totalpo+=reviseportion[r];
-             revisepo=100*_portion/totalpo;
-             transferamount[_to]=address(this).balance/100*revisepo;
-             toadds[i].transfer(transferamount[toadds[i]]);}  
+            //    for(uint r=0;r<reviseportion.length;r++){
+            //  totalpo+=reviseportion[r];
+            //  revisepo=100*_portion/totalpo;
+            //  transferamount[_to]=address(this).balance/100*revisepo;
+                toadds[i].transfer(transferamount[toadds[i]]); 
            }
         }
         //_to.transfer(address(this).balance/100*_portion);}

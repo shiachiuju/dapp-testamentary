@@ -25,6 +25,14 @@ class ActivateTestamentPage extends Component {
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
+        //setaddress
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
+        .then((con) => {
+            this.setState({ setcontract_address: con.data[0].settestamentcontract_address.toString()})
+        }).catch((err) => {
+            console.log(err);
+        });
     }
     constructor(props) {
         super(props)
@@ -34,6 +42,7 @@ class ActivateTestamentPage extends Component {
         this.Deploy = this.Deploy.bind(this);
         this.testaEth = this.testaEth.bind(this);
         this.Set = this.Set.bind(this);
+       
     }
 
     async testaEth(address,checkemail,checkpassword) {
@@ -142,7 +151,7 @@ class ActivateTestamentPage extends Component {
                                         ref={(input) => { 
                                             this.checkpassword = input
                                         }}  
-                                        placeholder="Password"
+                                        placeholder="Password(6~8)"
                                         required />
                                 </Col>
                             </Row>
@@ -151,6 +160,8 @@ class ActivateTestamentPage extends Component {
                         <Button type="submit" variant="outline-secondary">Set</Button>
                     </Form>
                 </div>
+                <br></br>
+                <p><b>Settestament contract address:</b> {this.state.setcontract_address}</p>
             </div> 
         </Layout>
         ) 
