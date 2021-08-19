@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  margin: 8%;
+  
 }
 
 .App-logo {
@@ -33,11 +35,11 @@
 }
 #mainbox{
   display: flex;
-  width: 1150px;
-  margin:10px 0 0 200px;
+  /* width: 1150px; */
+  /* margin:10px 0 0 200px; */
   flex-wrap: wrap;
   text-align: center;
-  background-color: #FFFFFF;
+  /* background-color: #FFFFFF; */
   
 
 }
@@ -121,12 +123,95 @@
     transform: rotate(360deg);
   }
 }
-/* .center {
+.center {
   margin: auto;
+  /* width: 100%;
+  height: 100%; */
+  /* border: 3px solid green;
+  padding: 10px; */
+}
+.prev {
+  text-align: center;
+  background-color: #8c8f8dc0;
+  color: #FCFAF1;
+  border: none;
+  font-size: 16px;
+  width: 80px;
+  height: 40px;
+  margin: 20px 30px;
+  border-radius: 5px;
+}
+.prev:hover{
+  background-color: #8c8f8d;
+}
+.arrow{
+  color: #8C8F8D;
+  size:3x;
+}
+.arrow:hover{
+  color:#747575;
+}
+.dwlabel{
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 20px;
+  margin: 4px 2px;
+}
+.dw{
+  background-color: #eea13c;
+  color: #FCFAF1;
+  text-align: center;
+  border: none;
+  font-size: 18px;
+  width: 120px;
+  height: 50px;
+  margin: 4px 4px;
+  border-radius: 5px;
+  opacity: 1;
+}
+.dw:hover {background-color: #d6953f}
+.dwinput{
   width: 50%;
-  border: 3px solid green;
+  /* box-sizing: border-box; */
+  border: none;
+  box-shadow: 0px 0px 5px #888888;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.bubtn{
+  background-color: #eea13c;
+  color: #FCFAF1;
+  text-align: center;
+  border: none;
+  font-size: 18px;
+  width: 100px;
+  height: 50px;
+  margin: 4px 4px;
+  border-radius: 5px;
+  opacity: 1;
+}
+.bubtn:hover {background-color: #d6953f}
+.acbulabel{
+  padding: 16px 28px;
+  text-align: left;
+  font-size: 20px;
+  margin: 4px 0;
+  font-size: 16px;
+  width: 26%;
   padding: 10px;
-} */
+}
+.acbuinput{
+  width: 40%;
+  border: none;
+  box-shadow: 0px 0px 5px #888888;
+  padding: 10px 18px;
+  margin: 8px 0;
+  border-radius: 5px;
+  font-size: 16px;
+}
 .mainpagebutton { /* https://www.w3schools.com/css/tryit.asp?filename=trycss_buttons_fade */
   background-color: rgb(101, 110, 119);
   border: none;
@@ -163,3 +248,29 @@
 {
     display: inline-block;
 }
+
+.column {
+  float: left;
+  padding: 10px;
+  /* Should be removed. Only for demonstration */
+}
+
+.column.side {
+  width: 25%;
+}
+
+/* Middle column */
+.column.middle {
+  width: 50%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* @media (max-width: 600px) {
+  .column.side, .column.middle {
+    width: 100%;
+  }
+} */

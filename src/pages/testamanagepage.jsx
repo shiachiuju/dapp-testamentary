@@ -10,6 +10,10 @@ import Layout from '../layout';
 import Axios from 'axios'
 import MainContract from '../contract/MainContract.json'
 import emailjs, { init } from 'emailjs-com';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 init("user_hGl6i7zIJBqfYWp8WEBfY");
 
 class TestaManagePage extends Component{
@@ -207,8 +211,8 @@ class TestaManagePage extends Component{
         let {beneficiary} = this.state
         return (
         <Layout>
+            <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
             <div className="App">
-            <br></br>
             <h3><b>Create Testament</b></h3>
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
@@ -288,6 +292,19 @@ class TestaManagePage extends Component{
                                         no.splice(key2,1)
                                         this.setState({ value: no })
                                         // console.log(this.state.value.toString())
+                                        this.setState(()=> ({
+                                            benes: this.state.benes.map((item, j) => {
+                                                if (j === key) {
+                                                    return {
+                                                        ...item,
+                                                        newrate: undefined
+                                                    }
+                                                }
+                                    
+                                                return item
+                                            })
+                                        }))
+
                                     }
                                 }
                                 >unchange</button></td>;

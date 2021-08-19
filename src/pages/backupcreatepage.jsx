@@ -13,6 +13,10 @@ import Backup from '../contract/Backup.json'
 //components
 import getWeb3 from '../getWeb3';
 import emailjs, { init } from 'emailjs-com';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 init("user_hGl6i7zIJBqfYWp8WEBfY");
 
 
@@ -48,6 +52,7 @@ class BackupCreatePage extends Component {
             this.setState({ email })
             if (this.state.email != '' ){
                 this.setState({ set: 'Backup mechanism has been set' })
+                console.log(this.state.email)
             }
         }
 
@@ -57,26 +62,41 @@ class BackupCreatePage extends Component {
         this.state = {
             account:'',
             set: '',
-            message: ''
+            // message: ''
         }
         this.createBackup = this.createBackup.bind(this);
-        this.refreshPage = this.refreshPage.bind(this);
         this.Deploy = this.Deploy.bind(this);
         this.Enterinfo = this.Enterinfo.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
     async createBackup(email, password) {
         this.hash = sha256(password.toString())
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
+        .then((con) => {
+            this.Enterinfo(con.data[0].backupcontract_address.toString(), email, this.hash);
+        }).catch((err) => {
+            Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
             .then((con) => {
-                this.Enterinfo(con.data[0].backupcontract_address.toString(), email, this.hash);
+                this.Deploy(con.data[0].maincontract_address.toString(), email, this.hash)
             }).catch((err) => {
-                Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
-                    .then((con) => {
-                        this.Deploy(con.data[0].maincontract_address.toString(), email, this.hash)
-                    }).catch((err) => {
-                    });
+                new Swal({
+                    title: 'Please create your account first',
+                    confirmButtonColor: '#eea13c',
+                    confirmButtonText: 'OK',
+                    width: 600,
+                    padding: '3em',
+                    background: '#fff',
+                    backdrop: `
+                        shadow: '0px 0px 5px #888888'
+                        left top
+                        no-repeat
+                    `
+                }).then(function() {
+                    window.location = "/Main"
+                });
             });
+        });
     }
     async Enterinfo(address, email, password) {
         const backupContract = new this.state.web3.eth.Contract(Backup.abi, address)
@@ -86,30 +106,57 @@ class BackupCreatePage extends Component {
         const setBack = () =>{
             this.state.backupContract.methods.setBackup(email,password).send({ from: this.state.account })
             .once('receipt', (receipt) => {
-                // this.sendEmail(email)
+                this.sendEmail(email,address)
                 // this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
                 // this.refreshPage()
+            })
+            .once('error', (error) => {
+                new Swal({
+                    title: 'Transaction has dismissed',
+                    text: 'Setting remain the same',
+                    confirmButtonColor: '#eea13c',
+                    confirmButtonText: 'OK',
+                    width: 600,
+                    padding: '3em',
+                    background: '#fff',
+                    backdrop: `
+                        shadow: '0px 0px 5px #888888'
+                        left top
+                        no-repeat
+                    `
+                }).then(function() {
+                    window.location.reload()
+                });
             })
         }
         if (this.state.getemail != '' ){
             new Swal({
                 title: 'Are you sure to change the email and password?',
+                showCancelButton: true,
                 confirmButtonColor: '#eea13c',
-                confirmButtonText: 'OK!',
+                cancelButtonColor: '#8C8F8D',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'Cancel',
                 width: 600,
                 padding: '3em',
-                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                background: '#fff',
                 backdrop: `
-                    rgba(0,0,123,0.4)
-                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                    shadow: '0px 0px 5px #888888'
                     left top
                     no-repeat
                 `
-            }).then(function() {
-                setBack()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setBack()
+                }else if(result.dismiss === Swal.DismissReason.cancel){
+                    window.location.reload()
+                }
+                
             });
             // alert('Your backup mechanism has been set. \nClick confirm to change a new one!')
             // this.setState({ backup : 'The backup mechanism has been set.'})
+        }else{
+            setBack()
         }
         }
 
@@ -122,17 +169,32 @@ class BackupCreatePage extends Component {
             data: Backup.bytecode,
             arguments: [mainaddr]
         })
-            .send({
-                from: this.state.account,
-                gas: 2100000,
-            })
-            .then((newContractInstance) => {
-                console.log('successfully deployed!');
-                submitNew(mainaddr, newContractInstance.options.address.toString())
-                this.Enterinfo(newContractInstance.options.address.toString(), email, password);
-            }).catch((err) => {
-                console.log(err);
+        .send({
+            from: this.state.account,
+            gas: 2100000,
+        })
+        .then((newContractInstance) => {
+            console.log('successfully deployed!');
+            submitNew(mainaddr, newContractInstance.options.address.toString())
+            this.Enterinfo(newContractInstance.options.address.toString(), email, password);
+        }).catch((err) => {
+            new Swal({
+                title: 'Transaction has dismissed',
+                text: 'Please enter the submit on Metamask',
+                confirmButtonColor: '#eea13c',
+                confirmButtonText: 'OK',
+                width: 600,
+                padding: '3em',
+                background: '#fff',
+                backdrop: `
+                    shadow: '0px 0px 5px #888888'
+                    left top
+                    no-repeat
+                `
+            }).then(function() {
+                // this.refreshPage()
             });
+        });
         const submitNew = (mainaddr, newcontract) => {
             Axios.post('http://localhost:3002/api/insertbackup', { account_address: this.state.account, maincontract_address: mainaddr, backupcontract_address: newcontract })
                 .then(() => {
@@ -144,7 +206,6 @@ class BackupCreatePage extends Component {
 
 
     sendEmail(e,address) {
-        
         let service_id = "beautygang";
         let template_id = "backup";
         let name = this.state.account;
@@ -152,25 +213,44 @@ class BackupCreatePage extends Component {
         emailjs.send(service_id,template_id,{
             to_name: name,
             userMail: e,
-            message: "We are here to notify that your back-up mechanism has been created.Your backup contract address is " + backadd + ". \n\r Don't forget your email and password so that you can activated it when needed.",
+            message: "We are here to notify that your back-up mechanism has been created. Your backup contract address is " + backadd + ". \n\r Don't forget your email and password so that you can activated it when needed.",
+        })
+        .then(
+            new Swal({
+                title: 'We have sent an e-mail to your mailbox,' + '\n' + 'please check it out!',
+                confirmButtonColor: '#eea13c',
+                confirmButtonText: 'OK',
+                width: 600,
+                padding: '3em',
+                background: '#fff',
+                backdrop: `
+                    shadow: '0px 0px 5px #888888'
+                    left top
+                    no-repeat
+                `
+            }).then(function() {
+                window.location.reload()
+            })
+        )
+        .catch((err) => {
+            console.log(err)
         });
-        this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!'})     
+        // this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!'})     
     }
 
     render() {
         return (
             <Layout>
-            <div className="App">
+            <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
+            <div class="App">
+                
                 <br></br>
                 <h3><b>Create Back-up Mechanism</b></h3>
                 <br></br>
-                <p><b>Wallet account:</b> {this.state.account}</p>
+                {/* <p><b>Wallet account:</b> {this.state.account}</p> */}
                 <p><b>{this.state.set}</b></p>
-                <p>Click the button to create your back-up mechanism!</p>
-                {/* <button onClick={ async (event) => {
-                    event.preventDefault()
-                    
-                }}>cc</button> */}
+                <p>Click the button to set your back-up mechanism!</p>
+                <br></br>
                 <div id="setback">
                     <Form onSubmit={ async (event) => {
                         event.preventDefault()
@@ -202,8 +282,11 @@ class BackupCreatePage extends Component {
                         const { value: formValues } = await Swal.fire({
                             title: 'Enter the email and password',
                             width: 600,
+                            showCancelButton: true,
                             confirmButtonColor: '#eea13c',
-                            confirmButtonText: 'OK!',
+                            cancelButtonColor: '#8C8F8D',
+                            confirmButtonText: 'Submit',
+                            cancelButtonText: 'Cancel',
                             html:
                                 '<form role="form">'+
                                     '<div class="form-group row">'+
@@ -318,13 +401,13 @@ class BackupCreatePage extends Component {
                             </Row>
                         </Form.Group>
                         <br></br> */}
-                        <Button type="submit" variant="outline-warning">Create</Button>
+                        <button type="submit" class="bubtn">Set</button>
                     </Form>
 
                     </div>
                     <p></p>
                     {/* <p><b>Contract address:</b> {this.state.contract_address}</p> */}
-                    <p>{this.state.message}</p>
+                    {/* <p>{this.state.message}</p> */}
                 </div>
             </Layout>
         )

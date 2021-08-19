@@ -133,7 +133,7 @@ class EnterPage extends Component {
                 <p><b>Create your own back-up macheniam or testamentary</b></p>
 
                 <form method="get" action="/Backup">
-                    <Button href="/Join" variant="outline-warning">Create your own.</Button>
+                    <Button href="/Main" variant="outline-warning">Create your own.</Button>
                 </form></div>
 
                 <div data-azbox="" data-gjs-type="agjc-box" id="rightenter">

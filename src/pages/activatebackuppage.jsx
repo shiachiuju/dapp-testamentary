@@ -43,11 +43,39 @@ class ActivateBackupPage extends Component {
         console.log(address);
         this.state.acBackupContract.methods.activateBackup(checkemail,checkpassword)
         .send({ from: this.state.account })
-        .once('receipt', (receipt) => {
-            this.setState({ message2: 'Your assets from previous wallet has transferred to\n' + this.state.account + '\nnew balance :'})
+        .once('receipt', async (receipt) => {
+            const newba = await this.state.web3.eth.getBalance(this.state.account)
+            const shownewba = Math.round((newba/10**18)*10000)/10000
+            new Swal({
+                title: 'Your assets from previous wallet has transferred to' + '\n' + this.state.account + '\n' + 'New balance : ' + shownewba,
+                confirmButtonColor: '#eea13c',
+                confirmButtonText: 'OK',
+                width: 600,
+                padding: '3em',
+                background: '#fff',
+                backdrop: `
+                    shadow: '0px 0px 5px #888888'
+                    left top
+                    no-repeat
+                `
+            }).then(function() {
+            });
             this.Delete(backaddr);
         }).once('error', (error) => {
-            // alert('請輸入正確地址');
+            new Swal({
+                title: 'Please enter the right email and password',
+                confirmButtonColor: '#eea13c',
+                confirmButtonText: 'OK',
+                width: 600,
+                padding: '3em',
+                background: '#fff',
+                backdrop: `
+                    shadow: '0px 0px 5px #888888'
+                    left top
+                    no-repeat
+                `
+            }).then(function() {
+            });
     })}
     
     async Delete(backaddr) {
@@ -83,7 +111,23 @@ class ActivateBackupPage extends Component {
             submitNew(backaddr,newContractInstance.options.address.toString())
             this.BackEth(backaddr,newContractInstance.options.address.toString(),checkemail,checkpassword)     
         }).catch((err) => {
-            console.log(err);
+            new Swal({
+                title: 'Please enter the submit on MetaMask',
+                confirmButtonColor: '#eea13c',
+                // cancelButtonColor: '#8C8F8D',
+                confirmButtonText: 'OK',
+                // cancelButtonText: 'Cancel',
+                width: 600,
+                padding: '3em',
+                background: '#fff',
+                backdrop: `
+                    shadow: '0px 0px 5px #888888'
+                    left top
+                    no-repeat
+                `
+            }).then(() => {
+                window.location.reload()
+            })
         });
         const submitNew = (backaddr,newcontract) => {
             Axios.post('http://localhost:3002/api/insertactivatebackup', {account_address: this.state.account, backupcontract_address: backaddr, activatebackup_address: newcontract})
@@ -100,13 +144,14 @@ class ActivateBackupPage extends Component {
         .then((con) => {
             if(con.data.length == 0){
                 new Swal({
-                    title: 'Please enter the right address.',
+                    title: 'Please enter the right'+'\n'+'Back-up contract address',
+                    confirmButtonColor: '#eea13c',
+                    confirmButtonText: 'OK',
                     width: 600,
                     padding: '3em',
-                    background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                    background: '#fff',
                     backdrop: `
-                        rgba(0,0,123,0.4)
-                        url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                        shadow: '0px 0px 5px #888888'
                         left top
                         no-repeat
                     `
@@ -135,11 +180,56 @@ class ActivateBackupPage extends Component {
                 <br></br>
                 <h3><b>Activate Back-up Mechanism</b></h3>
                 <br></br>
-                <p><b>Wallet account:</b> {this.state.account}</p>
+                {/* <p><b>Wallet account:</b> {this.state.account}</p> */}
                 {/* <p><b>*Contract address:</b> {this.state.contract_address}</p> */}
-                <p></p>
+                {/* <p></p> */}
                 <div id="activateBack">
-                    <Form onSubmit={(event) => {
+                    <form onSubmit={(event) => {
+                        event.preventDefault()
+                        this.setState({ message : 'Once you send the request, we will confirm your identity.\nPlease wait a moment and soon your assets will be back!'})
+                        this.Activate(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                    }}>
+                        <Col>
+                            <label for="contract" class="acbulabel">Back-up contract address : </label>
+                            <input
+                            class="acbuinput" 
+                            id="contract" 
+                            type="text" 
+                            ref={(input) => { 
+                                this.contractadd = input
+                            }}
+                            placeholder="check mailbox to get back-up address"
+                            required/>
+                        </Col>
+                        <Col>
+                            <label for="email" class="acbulabel">Email address :</label>
+                            <input 
+                            class="acbuinput"
+                            id="email" 
+                            type="email" 
+                            ref={(input) => { 
+                                this.checkemail = input
+                            }}
+                            placeholder="example@email.com"
+                            required />
+                        </Col>
+                        <Col>
+                            <label for="cpassword" class="acbulabel">Password :</label>
+                            <input 
+                            class="acbuinput"
+                            id="cpassword" 
+                            type="password"
+                            ref={(input) => { 
+                                this.checkpassword = input
+                            }}  
+                            placeholder="must have at least 6 characters"
+                            minlength="6"
+                            required />
+                        </Col>
+                        <br></br>
+                        <button type="submit" class="bubtn">Activate</button>
+                    </form>
+                    {/* <Form onSubmit={(event) => {
                         event.preventDefault()
                         this.setState({ message : 'Once you send the request, we will confirm your identity.\nPlease wait a moment and soon your assets will be back!'})
                         this.Activate(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
@@ -191,7 +281,7 @@ class ActivateBackupPage extends Component {
                         </Form.Group>
                         <br></br>
                         <Button type="submit" variant="outline-secondary">Activate</Button>
-                    </Form>
+                    </Form> */}
                     <p></p>
                     <p>{this.state.message}</p>
                     <p>{this.state.message2}</p>

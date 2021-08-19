@@ -1,19 +1,28 @@
 /* change the background color */
 .navbar {
-    background-color: cornsilk;
+    background-color: #ffd91d;
 }
 
 .footer {
-    background-color:lightslategray;
-    opacity:0.3;
+    background-color:#8C8F8D;
+    /* opacity:0.3; */
 }
 
 .footer-copyright {
-    color: black; 
+    color: white; 
 }
 
 .dropdown{
     
     cursor: pointer;
     white-space: nowrap;
+}
+
+.text{
+    margin: 1em 1em;
+    text-align: center;
+}
+.icon{
+    vertical-align: -0.125em;
+    size:2x;
 }
