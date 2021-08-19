@@ -77,6 +77,7 @@ class TestaManagePage extends Component{
     }
 
     async addHa(mail,rate) {
+        
         this.sendEmailtoB(mail)
         this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
@@ -146,15 +147,23 @@ class TestaManagePage extends Component{
     handleSubmit = (e) => { e.preventDefalut() }
 
     sendEmailtoB(e) {
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
+        .then((con) => {
+            this.setState({ setcontract_address: con.data[0].settestamentcontract_address.toString()})
+        }).catch((err) => {
+            console.log(err);
+        });
         let service_id = "beautygang";
         let template_id = "testamentary";
         let name = e.split('@')[0];
         let testamen = this.state.account;
+        let setcontract_address = this.setcontract_address;
 
         emailjs.send(service_id, template_id, {
             to_name: name,
             email: e,
-            message: "Here to notify that you have been set as one of " + testamen + "'s beneficiaries.",
+            message: "Here to notify that you have been set as one of " + testamen + "'s beneficiaries.            Get your contract_address:"+setcontract_address+"go to set up your own password.",
             subject: 'Notification'
         });
         this.setState({ message: "We have sent an e-mail to your beneficiary's mailbox, please check it out!" })
