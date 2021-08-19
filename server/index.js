@@ -38,8 +38,9 @@ app.post("/api/insertsettestament", (req,res)=>{
     const account_address = req.body.account_address;
     const maincontract_address = req.body.maincontract_address;
     const settestamentcontract_address = req.body.settestamentcontract_address;
-    const sqlInsert = "INSERT INTO settestamentcontract (account_address, maincontract_address, settestamentcontract_address) VALUES (?,?,?)"
-    db.query(sqlInsert, [account_address, maincontract_address, settestamentcontract_address],(err,result)=>{
+    const activated = req.body.activated;
+    const sqlInsert = "INSERT INTO settestamentcontract (account_address, maincontract_address, settestamentcontract_address,activated) VALUES (?,?,?,?)"
+    db.query(sqlInsert, [account_address, maincontract_address, settestamentcontract_address,activated],(err,result)=>{
         console.log(result)
     });   
 });

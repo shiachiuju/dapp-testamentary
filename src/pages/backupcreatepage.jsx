@@ -321,7 +321,7 @@ class BackupCreatePage extends Component {
                         <Button type="submit" variant="outline-warning">Create</Button>
                     </Form>
 
-                    </div>
+                </div>
                     <p></p>
                     {/* <p><b>Contract address:</b> {this.state.contract_address}</p> */}
                     <p>{this.state.message}</p>

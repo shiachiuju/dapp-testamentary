@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import Axios from 'axios'
+import $ from 'jquery';
+import Swal from 'sweetalert2'
 
 //includes
 import '../App.css';
@@ -29,7 +31,22 @@ class ActivateTestamentPage extends Component {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
         .then((con) => {
-            this.setState({ setcontract_address: con.data[0].settestamentcontract_address.toString()})
+            for(var i=0; i< con.data.length; i++){
+                this.setState({
+                    setcontract_address: [this.state.setcontract_address, (i+1).toString()+" : "+con.data[i].settestamentcontract_address.toString() + "\n"]
+                })
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+        //maincontract
+        Axios.get(`http://localhost:3002/api/getcontractforset/${acc}`)
+        .then((con) => {
+            for(var i=0; i< con.data.length; i++){
+                this.setState({
+                    maincontract_address: [this.state.maincontract_address, (i+1).toString()+" : "+con.data[i].maincontract_address.toString() + "\n"]
+                })
+            }
         }).catch((err) => {
             console.log(err);
         });
@@ -37,6 +54,9 @@ class ActivateTestamentPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            item : [],
+            setcontract_address : [],
+            maincontract_address : []
         }
         this.refreshPage = this.refreshPage.bind(this);
         this.Deploy = this.Deploy.bind(this);
@@ -157,11 +177,138 @@ class ActivateTestamentPage extends Component {
                             </Row>
                         </Form.Group>
                         <br></br>
-                        <Button type="submit" variant="outline-secondary">Set</Button>
+                        <Button  type="submit" class="btn-primary btn-lg" variant="outline-secondary">Set My Password</Button>
                     </Form>
+                    <br></br>
                 </div>
+                <div class="table-responsive">
+                <table class="table table-hover table-sm">
+                    <thead>
+                     <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Testament Address</th>
+                        <th scope="col">Set Address</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Activate</th>
+                    </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                       <th scope="row">1</th>
+                       <td>
+                            {this.state.maincontract_address.map(item => (
+                            <li key={item}>{item}</li>
+                            ))}
+                       </td>
+                       <td>
+                           {this.state.setcontract_address.map(item => (
+                            <li key={item}>{item}</li>
+                            ))}
+                        </td>
+                       <td>@mdo</td>
+                       <td>
+                    <div id="setback">       
+                    <Form onSubmit={ async (event) => {
+                        event.preventDefault()
+                        if ( this.state.account == "" ){
+                            this.refreshPage()
+                        }
+                        const checkEmail = ( email ) => {
+
+                            // checkemail
+                            let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        
+                            if ( re.test(email) ) {
+                                // this is a valid email address
+                                return true
+                            }
+                            else {
+                                // invalid email, show an error to the user.
+                                return false
+                            }
+                        
+                        }
+                        const { value: formValues } = await Swal.fire({
+                            title: 'Enter the email and password',
+                            width: 600,
+                            confirmButtonColor: '#eea13c',
+                            confirmButtonText: 'OK!',
+                            html:
+                                '<form role="form">'+
+                                    '<div class="form-group row">'+
+                                        '<label for="email" class="col-sm-4" style="margin-top:.5em;text-align:left;">Email :</label>'+
+                                        '<div class="col-sm-8">'+
+                                            '<input id="email" type="email" class="form-control" placeholder="example@email.com" required/>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group row">'+
+                                        '<label for="password" class="col-sm-4" style="margin-top:.5em;text-align:left;">Password :</label>'+
+                                        '<div class="col-sm-8">'+
+                                            '<input id="password" type="password" class="form-control" placeholder="must have at least 6 characters" required/>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group row">'+
+                                        '<label for="cpassword" class="col-sm-4" style="margin-top:.5em;text-align:left;">Confirm Password :</label>'+
+                                        '<div class="col-sm-8 ">'+
+                                            '<input id="cpassword" type="password" class="form-control" placeholder="confirm password again" required/>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</form>',
+                            focusConfirm: false,
+                            didOpen : ()=> {
+                                // document.getElementById('email').focus()
+                                $('#email').blur(function(){
+                                    if(checkEmail($('#email').val()) != true) {
+                                        Swal.showValidationMessage('Please enter correct email!')
+                                    } else {
+                                        Swal.resetValidationMessage()
+                                    }
+                                })
+                                $('#password').blur(function(){
+                                    if ($('#password').val().length<6) {
+                                        Swal.showValidationMessage('The password should at least 6 characters!')
+                                    } else {
+                                        Swal.resetValidationMessage()
+                                    }
+                                })
+                                $('#cpassword').blur(function(){
+                                    if ($('#cpassword').val().length<6) {
+                                        Swal.showValidationMessage('The confirm password should at least 6 characters!')
+                                    } else {
+                                        Swal.resetValidationMessage()
+                                    }
+                                })
+                            },
+                            preConfirm: ()=> {
+                                if(checkEmail($('#email').val()) != true) {
+                                    Swal.showValidationMessage('Please enter correct email!')
+                                }
+                                if ($('#password').val().length<6) {
+                                    Swal.showValidationMessage('Please check the password again!')
+                                }
+                                if ($('#password').val() != $('#cpassword').val()) {
+                                    Swal.showValidationMessage('Please check the password again!\nThe confirm password should be the same with password!')
+                                }
+                                return [
+                                    document.getElementById('email').value,
+                                    document.getElementById('password').value,
+                                    document.getElementById('cpassword').value
+                                ]
+                            }
+                        })
+                        if (formValues) {
+                            this.createBackup($('#email').val(),$('#password').val())
+                        }
+                    }}>
+                        <Button type="submit" variant="outline-secondary">Activate</Button>
+                    </Form>
+                        </div>
+                        </td>
+                    </tr>
+                </tbody>
+                    </table>
                 <br></br>
-                <p><b>Settestament contract address:</b> {this.state.setcontract_address}</p>
+                </div>
             </div> 
         </Layout>
         ) 
