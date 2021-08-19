@@ -10,6 +10,10 @@ import Layout from '../layout';
 import Axios from 'axios'
 import MainContract from '../contract/MainContract.json'
 import emailjs, { init } from 'emailjs-com';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 init("user_hGl6i7zIJBqfYWp8WEBfY");
 
 class TestaManagePage extends Component{
@@ -77,6 +81,7 @@ class TestaManagePage extends Component{
     }
 
     async addHa(mail,rate) {
+        
         this.sendEmailtoB(mail)
         this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
@@ -146,15 +151,23 @@ class TestaManagePage extends Component{
     handleSubmit = (e) => { e.preventDefalut() }
 
     sendEmailtoB(e) {
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
+        .then((con) => {
+            this.setState({ setcontract_address: con.data[0].settestamentcontract_address.toString()})
+        }).catch((err) => {
+            console.log(err);
+        });
         let service_id = "beautygang";
         let template_id = "testamentary";
         let name = e.split('@')[0];
         let testamen = this.state.account;
+        let setcontract_address = this.setcontract_address;
 
         emailjs.send(service_id, template_id, {
             to_name: name,
             email: e,
-            message: "Here to notify that you have been set as one of " + testamen + "'s beneficiaries.",
+            message: "Here to notify that you have been set as one of " + testamen + "'s beneficiaries.            Get your contract_address:"+setcontract_address+"go to set up your own password.",
             subject: 'Notification'
         });
         this.setState({ message: "We have sent an e-mail to your beneficiary's mailbox, please check it out!" })
@@ -198,8 +211,8 @@ class TestaManagePage extends Component{
         let {beneficiary} = this.state
         return (
         <Layout>
+            <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
             <div className="App">
-            <br></br>
             <h3><b>Create Testament</b></h3>
             <br></br>
             <p><b>Wallet account:</b> {this.state.account}</p>
@@ -279,6 +292,19 @@ class TestaManagePage extends Component{
                                         no.splice(key2,1)
                                         this.setState({ value: no })
                                         // console.log(this.state.value.toString())
+                                        this.setState(()=> ({
+                                            benes: this.state.benes.map((item, j) => {
+                                                if (j === key) {
+                                                    return {
+                                                        ...item,
+                                                        newrate: undefined
+                                                    }
+                                                }
+                                    
+                                                return item
+                                            })
+                                        }))
+
                                     }
                                 }
                                 >unchange</button></td>;

@@ -77,18 +77,6 @@ app.get("/api/getcontract/:add", (req,res)=>{
     );   
     });
 
-app.get("/api/getbackupcontract/:add", (req,res)=>{
-    const accaddress = req.params.add;
-    db.query("SELECT backupcontract_address FROM backupcontract WHERE account_address = ?", accaddress, (err,result)=>{
-        if(err) {
-        console.log(err)
-        } 
-    res.send(result)
-    }
-    );   
-    });
-
-
 app.get("/api/getactivatebackupcontract/:acc/:back", (req,res)=>{
     const accaddress = req.params.acc;
     const backaddress = req.params.back;

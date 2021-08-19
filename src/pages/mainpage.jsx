@@ -1,6 +1,7 @@
 //dependencies
 import React, { Component } from 'react'
-import { Button,  Form, Col, Row } from 'react-bootstrap'
+import { Nav, Navbar, Button, Form, Col, Row } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from 'axios'
 //includes
 import '../App.css';
@@ -11,6 +12,10 @@ import Swal from 'sweetalert2'
 import MainContract from '../contract/MainContract.json'
 //components
 import getWeb3 from '../getWeb3'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 
 
 
@@ -30,7 +35,7 @@ class MainPage extends Component {
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
         const walletb = await web3.eth.getBalance(this.state.account)
-        const maximum = (walletb/10**18)*0.99
+        const maximum = walletb*0.99
         this.setState({ maximum: maximum })
         //contract address
         const acc = this.state.account
@@ -41,7 +46,30 @@ class MainPage extends Component {
             this.getinfo();
             console.log(con.data[0].maincontract_address);
         }).catch((err) => {
-            this.Deploy()
+            new Swal({
+                title: 'Do you want to create your own account?',
+                // text: `The minimum amount should more than 0 ether`,
+                showCancelButton: true,
+                confirmButtonColor: '#eea13c',
+                cancelButtonColor: '#8C8F8D',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'Cancel',
+                width: 600,
+                padding: '3em',
+                background: '#fff',
+                backdrop: `
+                    shadow: '0px 0px 5px #888888'
+                    left top
+                    no-repeat
+                `
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.Deploy()
+                }else if(result.dismiss === Swal.DismissReason.cancel){
+                    window.location = "/"
+                }
+            });
+            // this.Deploy()
         });
     }
     async getinfo(){
@@ -71,8 +99,8 @@ class MainPage extends Component {
         balance: 0,
         email: '',
         password: '',
-        backup : 'The backup mechanism has NOT been set.',
-        beneficiary : 'The testament mechanism has NOT been set.'
+        // backup : 'The backup mechanism has NOT been set.',
+        // beneficiary : 'The testament mechanism has NOT been set.'
         }
         this.Deposit = this.Deposit.bind(this);
         this.Withdraw = this.Withdraw.bind(this);
@@ -126,8 +154,23 @@ class MainPage extends Component {
             submitNew(newContractInstance.options.address)
             this.refreshPage()
         }).catch((err) => {
-            console.log(err);
-        });
+            new Swal({
+                title: 'Please enter the submit on MetaMask',
+                confirmButtonColor: '#eea13c',
+                // cancelButtonColor: '#8C8F8D',
+                confirmButtonText: 'OK',
+                // cancelButtonText: 'Cancel',
+                width: 600,
+                padding: '3em',
+                background: '#fff',
+                backdrop: `
+                    shadow: '0px 0px 5px #888888'
+                    left top
+                    no-repeat
+                `
+            }).then(() => {
+                window.location.reload()
+        })});
         const submitNew = (newcontract) => {
             Axios.post('http://localhost:3002/api/insert', {account_address: this.state.account, maincontract_address: newcontract})
             .then(() => {
@@ -138,23 +181,24 @@ class MainPage extends Component {
     render() {
         return (
         <Layout>
-        <div className="App">
-            <br></br>
-            <h1><b>Hello, user !</b></h1>
-            <br></br>
-            <p><b>Wallet account:</b> {this.state.account}</p>
+        <div class="App">
+            
+            <h2><b>Hello, </b></h2>
+            <h5>{this.state.account}</h5>
+            
+            {/* <p><b>Wallet account:</b> {this.state.account}</p> */}
             {/* <p><b>{this.state.backup}</b></p> */}
             {/* <p><b>Contract address:</b> {this.state.contract_address}</p>
             <p><b>*Contract email:</b> {this.state.email}</p>
             <p><b>*Contract password:</b> {this.state.password}</p> */}
-            <br></br>
+            
             <div id="ether">
                 <div>
-                <Form>
-                    <Form.Group id="ether">
+                <form>
+                    {/* <Form.Group id="ether">
                         <Row>
                         <Col md={{ span: 4, offset: 4 }}>
-                        <Form.Label><b>Deposit or Withdraw Ether</b></Form.Label></Col>
+                        <Form.Label class="dwlabel"><b>Deposit or Withdraw Ether</b></Form.Label></Col>
                         <Col md={{ span: 2, offset: 5 }}>
                                 <Form.Control
                                     id="Amount"
@@ -168,23 +212,63 @@ class MainPage extends Component {
                                     required/>
                             </Col>
                         </Row>
-                    </Form.Group>
+                    </Form.Group> */}
+                    <div>
+                        <Col>
+                            <label for="amount" class="dwlabel"><b>Deposit or Withdraw Ether</b></label>
+                        </Col>
+                        <Row>
+                            <Col sm={3}>
+                                <FontAwesomeIcon color="#8C8F8D" icon={["fas", "angle-left"]}  size="3x" type="submit" onClick={(event)=>{event.preventDefault();window.location="/Backup"}}/>
+                                <p>Backup</p>
+                            </Col>
+                            <Col lg={6}><input 
+                                class="dwinput"
+                                type="number" 
+                                id="amount" 
+                                name="amount" 
+                                ref={(input) => { 
+                                    this.amount = input
+                                }}
+                                placeholder="ETH" 
+                                required
+                            ></input></Col>
+                            <Col sm={3}>
+                                <FontAwesomeIcon color="#8C8F8D" icon={["fas", "angle-right"]} size="3x" type="submit" onClick={(event)=>{event.preventDefault();window.location="/TestaManage"}}/>
+                                <p>Testament</p>
+                            </Col>
+                        </Row>
+                        {/* <Col>
+                        <button>left</button>
+                            <input 
+                                class="dwinput"
+                                type="number" 
+                                id="amount" 
+                                name="amount" 
+                                ref={(input) => { 
+                                    this.amount = input
+                                }}
+                                placeholder="ETH" 
+                                required
+                            ></input>
+                        </Col> */}
+                    </div>
                     <p></p>
-                    <Button variant="warning" onClick={(event) => {
+                    <button class="dw" onClick={(event) => {
                         event.preventDefault()
-                        if (this.amount.value > this.state.maximum){
-                            // alert('not enough')
+                        // console.log(this.amount.value)
+                        // console.log(this.state.maximum)
+                        if ((this.amount.value*10**18) > this.state.maximum){
                             new Swal({
                                 title: 'Not enough ether',
-                                text: `The maximum amount is ${this.state.maximum} ether`,
+                                text: `The maximum amount is ${(Math.round((this.state.maximum/10**18)*100)/100)} ether`,
                                 confirmButtonColor: '#eea13c',
-                                confirmButtonText: 'OK!',
+                                confirmButtonText: 'OK',
                                 width: 600,
                                 padding: '3em',
-                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                background: '#fff',
                                 backdrop: `
-                                    rgba(0,0,123,0.4)
-                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    shadow: '0px 0px 5px #888888'
                                     left top
                                     no-repeat
                                 `
@@ -194,33 +278,14 @@ class MainPage extends Component {
                         }else if(this.amount.value <= 0){
                             new Swal({
                                 title: 'Please enter the amount',
-                                text: `The minimum amount should more than 0 ether`,
+                                text: `The minimum amount should be more than 0 ether`,
                                 confirmButtonColor: '#eea13c',
-                                confirmButtonText: 'OK!',
+                                confirmButtonText: 'OK',
                                 width: 600,
                                 padding: '3em',
-                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                background: '#fff',
                                 backdrop: `
-                                    rgba(0,0,123,0.4)
-                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
-                                    left top
-                                    no-repeat
-                                `
-                            }).then(function() {
-                                // window.location.reload()
-                            });
-                        }else if(this.amount.value === ""){
-                            new Swal({
-                                title: 'Please enter the amount',
-
-                                confirmButtonColor: '#eea13c',
-                                confirmButtonText: 'OK!',
-                                width: 600,
-                                padding: '3em',
-                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
-                                backdrop: `
-                                    rgba(0,0,123,0.4)
-                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    shadow: '0px 0px 5px #888888'
                                     left top
                                     no-repeat
                                 `
@@ -230,21 +295,22 @@ class MainPage extends Component {
                         }else{
                             this.Deposit((this.amount.value * (10**18)).toString()) 
                         }
-                    }}>Deposit</Button>{' '}
-                    <Button  variant="secondary" onClick={(event) => {
+                    }}>Deposit</button>{' '}
+                    <button class="dw" onClick={(event) => {
+                        // console.log(this.amount.value)
+                        // console.log(this.state.balance)
                         event.preventDefault()
-                        if (this.amount.value > this.state.balance){
+                        if ((this.amount.value*10**18) > this.state.balance){
                             new Swal({
                                 title: 'Not enough ether',
-                                text: `The balance is ${this.state.balance} ether`,
+                                text: `The balance is ${this.state.balance / 10**18} ether`,
                                 confirmButtonColor: '#eea13c',
-                                confirmButtonText: 'OK!',
+                                confirmButtonText: 'OK',
                                 width: 600,
                                 padding: '3em',
-                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                background: '#fff',
                                 backdrop: `
-                                    rgba(0,0,123,0.4)
-                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    shadow: '0px 0px 5px #888888'
                                     left top
                                     no-repeat
                                 `
@@ -256,13 +322,12 @@ class MainPage extends Component {
                                 title: 'Please enter the amount',
                                 text: `The minimum amount should more than 0 ether`,
                                 confirmButtonColor: '#eea13c',
-                                confirmButtonText: 'OK!',
+                                confirmButtonText: 'OK',
                                 width: 600,
                                 padding: '3em',
-                                background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
+                                background: '#fff',
                                 backdrop: `
-                                    rgba(0,0,123,0.4)
-                                    url("https://c.tenor.com/1Qah7X4zx3oAAAAi/neon-cat-rainbow.gif")
+                                    shadow: '0px 0px 5px #888888'
                                     left top
                                     no-repeat
                                 `
@@ -272,29 +337,21 @@ class MainPage extends Component {
                         }else{
                             this.Withdraw((this.amount.value* (10**18)).toString())
                         }
-                    }}>Withdraw</Button>
-                </Form>
+                    }}>Withdraw</button>
+                </form>
                 </div>
                 <p></p>
-                <p><b>Balance:</b> {this.state.balance / 10**18} (ether)</p>
-                {/* <Button size="sm" variant="outline-warning" onClick={(event) => {
-                        event.preventDefault()
-                        this.Deploy()
-                }}>Deploy</Button> 
-                <Button size="sm" variant="outline-warning" onClick={(event) => {
-                        event.preventDefault()
-                        this.FetchContract()
-                }}>fetch</Button>  */}
+                <p class="dwlabel"><b>Balance:</b> {this.state.balance / 10**18} (ether)</p>
             </div>
             <br></br>
-            <div id="outer">
+            {/* <div id="outer">
                 <div class="inner"><form method="get" action="/Backup">
                     <button class="mainpagebutton" type="submit">Back-up</button>
                 </form></div>{" "}
                 <div class="inner"><form method="get" action="/TestaManage">
                     <button class="mainpagebutton" type="submit">Testament</button>
                 </form></div>
-			</div>
+			</div> */}
              
         </div>
         </Layout>
