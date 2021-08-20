@@ -38,8 +38,9 @@ app.post("/api/insertsettestament", (req,res)=>{
     const account_address = req.body.account_address;
     const maincontract_address = req.body.maincontract_address;
     const settestamentcontract_address = req.body.settestamentcontract_address;
-    const sqlInsert = "INSERT INTO settestamentcontract (account_address, maincontract_address, settestamentcontract_address) VALUES (?,?,?)"
-    db.query(sqlInsert, [account_address, maincontract_address, settestamentcontract_address],(err,result)=>{
+    const activated = req.body.activated;
+    const sqlInsert = "INSERT INTO settestamentcontract (account_address, maincontract_address, settestamentcontract_address,activated) VALUES (?,?,?,?)"
+    db.query(sqlInsert, [account_address, maincontract_address, settestamentcontract_address,activated],(err,result)=>{
         console.log(result)
     });   
 });
@@ -76,6 +77,16 @@ app.get("/api/getcontract/:add", (req,res)=>{
     );   
     });
 
+app.put("/api/changestatus/:add", (req,res)=>{
+        const accaddress = req.params.add;
+        db.query("SELECT maincontract_address FROM maincontract WHERE account_address = ?", accaddress, (err,result)=>{
+            if(err) {
+            console.log(err)
+            } 
+        res.send(result)
+        }
+        );   
+        });
 app.get("/api/getbackupcontract/:add", (req,res)=>{
     const accaddress = req.params.add;
     db.query("SELECT backupcontract_address FROM backupcontract WHERE account_address = ?", accaddress, (err,result)=>{

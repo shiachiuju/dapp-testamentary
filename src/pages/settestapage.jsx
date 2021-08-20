@@ -1,6 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
-import { Button, Form, Col, Row } from 'react-bootstrap'
+import { Button, Form, Col, Row,Table } from 'react-bootstrap'
 import Axios from 'axios'
 
 //includes
@@ -33,6 +33,7 @@ class ActivateTestamentPage extends Component {
         }).catch((err) => {
             console.log(err);
         });
+        
     }
     constructor(props) {
         super(props)
@@ -70,7 +71,7 @@ class ActivateTestamentPage extends Component {
             console.log(err);
         });
         const submitNew = (addr,newcontract) => {
-            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract})
+            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract,activated:"NOT ACTIVATED YET"})
             .then(() => {
                 alert('success insert!')
             })
@@ -104,8 +105,7 @@ class ActivateTestamentPage extends Component {
                 <h3><b>Set Activated Information</b></h3>
                 <br></br>
                 <p><b>Wallet account:</b> {this.state.account}</p>
-                <br></br>
-                <div id="activateTest">
+                <div class="form-group" id="activateTest">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
                         this.Set(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
@@ -113,7 +113,7 @@ class ActivateTestamentPage extends Component {
                         <Form.Group id="formCheckAddress">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Testamentary contract address</b></Form.Label>
+                                    <Form.Label class="col-form-label"><b>Testamentary contract address</b></Form.Label>
                                     <Form.Control
                                         type="text" 
                                         ref={(input) => { 
@@ -124,11 +124,11 @@ class ActivateTestamentPage extends Component {
                                 </Col>
                             </Row>
                         </Form.Group>
-                        <br></br>
+
                         <Form.Group id="formCheckEmail">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Email address</b></Form.Label>
+                                    <Form.Label class=" col-form-label"><b>Email address</b></Form.Label>
                                     <Form.Control
                                         type="email" 
                                         ref={(input) => { 
@@ -139,11 +139,11 @@ class ActivateTestamentPage extends Component {
                                 </Col>
                             </Row>
                         </Form.Group>
-                        <br></br>        
+                                
                         <Form.Group id="formCheckPassword" >
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Password</b></Form.Label>
+                                    <Form.Label class=" col-form-label"><b>Password</b></Form.Label>
                                     <Form.Control 
                                         type="password"
                                         minLength="6" 
@@ -157,11 +157,34 @@ class ActivateTestamentPage extends Component {
                             </Row>
                         </Form.Group>
                         <br></br>
-                        <Button type="submit" variant="outline-secondary">Set</Button>
+                        <Button  type="submit" class="btn-primary btn-lg" variant="outline-secondary">Set My Password</Button>
                     </Form>
+                    <br></br>
                 </div>
+                <div class="table-responsive">
+                <table class="table table-hover table-sm">
+                    <thead>
+                     <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Testament Address</th>
+                        <th scope="col">Set Address</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Activate</th>
+                    </tr>
+                 </thead>
+                 <tbody>
+                    <tr>
+                       <th scope="row">1</th>
+                       <td>Mark</td>
+                       <td>{this.state.setcontract_address}</td>
+                       <td>@mdo</td>
+                       <td><Button class="btn-primary btn-sm" variant="outline-secondary">Activate</Button></td>
+                    </tr>
+                </tbody>
+                    </table>
                 <br></br>
                 <p><b>Settestament contract address:</b> {this.state.setcontract_address}</p>
+                </div>
             </div> 
         </Layout>
         ) 

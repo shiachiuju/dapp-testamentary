@@ -57,6 +57,7 @@ class ConductTestaPage extends Component {
         this.setState({ activatesetcontract });
         //console.log(address);
         this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
+        //Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract,activated:"NOT ACTIVATED YET"})
     }
 
     async refreshPage() { 
