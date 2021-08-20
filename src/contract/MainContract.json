@@ -24333,12 +24333,13 @@
         }
       },
       "links": {},
-      "address": "0xaE8A4Fa3e98031CafC77677e5D59A7B7bb150aB6",
-      "transactionHash": "0x55443cfb76058679b72ab3cec9e3d97fef70014e70284556800022f4ece3b58a"
+      "address": "0xFac00FdEB3B7553b4220F632B56Af4aEE13C5fA8",
+      "transactionHash": "0xfd0df7bec0717dfc739073fc9d0cb83bfe12242c1dcca2a93f24d6818ff6cb2e"
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-08-13T08:13:59.398Z",
+  "updatedAt": "2021-08-20T16:40:47.199Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

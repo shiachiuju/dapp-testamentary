@@ -37,11 +37,11 @@ class ConductTestaPage extends Component {
         this.refreshPage = this.refreshPage.bind(this);
     }
 
-    async checkset(setpassaddr, checkpassword) {
+    async checkset(setpassaddr,checkpassword) {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
         .then(() => {
-            Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
+            Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
             .then((con) => {
                 this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
             }).catch((err) => {
@@ -55,8 +55,9 @@ class ConductTestaPage extends Component {
     async activate(address,checkpassword) {
         const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
         this.setState({ activatesetcontract });
-        //console.log(address);
         this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
+
+        //Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract,activated:"NOT ACTIVATED YET"})
     }
 
     async refreshPage() { 

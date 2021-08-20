@@ -132,11 +132,11 @@ class ActivateTestamentPage extends Component {
     }
 
     //Activate
-    async checkset(setpassaddr, checkpassword) {
+    async checkset(setpassaddr,checkpassword) {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
         .then(() => {
-            Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
+            Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
             .then((con) => {
                 this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
             }).catch((err) => {
@@ -144,34 +144,27 @@ class ActivateTestamentPage extends Component {
             });
         }).catch((err) => {
             //this.refreshPage();
-            console.log('error check')
         });
     }
 
 
-    // async activate(address,checkpassword) {
-    //     const acc = this.state.account
-    //     const act = this.state.activated
-    //     const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
-    //     this.setState({ activatesetcontract });
-    //     //console.log(address);
-    //     this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
-    //     Axios.put(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
-    //     .then((con) => {
-    //         console.log('ha')
-    //         //this.refreshPage()
-    //     }).catch((err) => {
-    //         console.log('error activate')
-    //     });
-
-    // }
-
     async activate(address,checkpassword) {
+        const acc = this.state.account
+        const act = this.state.activated
         const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
         this.setState({ activatesetcontract });
         //console.log(address);
         this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
+        Axios.get(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
+        .then((con) => {
+            console.log('ha')
+            //this.refreshPage()
+        }).catch((err) => {
+            console.log('error activate')
+        });
     }
+
+   
 
     render() {
         return (
@@ -242,7 +235,6 @@ class ActivateTestamentPage extends Component {
                 <table class="table table-hover table-sm">
                     <thead>
                      <tr>
-                        
                         <th scope="col">Testament Address</th>
                         <th scope="col">Set Address</th>
                         <th scope="col">Status</th>
@@ -254,17 +246,17 @@ class ActivateTestamentPage extends Component {
                        
                        <td>
                             {this.state.maincontract_address.map(item => (
-                            <li key={item}>{item}</li>
+                            <p key={item}>{item}</p>
                             ))}
                        </td>
                        <td>
                            {this.state.setcontract_address.map(item => (
-                            <li key={item}>{item}</li>
+                            <p key={item}>{item}</p>
                             ))}
                        </td>
                        <td>
                             {this.state.activated.map(item => (
-                            <li key={item}>{item}</li>
+                            <p key={item}>{item}</p>
                             ))}
                        </td>
                     <td>  

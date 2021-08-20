@@ -123,6 +123,18 @@ app.get("/api/getsetcontract/:add", (req,res)=>{
 );   
 });
 
+app.get("/api/getsetcontracttttt/:acc/:add", (req,res)=>{
+    const accaddress = req.params.acc;
+    const setaddress = req.params.add;
+    db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? AND settestamentcontract_address = ?", [accaddress,setaddress], (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+);   
+});
+
 app.get("/api/getsetcontractt/:add", (req,res)=>{
     const accaddress = req.params.add;
     db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? ", accaddress, (err,result)=>{
@@ -189,7 +201,7 @@ app.delete('/api/deleteactivateback/:back',(req,res)=>{
 })
 
 //put
-app.put('/api/changestatus/:act/:acc/:set',(req,res)=>{
+app.get('/api/changestatus/:act/:acc/:set',(req,res)=>{
     const activated = req.params.act;
     const accaddress = req.params.acc;
     const setaddress = req.params.set;
