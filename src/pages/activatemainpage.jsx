@@ -123,8 +123,8 @@ class ActivateMainPage extends Component {
                 
                 <p>You can press <b>"Activate Testamentary"</b> to set and activate the testamentary if needed.</p>
                 <br></br>
-                <form method="get" action="/ActivateTestament">
-                <button class="button" type="submit">Activate Testament</button>
+                <form method="get" action="/SetTestament">
+                <button class="button" type="submit">Set/Activate Testament</button>
                 </form></div>
                 </div>
                 

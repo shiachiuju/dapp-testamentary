@@ -50,18 +50,32 @@ class ActivateTestamentPage extends Component {
         }).catch((err) => {
             console.log(err);
         });
+        //status
+        Axios.get(`http://localhost:3002/api/getsetstatus/${acc}`)
+        .then((con) => {
+            for(var i=0; i< con.data.length; i++){
+                this.setState({
+                    activated: [this.state.activated, (i+1).toString()+" : "+con.data[i].activated.toString() + "\n"]
+                })
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
     constructor(props) {
         super(props)
         this.state = {
             item : [],
             setcontract_address : [],
-            maincontract_address : []
+            maincontract_address : [],
+            activated: [],
         }
         this.refreshPage = this.refreshPage.bind(this);
         this.Deploy = this.Deploy.bind(this);
         this.testaEth = this.testaEth.bind(this);
         this.Set = this.Set.bind(this);
+        this.activate = this.activate.bind(this);
+        this.checkset = this.checkset.bind(this);
        
     }
 
@@ -70,6 +84,7 @@ class ActivateTestamentPage extends Component {
         this.setState({ spContract });
         console.log(address);
         this.state.spContract.methods.passset(checkemail, checkpassword).send({ from: this.state.account })
+        this.refreshPage()
     }
 
     async Deploy(addr,checkemail,checkpassword) {
@@ -90,7 +105,7 @@ class ActivateTestamentPage extends Component {
             console.log(err);
         });
         const submitNew = (addr,newcontract) => {
-            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract})
+            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract, activated: "not activated"})
             .then(() => {
                 alert('success insert!')
             })
@@ -114,6 +129,48 @@ class ActivateTestamentPage extends Component {
 
     async refreshPage() { 
         window.location.reload()
+    }
+
+    //Activate
+    async checkset(setpassaddr, checkpassword) {
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
+        .then(() => {
+            Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
+            .then((con) => {
+                this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
+            }).catch((err) => {
+                console.log(setpassaddr)
+            });
+        }).catch((err) => {
+            //this.refreshPage();
+            console.log('error check')
+        });
+    }
+
+
+    // async activate(address,checkpassword) {
+    //     const acc = this.state.account
+    //     const act = this.state.activated
+    //     const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
+    //     this.setState({ activatesetcontract });
+    //     //console.log(address);
+    //     this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
+    //     Axios.put(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
+    //     .then((con) => {
+    //         console.log('ha')
+    //         //this.refreshPage()
+    //     }).catch((err) => {
+    //         console.log('error activate')
+    //     });
+
+    // }
+
+    async activate(address,checkpassword) {
+        const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
+        this.setState({ activatesetcontract });
+        //console.log(address);
+        this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
     }
 
     render() {
@@ -185,7 +242,7 @@ class ActivateTestamentPage extends Component {
                 <table class="table table-hover table-sm">
                     <thead>
                      <tr>
-                        <th scope="col">#</th>
+                        
                         <th scope="col">Testament Address</th>
                         <th scope="col">Set Address</th>
                         <th scope="col">Status</th>
@@ -194,7 +251,7 @@ class ActivateTestamentPage extends Component {
                  </thead>
                  <tbody>
                     <tr>
-                       <th scope="row">1</th>
+                       
                        <td>
                             {this.state.maincontract_address.map(item => (
                             <li key={item}>{item}</li>
@@ -204,101 +261,46 @@ class ActivateTestamentPage extends Component {
                            {this.state.setcontract_address.map(item => (
                             <li key={item}>{item}</li>
                             ))}
-                        </td>
-                       <td>@mdo</td>
+                       </td>
                        <td>
+                            {this.state.activated.map(item => (
+                            <li key={item}>{item}</li>
+                            ))}
+                       </td>
+                    <td>  
                     <div id="setback">       
                     <Form onSubmit={ async (event) => {
                         event.preventDefault()
+                        this.checkset(this.contractadd.value, this.checkpassword.value)
                         if ( this.state.account == "" ){
                             this.refreshPage()
                         }
-                        const checkEmail = ( email ) => {
-
-                            // checkemail
-                            let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                        
-                            if ( re.test(email) ) {
-                                // this is a valid email address
-                                return true
-                            }
-                            else {
-                                // invalid email, show an error to the user.
-                                return false
-                            }
-                        
-                        }
+                    
                         const { value: formValues } = await Swal.fire({
-                            title: 'Enter the email and password',
+                            title: 'Enter the address and password',
                             width: 600,
                             confirmButtonColor: '#eea13c',
                             confirmButtonText: 'OK!',
                             html:
                                 '<form role="form">'+
                                     '<div class="form-group row">'+
-                                        '<label for="email" class="col-sm-4" style="margin-top:.5em;text-align:left;">Email :</label>'+
+                                        '<label for="contract" class="col-sm-4" style="margin-top:.5em;text-align:left;">Settestament contract address :</label>'+
                                         '<div class="col-sm-8">'+
-                                            '<input id="email" type="email" class="form-control" placeholder="example@email.com" required/>'+
+                                            '<input id="contract" class="form-control" placeholder="0x???????????" required/>'+
                                         '</div>'+
                                     '</div>'+
                                     '<div class="form-group row">'+
                                         '<label for="password" class="col-sm-4" style="margin-top:.5em;text-align:left;">Password :</label>'+
                                         '<div class="col-sm-8">'+
-                                            '<input id="password" type="password" class="form-control" placeholder="must have at least 6 characters" required/>'+
-                                        '</div>'+
-                                    '</div>'+
-                                    '<div class="form-group row">'+
-                                        '<label for="cpassword" class="col-sm-4" style="margin-top:.5em;text-align:left;">Confirm Password :</label>'+
-                                        '<div class="col-sm-8 ">'+
-                                            '<input id="cpassword" type="password" class="form-control" placeholder="confirm password again" required/>'+
+                                            '<input id="password" type="password" class="form-control" placeholder="password(6~8)" required/>'+
                                         '</div>'+
                                     '</div>'+
                                 '</form>',
                             focusConfirm: false,
-                            didOpen : ()=> {
-                                // document.getElementById('email').focus()
-                                $('#email').blur(function(){
-                                    if(checkEmail($('#email').val()) != true) {
-                                        Swal.showValidationMessage('Please enter correct email!')
-                                    } else {
-                                        Swal.resetValidationMessage()
-                                    }
-                                })
-                                $('#password').blur(function(){
-                                    if ($('#password').val().length<6) {
-                                        Swal.showValidationMessage('The password should at least 6 characters!')
-                                    } else {
-                                        Swal.resetValidationMessage()
-                                    }
-                                })
-                                $('#cpassword').blur(function(){
-                                    if ($('#cpassword').val().length<6) {
-                                        Swal.showValidationMessage('The confirm password should at least 6 characters!')
-                                    } else {
-                                        Swal.resetValidationMessage()
-                                    }
-                                })
-                            },
-                            preConfirm: ()=> {
-                                if(checkEmail($('#email').val()) != true) {
-                                    Swal.showValidationMessage('Please enter correct email!')
-                                }
-                                if ($('#password').val().length<6) {
-                                    Swal.showValidationMessage('Please check the password again!')
-                                }
-                                if ($('#password').val() != $('#cpassword').val()) {
-                                    Swal.showValidationMessage('Please check the password again!\nThe confirm password should be the same with password!')
-                                }
-                                return [
-                                    document.getElementById('email').value,
-                                    document.getElementById('password').value,
-                                    document.getElementById('cpassword').value
-                                ]
-                            }
                         })
-                        if (formValues) {
-                            this.createBackup($('#email').val(),$('#password').val())
-                        }
+                            if (formValues) {
+                                this.checkset($('#contract').val(),$('#password').val())
+                            }
                     }}>
                         <Button type="submit" variant="outline-secondary">Activate</Button>
                     </Form>
