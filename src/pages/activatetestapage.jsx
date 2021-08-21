@@ -36,7 +36,7 @@ class ConductTestaPage extends Component {
         this.checkset = this.checkset.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
     }
-
+    
     async checkset(setpassaddr,checkpassword) {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
@@ -55,8 +55,8 @@ class ConductTestaPage extends Component {
     async activate(address,checkpassword) {
         const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
         this.setState({ activatesetcontract });
+        //console.log(address);
         this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
-
         //Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract,activated:"NOT ACTIVATED YET"})
     }
 
@@ -75,7 +75,7 @@ class ConductTestaPage extends Component {
                 <div id="activateTest">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        this.checkset(this.contractadd.value, this.checkpassword.value)
+                        this.checkset(this.contractadd.value,this.checkpassword.value)
                     }}>
                         <Form.Group id="formCheckAddress">
                             <Row>
@@ -91,22 +91,7 @@ class ConductTestaPage extends Component {
                                 </Col>
                             </Row>
                         </Form.Group>
-                        <br></br>
-                        {/* <Form.Group id="formCheckEmail">
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Email address</b></Form.Label>
-                                    <Form.Control
-                                        type="email" 
-                                        ref={(input) => { 
-                                            this.checkemail = input
-                                        }}
-                                        placeholder="Enter email"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <br></br> */}
+                        
                         <Form.Group id="formCheckPassword" >
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
