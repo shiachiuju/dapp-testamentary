@@ -34,12 +34,12 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_oneContractAddr\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"_email\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_password\",\"type\":\"string\"}],\"name\":\"activateBackup\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/chanchu-ting/dapp-testamentary/contracts/MainContract.sol\":\"ActivateBackup\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/chanchu-ting/dapp-testamentary/contracts/MainContract.sol\":{\"keccak256\":\"0xb7e7208d446b39034813ca6ae9c6ecb3c60bf7477b84c5c87b51ffbe9414d680\",\"urls\":[\"bzz-raw://f7407bacfcc399346d1a2518ce75069248def7e534365689ae71ef4cbd408032\",\"dweb:/ipfs/QmZRxF66i392nfKdxhJo1nUpRfgyGo5GzzCv2BNtTLaY75\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506040516103e13803806103e18339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061034d806100946000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80638dcaa37614610030575b600080fd5b6101806004803603604081101561004657600080fd5b810190808035906020019064010000000081111561006357600080fd5b82018360208201111561007557600080fd5b8035906020019184600183028401116401000000008311171561009757600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290803590602001906401000000008111156100fa57600080fd5b82018360208201111561010c57600080fd5b8035906020019184600183028401116401000000008311171561012e57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610182565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16635b87fdc18383336040518463ffffffff1660e01b81526004018080602001806020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001838103835286818151815260200191508051906020019080838360005b8381101561024757808201518184015260208101905061022c565b50505050905090810190601f1680156102745780820380516001836020036101000a031916815260200191505b50838103825285818151815260200191508051906020019080838360005b838110156102ad578082015181840152602081019050610292565b50505050905090810190601f1680156102da5780820380516001836020036101000a031916815260200191505b5095505050505050600060405180830381600087803b1580156102fc57600080fd5b505af1158015610310573d6000803e3d6000fd5b50505050505056fea265627a7a72315820e6db554c6246edd66d0570031ee6cd9c2e8a1ed89239322f5a195e930eb43ce064736f6c63430005100032",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c80638dcaa37614610030575b600080fd5b6101806004803603604081101561004657600080fd5b810190808035906020019064010000000081111561006357600080fd5b82018360208201111561007557600080fd5b8035906020019184600183028401116401000000008311171561009757600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290803590602001906401000000008111156100fa57600080fd5b82018360208201111561010c57600080fd5b8035906020019184600183028401116401000000008311171561012e57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610182565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16635b87fdc18383336040518463ffffffff1660e01b81526004018080602001806020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001838103835286818151815260200191508051906020019080838360005b8381101561024757808201518184015260208101905061022c565b50505050905090810190601f1680156102745780820380516001836020036101000a031916815260200191505b50838103825285818151815260200191508051906020019080838360005b838110156102ad578082015181840152602081019050610292565b50505050905090810190601f1680156102da5780820380516001836020036101000a031916815260200191505b5095505050505050600060405180830381600087803b1580156102fc57600080fd5b505af1158015610310573d6000803e3d6000fd5b50505050505056fea265627a7a72315820e6db554c6246edd66d0570031ee6cd9c2e8a1ed89239322f5a195e930eb43ce064736f6c63430005100032",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_oneContractAddr\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"_email\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_password\",\"type\":\"string\"}],\"name\":\"activateBackup\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/chanchu-ting/dapp-testamentary/contracts/MainContract.sol\":\"ActivateBackup\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/chanchu-ting/dapp-testamentary/contracts/MainContract.sol\":{\"keccak256\":\"0x4d1245877195f526502365c608e9a71d4488a7089eb70a21103bafc5c37da49c\",\"urls\":[\"bzz-raw://42f4555833285462a8d246a1beff8a29f58f6b227874a0b3a38c377fdb7117bd\",\"dweb:/ipfs/QmUqEdgJH889BeohmsM575wai8pjkgDaWGXbmFwsyRaEbj\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516103e13803806103e18339818101604052602081101561003357600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505061034d806100946000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80638dcaa37614610030575b600080fd5b6101806004803603604081101561004657600080fd5b810190808035906020019064010000000081111561006357600080fd5b82018360208201111561007557600080fd5b8035906020019184600183028401116401000000008311171561009757600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290803590602001906401000000008111156100fa57600080fd5b82018360208201111561010c57600080fd5b8035906020019184600183028401116401000000008311171561012e57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610182565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16635b87fdc18383336040518463ffffffff1660e01b81526004018080602001806020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001838103835286818151815260200191508051906020019080838360005b8381101561024757808201518184015260208101905061022c565b50505050905090810190601f1680156102745780820380516001836020036101000a031916815260200191505b50838103825285818151815260200191508051906020019080838360005b838110156102ad578082015181840152602081019050610292565b50505050905090810190601f1680156102da5780820380516001836020036101000a031916815260200191505b5095505050505050600060405180830381600087803b1580156102fc57600080fd5b505af1158015610310573d6000803e3d6000fd5b50505050505056fea265627a7a72315820f9e3cdc8bb98f2e973e309c0bc1918caa30d304a75fda682e8871856bea0b9cc64736f6c63430005100032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c80638dcaa37614610030575b600080fd5b6101806004803603604081101561004657600080fd5b810190808035906020019064010000000081111561006357600080fd5b82018360208201111561007557600080fd5b8035906020019184600183028401116401000000008311171561009757600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290803590602001906401000000008111156100fa57600080fd5b82018360208201111561010c57600080fd5b8035906020019184600183028401116401000000008311171561012e57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610182565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16635b87fdc18383336040518463ffffffff1660e01b81526004018080602001806020018473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001838103835286818151815260200191508051906020019080838360005b8381101561024757808201518184015260208101905061022c565b50505050905090810190601f1680156102745780820380516001836020036101000a031916815260200191505b50838103825285818151815260200191508051906020019080838360005b838110156102ad578082015181840152602081019050610292565b50505050905090810190601f1680156102da5780820380516001836020036101000a031916815260200191505b5095505050505050600060405180830381600087803b1580156102fc57600080fd5b505af1158015610310573d6000803e3d6000fd5b50505050505056fea265627a7a72315820f9e3cdc8bb98f2e973e309c0bc1918caa30d304a75fda682e8871856bea0b9cc64736f6c63430005100032",
   "sourceMap": "7304:878:0:-;;;7353:96;8:9:-1;5:2;;;30:1;27;20:12;5:2;7353:96:0;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;7353:96:0;;;;;;;;;;;;;;;;7425:16;7409:6;;:33;;;;;;;;;;;;;;;;;;7353:96;7304:878;;;;;;",
   "deployedSourceMap": "7304:878:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;7304:878:0;;;;;;;;;;;;;;;;;;;8031:144;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;8031:144:0;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;8031:144:0;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;8031:144:0;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;8031:144:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;8031:144:0;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;8031:144:0;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;8031:144:0;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;8031:144:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;8031:144:0;;;;;;;;;;;;;;;:::i;:::-;;;8118:6;;;;;;;;;;;:21;;;8140:6;8147:9;8157:10;8118:50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;8118:50:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;8118:50:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;8118:50:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;8118:50:0;;;;8031:144;;:::o",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity <= 0.7.6;\n\ncontract MainContract {\n    \n    /* backup variable */\n    string email; \n    string password;\n    address[] owners;\n    address mainowner;\n    mapping(address => bool) isOwner;\n    uint revisepo;\n    uint totalpo;\n    \n    //event\n    event Deposit(address user,uint deamount);\n    event Withdraw(address user,uint wiamount);\n    \n    //modifier\n    modifier onlyOwner (address addr){\n        require(isOwner[addr], \"not owner\");\n        _;\n    }\n    \n    modifier checkSameOwner (address addr){\n        require(mainowner == addr, \"not contract owner\");\n        _;\n    }\n    \n    constructor () public {\n        email = \"\";\n        password = \"\";\n        owners = [msg.sender];\n        mainowner = msg.sender;\n        isOwner[msg.sender] = true;\n    }\n    \n    /* bank function */\n    \n    //deposit\n    function deposit() public payable checkSameOwner(msg.sender){\n        emit Deposit(msg.sender,msg.value);\n    }\n    \n    //withdraw\n    function withdraw(uint _amount) public payable checkSameOwner(msg.sender){\n        require((_amount) <= address(this).balance, \"not enough funds\");\n        (bool sent, ) = msg.sender.call.value(_amount)(\"\");\n        require(sent, \"Failed to send Ether\");\n        emit Withdraw(msg.sender,_amount*10**18);\n    }\n    \n    //balance\n    function getBalance() public view returns (uint) {\n        return address(this).balance;\n    }\n\n    /* backup function */\n    \n    //create back-up, setting email and password\n    function setBackup(string calldata _email,string calldata _password,address _call) external checkSameOwner(_call){\n        email = _email;\n        password = _password;\n    }\n    \n    //check email and password\n    function checksubmitTransaction(string calldata _email,string calldata _password,address payable _to) external {\n        require(keccak256(abi.encodePacked((email))) != keccak256(abi.encodePacked((\"\"))),\"Do not set the back-up mechanism email.\");\n        require(keccak256(abi.encodePacked((_email))) == keccak256(abi.encodePacked((email))),\"Please enter the former email.\");\n        require(keccak256(abi.encodePacked((password))) != keccak256(abi.encodePacked((\"\"))),\"Do not set the back-up mechanism password.\");\n        require(keccak256(abi.encodePacked((_password))) == keccak256(abi.encodePacked((password))),\"Please enter the former password.\");\n        addOwners(_to);\n        destroySmartContract(_to);\n    }\n    \n    //add the activater into owers to activate the mechanism\n    function addOwners(address _newaddress) private{\n        owners.push(_newaddress);\n        isOwner[_newaddress] = true;\n    }\n    \n    //destroy the contract and take the ether back\n    function destroySmartContract(address payable _to) internal onlyOwner(_to){\n        selfdestruct(_to);\n    }\n    \n    /* beneficiary variable */\n    \n    string owneremail; \n    struct Beneficiary{\n        string beneficiaryemail;\n        uint portion;\n        bool execute;\n    }\n    mapping(uint=>Beneficiary) beneficiaryinfo;\n    uint[]  beneficiaryids;\n    string[] beneficiarymails;\n    mapping(string=>bool) mailexist;\n    mapping(string=>uint) portions;\n    mapping(address=>uint) transferamount;\n    address payable[] toadds;\n    uint[] reviseportion;\n    \n    /* beneficiary function */\n    \n    //ower email\n    function submitEmail(string memory _ownermail) public {\n       owneremail = _ownermail;\n    }\n    \n    function getOwnerEmail() public view returns (string memory) {\n        return owneremail;\n    }\n    \n    //add beneficiary\n    function create() public{\n        addbene(\"barbie@mail\",0);\n    }\n    \n    function addbene(string memory _benemail,uint _distriburate) public checkSameOwner(msg.sender){\n       require(getBalance() > 0);\n       uint id = beneficiaryids.length + 1;\n       Beneficiary storage newbene = beneficiaryinfo[id];\n       newbene.beneficiaryemail = _benemail;\n       newbene.portion = _distriburate;\n       newbene.execute = false;\n       beneficiaryids.push(id);\n       beneficiarymails.push(_benemail);\n       mailexist[_benemail] = true;\n       portions[_benemail] = _distriburate;\n    }\n    \n    //check beneficiary info\n    function getBeneficiary(uint _id) public view returns (string memory,uint,bool){\n        Beneficiary storage s = beneficiaryinfo[_id];\n        return (s.beneficiaryemail,s.portion,s.execute);\n    }\n\n    function getbeneficiarybymail(string memory _mail) public view returns(bool){\n        return mailexist[_mail];\n    }\n    function getportion(string memory _mail) public view returns(uint){\n        return portions[_mail];\n    }\n    \n    //change beneficiary portion\n    function modifybene(uint _id,string memory _mail,uint _portion)public checkSameOwner(msg.sender){\n        Beneficiary storage s = beneficiaryinfo[_id];\n        s.portion = _portion;\n        portions[_mail] = _portion;\n    }\n    /*function submitTransaction(address payable _to,uint _portion) payable public {\n        toadds.push(_to);\n        transferamount[_to] = address(this).balance / 100 * _portion;\n        if (toadds.length == beneficiarymails.length) {\n           for (uint i = 0; i < toadds.length; i++) {\n             toadds[i].transfer(transferamount[toadds[i]]);  \n           }\n        }\n    }*/\n    function submitTransaction(address payable _to,uint _portion) public {\n        toadds.push(_to);\n        //reviseportion.push(_portion);\n        transferamount[_to]=address(this).balance/100*_portion;\n        if(toadds.length==beneficiarymails.length){\n           for(uint i=0;i<toadds.length;i++){\n            //    for(uint r=0;r<reviseportion.length;r++){\n            //  totalpo+=reviseportion[r];\n            //  revisepo=100*_portion/totalpo;\n            //  transferamount[_to]=address(this).balance/100*revisepo;\n                toadds[i].transfer(transferamount[toadds[i]]); \n           }\n        }\n        //_to.transfer(address(this).balance/100*_portion);}\n    }\n    \n    \n    /* not use just for check */\n    \n    function getisOwners(address _checkaddress) public view returns (bool) {\n        return isOwner[_checkaddress];\n    }\n    \n    function getEmail() public view returns (string memory) {\n        return email;\n    }\n    \n    function getPassword() public view returns (string memory) {\n        return password;\n    }\n    \n    function getOwners() public view returns (address[] memory) {\n        return owners;\n    }\n    \n    function returnlen() public view returns (uint) {\n        return beneficiarymails.length;\n    }\n\n    \n    // function submitTransaction(address payable _to) public onlyOwner(_to){\n    //     _to.transfer(address(this).balance);\n    //     activated = true;\n    // }\n}\n\ncontract Backup {\n    MainContract maincontract;\n    constructor (address _oneContractAddr) public {\n        maincontract = MainContract(_oneContractAddr);\n    }\n    \n    function setBackup(string memory _email,string memory _password) public {\n        maincontract.setBackup(_email,_password,msg.sender);\n        \n    }\n    function activateBackup(string calldata _email,string calldata _password,address payable _to) external {\n        maincontract.checksubmitTransaction(_email,_password,_to);\n    }\n\n    function getEmail() public view returns (string memory){\n        return maincontract.getEmail();\n    }\n    \n    \n}\n\ncontract ActivateBackup {\n    Backup backup;\n    constructor (address _oneContractAddr) public {\n        backup = Backup(_oneContractAddr);\n    }\n    // function getbackaddress() public view returns (Backup){\n    //     return backup;\n    // }\n    // function checkContract(address _contractaddress,string memory _email,string memory _password) public {\n    //     Backup a = backup;\n    //     backup = Backup(_contractaddress);\n    //     activateBackup(_email,_password);\n    //     backup = a;\n    // }\n    // constructor (address _oneContractAddr,string memory _email,string memory _password) public {\n    //     backup = Backup(_oneContractAddr);\n    //     email = _email;\n    //     password = _password;\n\n    // }\n    function activateBackup(string memory _email,string memory _password) public {\n        backup.activateBackup(_email,_password,msg.sender);\n    }\n    \n}\n\ncontract setpassword {\n    MainContract maincontract;\n    bytes32 password;\n    uint portion;\n    mapping (address => bytes32) beneficiarypass;\n    mapping (string => uint) portions;\n    mapping (address => string) mail;\n    \n    constructor (address _oneContractAddr) public {\n        maincontract = MainContract(_oneContractAddr);\n    }\n    \n    function passset(string memory _mail,string memory _password) public {\n        require(maincontract.getbeneficiarybymail(_mail) == true);\n        password = keccak256(abi.encode(_password));\n        beneficiarypass[msg.sender] = password;\n        mail[msg.sender] = _mail;\n    }\n     \n    function getmail() public view returns (string memory) {\n        return mail[msg.sender];\n    }\n    \n    function getpassword() public view returns (bytes32) {\n        return beneficiarypass[msg.sender];\n    }\n    \n    function getmypo() public view returns (uint) {\n        return maincontract.getportion(mail[msg.sender]);\n    }\n    \n    function execute (string memory _password) public payable{\n        require(keccak256(abi.encode(_password)) == beneficiarypass[msg.sender]);\n        portion = maincontract.getportion(mail[msg.sender]);\n        maincontract.submitTransaction(msg.sender,portion);\n     }\n\n    //抄的\n    function checkContract(address _oneContractAddr,string memory _email, string memory _password) public {\n        MainContract a = maincontract;\n        maincontract = MainContract(_oneContractAddr);\n        passset(_email, _password);\n        maincontract = a;\n    }\n\n}",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity <= 0.7.6;\n\ncontract MainContract {\n    \n    /* backup variable */\n    string email; \n    string password;\n    address[] owners;\n    address mainowner;\n    mapping(address => bool) isOwner;\n    uint revisepo;\n    uint totalpo;\n    \n    //event\n    event Deposit(address user,uint deamount);\n    event Withdraw(address user,uint wiamount);\n    \n    //modifier\n    modifier onlyOwner (address addr){\n        require(isOwner[addr], \"not owner\");\n        _;\n    }\n    \n    modifier checkSameOwner (address addr){\n        require(mainowner == addr, \"not contract owner\");\n        _;\n    }\n    \n    constructor () public {\n        email = \"\";\n        password = \"\";\n        owners = [msg.sender];\n        mainowner = msg.sender;\n        isOwner[msg.sender] = true;\n    }\n    \n    /* bank function */\n    \n    //deposit\n    function deposit() public payable checkSameOwner(msg.sender){\n        emit Deposit(msg.sender,msg.value);\n    }\n    \n    //withdraw\n    function withdraw(uint _amount) public payable checkSameOwner(msg.sender){\n        require((_amount) <= address(this).balance, \"not enough funds\");\n        (bool sent, ) = msg.sender.call.value(_amount)(\"\");\n        require(sent, \"Failed to send Ether\");\n        emit Withdraw(msg.sender,_amount*10**18);\n    }\n    \n    //balance\n    function getBalance() public view returns (uint) {\n        return address(this).balance;\n    }\n\n    /* backup function */\n    \n    //create back-up, setting email and password\n    function setBackup(string calldata _email,string calldata _password,address _call) external checkSameOwner(_call){\n        email = _email;\n        password = _password;\n    }\n    \n    //check email and password\n    function checksubmitTransaction(string calldata _email,string calldata _password,address payable _to) external {\n        require(keccak256(abi.encodePacked((email))) != keccak256(abi.encodePacked((\"\"))),\"Do not set the back-up mechanism email.\");\n        require(keccak256(abi.encodePacked((_email))) == keccak256(abi.encodePacked((email))),\"Please enter the former email.\");\n        require(keccak256(abi.encodePacked((password))) != keccak256(abi.encodePacked((\"\"))),\"Do not set the back-up mechanism password.\");\n        require(keccak256(abi.encodePacked((_password))) == keccak256(abi.encodePacked((password))),\"Please enter the former password.\");\n        addOwners(_to);\n        destroySmartContract(_to);\n    }\n    \n    //add the activater into owers to activate the mechanism\n    function addOwners(address _newaddress) private{\n        owners.push(_newaddress);\n        isOwner[_newaddress] = true;\n    }\n    \n    //destroy the contract and take the ether back\n    function destroySmartContract(address payable _to) internal onlyOwner(_to){\n        selfdestruct(_to);\n    }\n    \n    /* beneficiary variable */\n    \n    string owneremail; \n    struct Beneficiary{\n        string beneficiaryemail;\n        uint portion;\n        bool execute;\n    }\n    mapping(uint=>Beneficiary) beneficiaryinfo;\n    uint[]  beneficiaryids;\n    string[] beneficiarymails;\n    mapping(string=>bool) mailexist;\n    mapping(string=>uint) portions;\n    mapping(address=>uint) transferamount;\n    address payable[] toadds;\n    uint[] reviseportion;\n    \n    /* beneficiary function */\n    \n    //ower email\n    function submitEmail(string memory _ownermail) public {\n       owneremail = _ownermail;\n    }\n    \n    function getOwnerEmail() public view returns (string memory) {\n        return owneremail;\n    }\n    \n    //add beneficiary\n    function create() public{\n        addbene(\"barbie@mail\",0);\n    }\n    \n    function addbene(string memory _benemail,uint _distriburate) public checkSameOwner(msg.sender){\n       require(getBalance() > 0);\n       uint id = beneficiaryids.length + 1;\n       Beneficiary storage newbene = beneficiaryinfo[id];\n       newbene.beneficiaryemail = _benemail;\n       newbene.portion = _distriburate;\n       newbene.execute = false;\n       beneficiaryids.push(id);\n       beneficiarymails.push(_benemail);\n       mailexist[_benemail] = true;\n       portions[_benemail] = _distriburate;\n    }\n    \n    //check beneficiary info\n    function getBeneficiary(uint _id) public view returns (string memory,uint,bool){\n        Beneficiary storage s = beneficiaryinfo[_id];\n        return (s.beneficiaryemail,s.portion,s.execute);\n    }\n\n    function getbeneficiarybymail(string memory _mail) public view returns(bool){\n        return mailexist[_mail];\n    }\n    function getportion(string memory _mail) public view returns(uint){\n        return portions[_mail];\n    }\n    \n    //change beneficiary portion\n    function modifybene(uint _id,string memory _mail,uint _portion)public checkSameOwner(msg.sender){\n        Beneficiary storage s = beneficiaryinfo[_id];\n        s.portion = _portion;\n        portions[_mail] = _portion;\n    }\n    /*function submitTransaction(address payable _to,uint _portion) payable public {\n        toadds.push(_to);\n        transferamount[_to] = address(this).balance / 100 * _portion;\n        if (toadds.length == beneficiarymails.length) {\n           for (uint i = 0; i < toadds.length; i++) {\n             toadds[i].transfer(transferamount[toadds[i]]);  \n           }\n        }\n    }*/\n    function submitTransaction(address payable _to,uint _portion) public {\n        toadds.push(_to);\n        //reviseportion.push(_portion);\n        transferamount[_to]=address(this).balance/100*_portion;\n        if(toadds.length==beneficiarymails.length){\n           for(uint i=0;i<toadds.length;i++){\n            //    for(uint r=0;r<reviseportion.length;r++){\n            //  totalpo+=reviseportion[r];\n            //  revisepo=100*_portion/totalpo;\n            //  transferamount[_to]=address(this).balance/100*revisepo;\n                toadds[i].transfer(transferamount[toadds[i]]); \n           }\n        }\n        //_to.transfer(address(this).balance/100*_portion);}\n    }\n    \n    \n    /* not use just for check */\n    \n    function getisOwners(address _checkaddress) public view returns (bool) {\n        return isOwner[_checkaddress];\n    }\n    \n    function getEmail() public view returns (string memory) {\n        return email;\n    }\n    \n    function getPassword() public view returns (string memory) {\n        return password;\n    }\n    \n    function getOwners() public view returns (address[] memory) {\n        return owners;\n    }\n    \n    function returnlen() public view returns (uint) {\n        return beneficiarymails.length;\n    }\n\n    \n    // function submitTransaction(address payable _to) public onlyOwner(_to){\n    //     _to.transfer(address(this).balance);\n    //     activated = true;\n    // }\n}\n\ncontract Backup {\n    MainContract maincontract;\n    constructor (address _oneContractAddr) public {\n        maincontract = MainContract(_oneContractAddr);\n    }\n    \n    function setBackup(string memory _email,string memory _password) public {\n        maincontract.setBackup(_email,_password,msg.sender);\n        \n    }\n    function activateBackup(string calldata _email,string calldata _password,address payable _to) external {\n        maincontract.checksubmitTransaction(_email,_password,_to);\n    }\n\n    function getEmail() public view returns (string memory){\n        return maincontract.getEmail();\n    }\n    \n    \n}\n\ncontract ActivateBackup {\n    Backup backup;\n    constructor (address _oneContractAddr) public {\n        backup = Backup(_oneContractAddr);\n    }\n    // function getbackaddress() public view returns (Backup){\n    //     return backup;\n    // }\n    // function checkContract(address _contractaddress,string memory _email,string memory _password) public {\n    //     Backup a = backup;\n    //     backup = Backup(_contractaddress);\n    //     activateBackup(_email,_password);\n    //     backup = a;\n    // }\n    // constructor (address _oneContractAddr,string memory _email,string memory _password) public {\n    //     backup = Backup(_oneContractAddr);\n    //     email = _email;\n    //     password = _password;\n\n    // }\n    function activateBackup(string memory _email,string memory _password) public {\n        backup.activateBackup(_email,_password,msg.sender);\n    }\n    \n}\n\ncontract setpassword {\n    MainContract maincontract;\n    bytes32 password;\n    uint portion;\n    mapping (address => bytes32) beneficiarypass;\n    mapping (string => uint) portions;\n    mapping (address => string) mail;\n    \n    constructor (address _oneContractAddr) public {\n        maincontract = MainContract(_oneContractAddr);\n    }\n    \n    function passset(string memory _mail,string memory _password) public {\n        require(maincontract.getbeneficiarybymail(_mail) == true);\n        password = keccak256(abi.encode(_password));\n        beneficiarypass[msg.sender] = password;\n        mail[msg.sender] = _mail;\n    }\n     \n    function getmail() public view returns (string memory) {\n        return mail[msg.sender];\n    }\n    \n    function getpassword() public view returns (bytes32) {\n        return beneficiarypass[msg.sender];\n    }\n    \n    function getmypo() public view returns (uint) {\n        return maincontract.getportion(mail[msg.sender]);\n    }\n    \n    function execute (string memory _password) public payable{\n        require(keccak256(abi.encode(_password)) == beneficiarypass[msg.sender]);\n        portion = maincontract.getportion(mail[msg.sender]);\n        maincontract.submitTransaction(msg.sender,portion);\n     }\n\n\n}",
   "sourcePath": "/Users/chanchu-ting/dapp-testamentary/contracts/MainContract.sol",
   "ast": {
     "absolutePath": "/Users/chanchu-ting/dapp-testamentary/contracts/MainContract.sol",
@@ -54,10 +54,10 @@
         630
       ],
       "setpassword": [
-        896
+        867
       ]
     },
-    "id": 897,
+    "id": 868,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -521,10 +521,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 915,
+                      "referencedDeclaration": 886,
                       "src": "453:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -686,10 +686,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 915,
+                      "referencedDeclaration": 886,
                       "src": "564:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -904,7 +904,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 911,
+                            "referencedDeclaration": 882,
                             "src": "725:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -980,7 +980,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 911,
+                        "referencedDeclaration": 882,
                         "src": "758:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1043,7 +1043,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "786:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1150,7 +1150,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "947:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1179,7 +1179,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "958:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1258,7 +1258,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 911,
+                      "referencedDeclaration": 882,
                       "src": "913:3:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -1382,7 +1382,7 @@
                                 "name": "this",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 925,
+                                "referencedDeclaration": 896,
                                 "src": "1112:4:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_contract$_MainContract_$630",
@@ -1478,10 +1478,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 915,
+                      "referencedDeclaration": 886,
                       "src": "1083:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1602,7 +1602,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 911,
+                              "referencedDeclaration": 882,
                               "src": "1172:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -1733,10 +1733,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 915,
+                      "referencedDeclaration": 886,
                       "src": "1216:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1773,7 +1773,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "1277:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1939,7 +1939,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 911,
+                      "referencedDeclaration": 882,
                       "src": "1062:3:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -2044,7 +2044,7 @@
                           "name": "this",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 925,
+                          "referencedDeclaration": 896,
                           "src": "1408:4:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_contract$_MainContract_$630",
@@ -2469,7 +2469,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "1868:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -2516,7 +2516,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "1858:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -2594,7 +2594,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "1908:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -2641,7 +2641,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "1898:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -2702,10 +2702,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 915,
+                      "referencedDeclaration": 886,
                       "src": "1850:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2795,7 +2795,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "2002:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -2842,7 +2842,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "1992:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -2915,7 +2915,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "2043:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -2962,7 +2962,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "2033:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -3023,10 +3023,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 915,
+                      "referencedDeclaration": 886,
                       "src": "1984:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3116,7 +3116,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "2131:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -3163,7 +3163,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "2121:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -3241,7 +3241,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "2174:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -3288,7 +3288,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "2164:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -3349,10 +3349,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 915,
+                      "referencedDeclaration": 886,
                       "src": "2113:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3442,7 +3442,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "2271:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -3489,7 +3489,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "2261:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -3562,7 +3562,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "2315:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -3609,7 +3609,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "2305:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -3670,10 +3670,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 915,
+                      "referencedDeclaration": 886,
                       "src": "2253:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4157,7 +4157,7 @@
                       "name": "selfdestruct",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 919,
+                      "referencedDeclaration": 890,
                       "src": "2788:12:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_payable_$returns$__$",
@@ -5101,10 +5101,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 914,
+                      "referencedDeclaration": 885,
                       "src": "3734:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -5808,7 +5808,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 911,
+                      "referencedDeclaration": 882,
                       "src": "3714:3:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -6750,7 +6750,7 @@
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 911,
+                      "referencedDeclaration": 882,
                       "src": "4734:3:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
@@ -7048,7 +7048,7 @@
                                 "name": "this",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 925,
+                                "referencedDeclaration": 896,
                                 "src": "5434:4:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_contract$_MainContract_$630",
@@ -8122,7 +8122,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 897,
+        "scope": 868,
         "src": "59:6619:0"
       },
       {
@@ -8353,7 +8353,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "6973:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -8845,7 +8845,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 897,
+        "scope": 868,
         "src": "6680:622:0"
       },
       {
@@ -9076,7 +9076,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "8157:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -9239,7 +9239,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 897,
+        "scope": 868,
         "src": "7304:878:0"
       },
       {
@@ -9248,9 +9248,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 896,
+        "id": 867,
         "linearizedBaseContracts": [
-          896
+          867
         ],
         "name": "setpassword",
         "nodeType": "ContractDefinition",
@@ -9260,7 +9260,7 @@
             "id": 724,
             "name": "maincontract",
             "nodeType": "VariableDeclaration",
-            "scope": 896,
+            "scope": 867,
             "src": "8211:25:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -9288,7 +9288,7 @@
             "id": 726,
             "name": "password",
             "nodeType": "VariableDeclaration",
-            "scope": 896,
+            "scope": 867,
             "src": "8242:16:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -9314,7 +9314,7 @@
             "id": 728,
             "name": "portion",
             "nodeType": "VariableDeclaration",
-            "scope": 896,
+            "scope": 867,
             "src": "8264:12:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -9340,7 +9340,7 @@
             "id": 732,
             "name": "beneficiarypass",
             "nodeType": "VariableDeclaration",
-            "scope": 896,
+            "scope": 867,
             "src": "8282:44:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -9385,7 +9385,7 @@
             "id": 736,
             "name": "portions",
             "nodeType": "VariableDeclaration",
-            "scope": 896,
+            "scope": 867,
             "src": "8332:33:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -9430,7 +9430,7 @@
             "id": 740,
             "name": "mail",
             "nodeType": "VariableDeclaration",
-            "scope": 896,
+            "scope": 867,
             "src": "8371:32:0",
             "stateVariable": true,
             "storageLocation": "default",
@@ -9607,7 +9607,7 @@
               "parameters": [],
               "src": "8460:0:0"
             },
-            "scope": 896,
+            "scope": 867,
             "src": "8414:108:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -9737,10 +9737,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 914,
+                      "referencedDeclaration": 885,
                       "src": "8611:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -9821,7 +9821,7 @@
                               "name": "abi",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 898,
+                              "referencedDeclaration": 869,
                               "src": "8699:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_abi",
@@ -9868,7 +9868,7 @@
                         "name": "keccak256",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 905,
+                        "referencedDeclaration": 876,
                         "src": "8689:9:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -9931,7 +9931,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "8747:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -10020,7 +10020,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "8784:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -10151,7 +10151,7 @@
               "parameters": [],
               "src": "8601:0:0"
             },
-            "scope": 896,
+            "scope": 867,
             "src": "8532:278:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -10188,7 +10188,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 911,
+                        "referencedDeclaration": 882,
                         "src": "8898:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -10273,7 +10273,7 @@
               ],
               "src": "8860:15:0"
             },
-            "scope": 896,
+            "scope": 867,
             "src": "8821:95:0",
             "stateMutability": "view",
             "superFunction": null,
@@ -10310,7 +10310,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 911,
+                        "referencedDeclaration": 882,
                         "src": "9012:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -10395,7 +10395,7 @@
               ],
               "src": "8969:9:0"
             },
-            "scope": 896,
+            "scope": 867,
             "src": "8926:104:0",
             "stateMutability": "view",
             "superFunction": null,
@@ -10435,7 +10435,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 911,
+                            "referencedDeclaration": 882,
                             "src": "9132:3:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -10569,7 +10569,7 @@
               ],
               "src": "9079:6:0"
             },
-            "scope": 896,
+            "scope": 867,
             "src": "9040:111:0",
             "stateMutability": "view",
             "superFunction": null,
@@ -10629,7 +10629,7 @@
                                   "name": "abi",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 898,
+                                  "referencedDeclaration": 869,
                                   "src": "9246:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_abi",
@@ -10676,7 +10676,7 @@
                             "name": "keccak256",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 905,
+                            "referencedDeclaration": 876,
                             "src": "9236:9:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -10723,7 +10723,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 911,
+                              "referencedDeclaration": 882,
                               "src": "9288:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -10773,10 +10773,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        914,
-                        915
+                        885,
+                        886
                       ],
-                      "referencedDeclaration": 914,
+                      "referencedDeclaration": 885,
                       "src": "9228:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -10851,7 +10851,7 @@
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 911,
+                              "referencedDeclaration": 882,
                               "src": "9349:3:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
@@ -10954,7 +10954,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "src": "9402:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -11093,381 +11093,18 @@
               "parameters": [],
               "src": "9218:0:0"
             },
-            "scope": 896,
+            "scope": 867,
             "src": "9161:268:0",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 894,
-              "nodeType": "Block",
-              "src": "9550:163:0",
-              "statements": [
-                {
-                  "assignments": [
-                    876
-                  ],
-                  "declarations": [
-                    {
-                      "constant": false,
-                      "id": 876,
-                      "name": "a",
-                      "nodeType": "VariableDeclaration",
-                      "scope": 894,
-                      "src": "9560:14:0",
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_MainContract_$630",
-                        "typeString": "contract MainContract"
-                      },
-                      "typeName": {
-                        "contractScope": null,
-                        "id": 875,
-                        "name": "MainContract",
-                        "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 630,
-                        "src": "9560:12:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_MainContract_$630",
-                          "typeString": "contract MainContract"
-                        }
-                      },
-                      "value": null,
-                      "visibility": "internal"
-                    }
-                  ],
-                  "id": 878,
-                  "initialValue": {
-                    "argumentTypes": null,
-                    "id": 877,
-                    "name": "maincontract",
-                    "nodeType": "Identifier",
-                    "overloadedDeclarations": [],
-                    "referencedDeclaration": 724,
-                    "src": "9577:12:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_MainContract_$630",
-                      "typeString": "contract MainContract"
-                    }
-                  },
-                  "nodeType": "VariableDeclarationStatement",
-                  "src": "9560:29:0"
-                },
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 883,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "leftHandSide": {
-                      "argumentTypes": null,
-                      "id": 879,
-                      "name": "maincontract",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 724,
-                      "src": "9599:12:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_MainContract_$630",
-                        "typeString": "contract MainContract"
-                      }
-                    },
-                    "nodeType": "Assignment",
-                    "operator": "=",
-                    "rightHandSide": {
-                      "argumentTypes": null,
-                      "arguments": [
-                        {
-                          "argumentTypes": null,
-                          "id": 881,
-                          "name": "_oneContractAddr",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 868,
-                          "src": "9627:16:0",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_address",
-                            "typeString": "address"
-                          }
-                        }
-                      ],
-                      "expression": {
-                        "argumentTypes": [
-                          {
-                            "typeIdentifier": "t_address",
-                            "typeString": "address"
-                          }
-                        ],
-                        "id": 880,
-                        "name": "MainContract",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 630,
-                        "src": "9614:12:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_MainContract_$630_$",
-                          "typeString": "type(contract MainContract)"
-                        }
-                      },
-                      "id": 882,
-                      "isConstant": false,
-                      "isLValue": false,
-                      "isPure": false,
-                      "kind": "typeConversion",
-                      "lValueRequested": false,
-                      "names": [],
-                      "nodeType": "FunctionCall",
-                      "src": "9614:30:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_MainContract_$630",
-                        "typeString": "contract MainContract"
-                      }
-                    },
-                    "src": "9599:45:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_MainContract_$630",
-                      "typeString": "contract MainContract"
-                    }
-                  },
-                  "id": 884,
-                  "nodeType": "ExpressionStatement",
-                  "src": "9599:45:0"
-                },
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "arguments": [
-                      {
-                        "argumentTypes": null,
-                        "id": 886,
-                        "name": "_email",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 870,
-                        "src": "9662:6:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_string_memory_ptr",
-                          "typeString": "string memory"
-                        }
-                      },
-                      {
-                        "argumentTypes": null,
-                        "id": 887,
-                        "name": "_password",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 872,
-                        "src": "9670:9:0",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_string_memory_ptr",
-                          "typeString": "string memory"
-                        }
-                      }
-                    ],
-                    "expression": {
-                      "argumentTypes": [
-                        {
-                          "typeIdentifier": "t_string_memory_ptr",
-                          "typeString": "string memory"
-                        },
-                        {
-                          "typeIdentifier": "t_string_memory_ptr",
-                          "typeString": "string memory"
-                        }
-                      ],
-                      "id": 885,
-                      "name": "passset",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 792,
-                      "src": "9654:7:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_string_memory_ptr_$_t_string_memory_ptr_$returns$__$",
-                        "typeString": "function (string memory,string memory)"
-                      }
-                    },
-                    "id": 888,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "kind": "functionCall",
-                    "lValueRequested": false,
-                    "names": [],
-                    "nodeType": "FunctionCall",
-                    "src": "9654:26:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_tuple$__$",
-                      "typeString": "tuple()"
-                    }
-                  },
-                  "id": 889,
-                  "nodeType": "ExpressionStatement",
-                  "src": "9654:26:0"
-                },
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 892,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "leftHandSide": {
-                      "argumentTypes": null,
-                      "id": 890,
-                      "name": "maincontract",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 724,
-                      "src": "9690:12:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_MainContract_$630",
-                        "typeString": "contract MainContract"
-                      }
-                    },
-                    "nodeType": "Assignment",
-                    "operator": "=",
-                    "rightHandSide": {
-                      "argumentTypes": null,
-                      "id": 891,
-                      "name": "a",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 876,
-                      "src": "9705:1:0",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_MainContract_$630",
-                        "typeString": "contract MainContract"
-                      }
-                    },
-                    "src": "9690:16:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_MainContract_$630",
-                      "typeString": "contract MainContract"
-                    }
-                  },
-                  "id": 893,
-                  "nodeType": "ExpressionStatement",
-                  "src": "9690:16:0"
-                }
-              ]
-            },
-            "documentation": null,
-            "id": 895,
-            "implemented": true,
-            "kind": "function",
-            "modifiers": [],
-            "name": "checkContract",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 873,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 868,
-                  "name": "_oneContractAddr",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 895,
-                  "src": "9471:24:0",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 867,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "9471:7:0",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 870,
-                  "name": "_email",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 895,
-                  "src": "9496:20:0",
-                  "stateVariable": false,
-                  "storageLocation": "memory",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_memory_ptr",
-                    "typeString": "string"
-                  },
-                  "typeName": {
-                    "id": 869,
-                    "name": "string",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "9496:6:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 872,
-                  "name": "_password",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 895,
-                  "src": "9518:23:0",
-                  "stateVariable": false,
-                  "storageLocation": "memory",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_string_memory_ptr",
-                    "typeString": "string"
-                  },
-                  "typeName": {
-                    "id": 871,
-                    "name": "string",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "9518:6:0",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "9470:72:0"
-            },
-            "returnParameters": {
-              "id": 874,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "9550:0:0"
-            },
-            "scope": 896,
-            "src": "9448:265:0",
-            "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
           }
         ],
-        "scope": 897,
-        "src": "8184:1532:0"
+        "scope": 868,
+        "src": "8184:1249:0"
       }
     ],
-    "src": "32:9684:0"
+    "src": "32:9401:0"
   },
   "legacyAST": {
     "attributes": {
@@ -11483,7 +11120,7 @@
           630
         ],
         "setpassword": [
-          896
+          867
         ]
       }
     },
@@ -11516,7 +11153,7 @@
             630
           ],
           "name": "MainContract",
-          "scope": 897
+          "scope": 868
         },
         "children": [
           {
@@ -11954,10 +11591,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 915,
+                              "referencedDeclaration": 886,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -12123,10 +11760,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 915,
+                              "referencedDeclaration": 886,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -12428,7 +12065,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 911,
+                                      "referencedDeclaration": 882,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -12501,7 +12138,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -12579,7 +12216,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 911,
+                                      "referencedDeclaration": 882,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -12703,7 +12340,7 @@
                           "overloadedDeclarations": [
                             null
                           ],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "type": "msg",
                           "value": "msg"
                         },
@@ -12781,7 +12418,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -12812,7 +12449,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -12936,7 +12573,7 @@
                           "overloadedDeclarations": [
                             null
                           ],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "type": "msg",
                           "value": "msg"
                         },
@@ -12986,10 +12623,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 915,
+                              "referencedDeclaration": 886,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -13094,7 +12731,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 925,
+                                          "referencedDeclaration": 896,
                                           "type": "contract MainContract",
                                           "value": "this"
                                         },
@@ -13260,7 +12897,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 911,
+                                              "referencedDeclaration": 882,
                                               "type": "msg",
                                               "value": "msg"
                                             },
@@ -13359,10 +12996,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 915,
+                              "referencedDeclaration": 886,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -13469,7 +13106,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -13709,7 +13346,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 925,
+                                  "referencedDeclaration": 896,
                                   "type": "contract MainContract",
                                   "value": "this"
                                 },
@@ -14146,10 +13783,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 915,
+                              "referencedDeclaration": 886,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -14198,7 +13835,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -14244,7 +13881,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -14323,7 +13960,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -14369,7 +14006,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -14487,10 +14124,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 915,
+                              "referencedDeclaration": 886,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -14539,7 +14176,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -14585,7 +14222,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -14664,7 +14301,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -14710,7 +14347,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -14825,10 +14462,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 915,
+                              "referencedDeclaration": 886,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -14877,7 +14514,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -14923,7 +14560,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -15002,7 +14639,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -15048,7 +14685,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -15166,10 +14803,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 915,
+                              "referencedDeclaration": 886,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
                             },
@@ -15218,7 +14855,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -15264,7 +14901,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -15343,7 +14980,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -15389,7 +15026,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -15960,7 +15597,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 919,
+                              "referencedDeclaration": 890,
                               "type": "function (address payable)",
                               "value": "selfdestruct"
                             },
@@ -16920,7 +16557,7 @@
                           "overloadedDeclarations": [
                             null
                           ],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "type": "msg",
                           "value": "msg"
                         },
@@ -16966,10 +16603,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 914,
+                              "referencedDeclaration": 885,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -18571,7 +18208,7 @@
                           "overloadedDeclarations": [
                             null
                           ],
-                          "referencedDeclaration": 911,
+                          "referencedDeclaration": 882,
                           "type": "msg",
                           "value": "msg"
                         },
@@ -19136,7 +18773,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 925,
+                                              "referencedDeclaration": 896,
                                               "type": "contract MainContract",
                                               "value": "this"
                                             },
@@ -20231,7 +19868,7 @@
             690
           ],
           "name": "Backup",
-          "scope": 897
+          "scope": 868
         },
         "children": [
           {
@@ -20620,7 +20257,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -21049,7 +20686,7 @@
             722
           ],
           "name": "ActivateBackup",
-          "scope": 897
+          "scope": 868
         },
         "children": [
           {
@@ -21438,7 +21075,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -21488,17 +21125,17 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            896
+            867
           ],
           "name": "setpassword",
-          "scope": 897
+          "scope": 868
         },
         "children": [
           {
             "attributes": {
               "constant": false,
               "name": "maincontract",
-              "scope": 896,
+              "scope": 867,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract MainContract",
@@ -21526,7 +21163,7 @@
             "attributes": {
               "constant": false,
               "name": "password",
-              "scope": 896,
+              "scope": 867,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "bytes32",
@@ -21552,7 +21189,7 @@
             "attributes": {
               "constant": false,
               "name": "portion",
-              "scope": 896,
+              "scope": 867,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "uint256",
@@ -21578,7 +21215,7 @@
             "attributes": {
               "constant": false,
               "name": "beneficiarypass",
-              "scope": 896,
+              "scope": 867,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(address => bytes32)",
@@ -21623,7 +21260,7 @@
             "attributes": {
               "constant": false,
               "name": "portions",
-              "scope": 896,
+              "scope": 867,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(string => uint256)",
@@ -21668,7 +21305,7 @@
             "attributes": {
               "constant": false,
               "name": "mail",
-              "scope": 896,
+              "scope": 867,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(address => string)",
@@ -21719,7 +21356,7 @@
                 null
               ],
               "name": "",
-              "scope": 896,
+              "scope": 867,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -21882,7 +21519,7 @@
                 null
               ],
               "name": "passset",
-              "scope": 896,
+              "scope": 867,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -21986,10 +21623,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 914,
+                              "referencedDeclaration": 885,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -22167,7 +21804,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 905,
+                                  "referencedDeclaration": 876,
                                   "type": "function (bytes memory) pure returns (bytes32)",
                                   "value": "keccak256"
                                 },
@@ -22213,7 +21850,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 898,
+                                          "referencedDeclaration": 869,
                                           "type": "abi",
                                           "value": "abi"
                                         },
@@ -22315,7 +21952,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 911,
+                                      "referencedDeclaration": 882,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -22412,7 +22049,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 911,
+                                      "referencedDeclaration": 882,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -22474,7 +22111,7 @@
                 null
               ],
               "name": "getmail",
-              "scope": 896,
+              "scope": 867,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "public"
@@ -22573,7 +22210,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -22616,7 +22253,7 @@
                 null
               ],
               "name": "getpassword",
-              "scope": 896,
+              "scope": 867,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "public"
@@ -22715,7 +22352,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -22758,7 +22395,7 @@
                 null
               ],
               "name": "getmypo",
-              "scope": 896,
+              "scope": 867,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "public"
@@ -22908,7 +22545,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 911,
+                                      "referencedDeclaration": 882,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -22956,7 +22593,7 @@
                 null
               ],
               "name": "execute",
-              "scope": 896,
+              "scope": 867,
               "stateMutability": "payable",
               "superFunction": null,
               "visibility": "public"
@@ -23034,10 +22671,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                914,
-                                915
+                                885,
+                                886
                               ],
-                              "referencedDeclaration": 914,
+                              "referencedDeclaration": 885,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -23086,7 +22723,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 905,
+                                      "referencedDeclaration": 876,
                                       "type": "function (bytes memory) pure returns (bytes32)",
                                       "value": "keccak256"
                                     },
@@ -23132,7 +22769,7 @@
                                               "overloadedDeclarations": [
                                                 null
                                               ],
-                                              "referencedDeclaration": 898,
+                                              "referencedDeclaration": 869,
                                               "type": "abi",
                                               "value": "abi"
                                             },
@@ -23211,7 +22848,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 911,
+                                          "referencedDeclaration": 882,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -23364,7 +23001,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 911,
+                                          "referencedDeclaration": 882,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -23472,7 +23109,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 911,
+                                  "referencedDeclaration": 882,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -23518,414 +23155,16 @@
             "id": 866,
             "name": "FunctionDefinition",
             "src": "9161:268:0"
-          },
-          {
-            "attributes": {
-              "documentation": null,
-              "implemented": true,
-              "isConstructor": false,
-              "kind": "function",
-              "modifiers": [
-                null
-              ],
-              "name": "checkContract",
-              "scope": 896,
-              "stateMutability": "nonpayable",
-              "superFunction": null,
-              "visibility": "public"
-            },
-            "children": [
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_oneContractAddr",
-                      "scope": 895,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "address",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "address",
-                          "stateMutability": "nonpayable",
-                          "type": "address"
-                        },
-                        "id": 867,
-                        "name": "ElementaryTypeName",
-                        "src": "9471:7:0"
-                      }
-                    ],
-                    "id": 868,
-                    "name": "VariableDeclaration",
-                    "src": "9471:24:0"
-                  },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_email",
-                      "scope": 895,
-                      "stateVariable": false,
-                      "storageLocation": "memory",
-                      "type": "string",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "string",
-                          "type": "string"
-                        },
-                        "id": 869,
-                        "name": "ElementaryTypeName",
-                        "src": "9496:6:0"
-                      }
-                    ],
-                    "id": 870,
-                    "name": "VariableDeclaration",
-                    "src": "9496:20:0"
-                  },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "name": "_password",
-                      "scope": 895,
-                      "stateVariable": false,
-                      "storageLocation": "memory",
-                      "type": "string",
-                      "value": null,
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "string",
-                          "type": "string"
-                        },
-                        "id": 871,
-                        "name": "ElementaryTypeName",
-                        "src": "9518:6:0"
-                      }
-                    ],
-                    "id": 872,
-                    "name": "VariableDeclaration",
-                    "src": "9518:23:0"
-                  }
-                ],
-                "id": 873,
-                "name": "ParameterList",
-                "src": "9470:72:0"
-              },
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
-                "children": [],
-                "id": 874,
-                "name": "ParameterList",
-                "src": "9550:0:0"
-              },
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "assignments": [
-                        876
-                      ]
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "constant": false,
-                          "name": "a",
-                          "scope": 894,
-                          "stateVariable": false,
-                          "storageLocation": "default",
-                          "type": "contract MainContract",
-                          "value": null,
-                          "visibility": "internal"
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "contractScope": null,
-                              "name": "MainContract",
-                              "referencedDeclaration": 630,
-                              "type": "contract MainContract"
-                            },
-                            "id": 875,
-                            "name": "UserDefinedTypeName",
-                            "src": "9560:12:0"
-                          }
-                        ],
-                        "id": 876,
-                        "name": "VariableDeclaration",
-                        "src": "9560:14:0"
-                      },
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "overloadedDeclarations": [
-                            null
-                          ],
-                          "referencedDeclaration": 724,
-                          "type": "contract MainContract",
-                          "value": "maincontract"
-                        },
-                        "id": 877,
-                        "name": "Identifier",
-                        "src": "9577:12:0"
-                      }
-                    ],
-                    "id": 878,
-                    "name": "VariableDeclarationStatement",
-                    "src": "9560:29:0"
-                  },
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "lValueRequested": false,
-                          "operator": "=",
-                          "type": "contract MainContract"
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 724,
-                              "type": "contract MainContract",
-                              "value": "maincontract"
-                            },
-                            "id": 879,
-                            "name": "Identifier",
-                            "src": "9599:12:0"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "isStructConstructorCall": false,
-                              "lValueRequested": false,
-                              "names": [
-                                null
-                              ],
-                              "type": "contract MainContract",
-                              "type_conversion": true
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": [
-                                    {
-                                      "typeIdentifier": "t_address",
-                                      "typeString": "address"
-                                    }
-                                  ],
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 630,
-                                  "type": "type(contract MainContract)",
-                                  "value": "MainContract"
-                                },
-                                "id": 880,
-                                "name": "Identifier",
-                                "src": "9614:12:0"
-                              },
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 868,
-                                  "type": "address",
-                                  "value": "_oneContractAddr"
-                                },
-                                "id": 881,
-                                "name": "Identifier",
-                                "src": "9627:16:0"
-                              }
-                            ],
-                            "id": 882,
-                            "name": "FunctionCall",
-                            "src": "9614:30:0"
-                          }
-                        ],
-                        "id": 883,
-                        "name": "Assignment",
-                        "src": "9599:45:0"
-                      }
-                    ],
-                    "id": 884,
-                    "name": "ExpressionStatement",
-                    "src": "9599:45:0"
-                  },
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "isStructConstructorCall": false,
-                          "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "type": "tuple()",
-                          "type_conversion": false
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": [
-                                {
-                                  "typeIdentifier": "t_string_memory_ptr",
-                                  "typeString": "string memory"
-                                },
-                                {
-                                  "typeIdentifier": "t_string_memory_ptr",
-                                  "typeString": "string memory"
-                                }
-                              ],
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 792,
-                              "type": "function (string memory,string memory)",
-                              "value": "passset"
-                            },
-                            "id": 885,
-                            "name": "Identifier",
-                            "src": "9654:7:0"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 870,
-                              "type": "string memory",
-                              "value": "_email"
-                            },
-                            "id": 886,
-                            "name": "Identifier",
-                            "src": "9662:6:0"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 872,
-                              "type": "string memory",
-                              "value": "_password"
-                            },
-                            "id": 887,
-                            "name": "Identifier",
-                            "src": "9670:9:0"
-                          }
-                        ],
-                        "id": 888,
-                        "name": "FunctionCall",
-                        "src": "9654:26:0"
-                      }
-                    ],
-                    "id": 889,
-                    "name": "ExpressionStatement",
-                    "src": "9654:26:0"
-                  },
-                  {
-                    "children": [
-                      {
-                        "attributes": {
-                          "argumentTypes": null,
-                          "isConstant": false,
-                          "isLValue": false,
-                          "isPure": false,
-                          "lValueRequested": false,
-                          "operator": "=",
-                          "type": "contract MainContract"
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 724,
-                              "type": "contract MainContract",
-                              "value": "maincontract"
-                            },
-                            "id": 890,
-                            "name": "Identifier",
-                            "src": "9690:12:0"
-                          },
-                          {
-                            "attributes": {
-                              "argumentTypes": null,
-                              "overloadedDeclarations": [
-                                null
-                              ],
-                              "referencedDeclaration": 876,
-                              "type": "contract MainContract",
-                              "value": "a"
-                            },
-                            "id": 891,
-                            "name": "Identifier",
-                            "src": "9705:1:0"
-                          }
-                        ],
-                        "id": 892,
-                        "name": "Assignment",
-                        "src": "9690:16:0"
-                      }
-                    ],
-                    "id": 893,
-                    "name": "ExpressionStatement",
-                    "src": "9690:16:0"
-                  }
-                ],
-                "id": 894,
-                "name": "Block",
-                "src": "9550:163:0"
-              }
-            ],
-            "id": 895,
-            "name": "FunctionDefinition",
-            "src": "9448:265:0"
           }
         ],
-        "id": 896,
+        "id": 867,
         "name": "ContractDefinition",
-        "src": "8184:1532:0"
+        "src": "8184:1249:0"
       }
     ],
-    "id": 897,
+    "id": 868,
     "name": "SourceUnit",
-    "src": "32:9684:0"
+    "src": "32:9401:0"
   },
   "compiler": {
     "name": "solc",
@@ -23940,8 +23179,7 @@
     }
   },
   "schemaVersion": "3.3.3",
-  "updatedAt": "2021-08-20T16:40:47.255Z",
-  "networkType": "ethereum",
+  "updatedAt": "2021-08-21T12:01:35.904Z",
   "devdoc": {
     "methods": {}
   },
