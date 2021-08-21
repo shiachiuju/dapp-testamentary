@@ -288,12 +288,5 @@ contract setpassword {
         maincontract.submitTransaction(msg.sender,portion);
      }
 
-    //抄的
-    function checkContract(address _oneContractAddr,string memory _email, string memory _password) public {
-        MainContract a = maincontract;
-        maincontract = MainContract(_oneContractAddr);
-        passset(_email, _password);
-        maincontract = a;
-    }
 
 }

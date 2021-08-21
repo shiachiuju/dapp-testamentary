@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import { Button, Form, Col, Row,Table } from 'react-bootstrap'
 import Axios from 'axios'
+import $ from 'jquery';
+import Swal from 'sweetalert2'
 
 //includes
 import '../App.css';
@@ -29,7 +31,33 @@ class ActivateTestamentPage extends Component {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
         .then((con) => {
-            this.setState({ setcontract_address: con.data[0].settestamentcontract_address.toString()})
+            for(var i=0; i< con.data.length; i++){
+                this.setState({
+                    setcontract_address: [this.state.setcontract_address, (i+1).toString()+" : "+con.data[i].settestamentcontract_address.toString() + "\n"]
+                })
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+        //maincontract
+        Axios.get(`http://localhost:3002/api/getcontractforset/${acc}`)
+        .then((con) => {
+            for(var i=0; i< con.data.length; i++){
+                this.setState({
+                    maincontract_address: [this.state.maincontract_address, (i+1).toString()+" : "+con.data[i].maincontract_address.toString() + "\n"]
+                })
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+        //status
+        Axios.get(`http://localhost:3002/api/getsetstatus/${acc}`)
+        .then((con) => {
+            for(var i=0; i< con.data.length; i++){
+                this.setState({
+                    activated: [this.state.activated, (i+1).toString()+" : "+con.data[i].activated.toString() + "\n"]
+                })
+            }
         }).catch((err) => {
             console.log(err);
         });
@@ -38,11 +66,17 @@ class ActivateTestamentPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            item : [],
+            setcontract_address : [],
+            maincontract_address : [],
+            activated: [],
         }
         this.refreshPage = this.refreshPage.bind(this);
         this.Deploy = this.Deploy.bind(this);
         this.testaEth = this.testaEth.bind(this);
         this.Set = this.Set.bind(this);
+        this.activate = this.activate.bind(this);
+        this.checkset = this.checkset.bind(this);
        
     }
 
@@ -51,6 +85,7 @@ class ActivateTestamentPage extends Component {
         this.setState({ spContract });
         console.log(address);
         this.state.spContract.methods.passset(checkemail, checkpassword).send({ from: this.state.account })
+        this.refreshPage()
     }
 
     async Deploy(addr,checkemail,checkpassword) {
@@ -96,6 +131,41 @@ class ActivateTestamentPage extends Component {
     async refreshPage() { 
         window.location.reload()
     }
+
+    //Activate
+    async checkset(setpassaddr,checkpassword) {
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
+        .then(() => {
+            Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
+            .then((con) => {
+                this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
+            }).catch((err) => {
+                console.log(setpassaddr)
+            });
+        }).catch((err) => {
+            //this.refreshPage();
+        });
+    }
+
+
+    async activate(address,checkpassword) {
+        const acc = this.state.account
+        const act = this.state.activated
+        const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
+        this.setState({ activatesetcontract });
+        //console.log(address);
+        this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
+        Axios.get(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
+        .then((con) => {
+            console.log('ha')
+            //this.refreshPage()
+        }).catch((err) => {
+            console.log('error activate')
+        });
+    }
+
+   
 
     render() {
         return (
@@ -165,7 +235,6 @@ class ActivateTestamentPage extends Component {
                 <table class="table table-hover table-sm">
                     <thead>
                      <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Testament Address</th>
                         <th scope="col">Set Address</th>
                         <th scope="col">Status</th>
@@ -174,16 +243,65 @@ class ActivateTestamentPage extends Component {
                  </thead>
                  <tbody>
                     <tr>
-                       <th scope="row">1</th>
-                       <td>Mark</td>
-                       <td>{this.state.setcontract_address}</td>
-                       <td>@mdo</td>
-                       <td><Button class="btn-primary btn-sm" variant="outline-secondary">Activate</Button></td>
+                       
+                       <td>
+                            {this.state.maincontract_address.map(item => (
+                            <p key={item}>{item}</p>
+                            ))}
+                       </td>
+                       <td>
+                           {this.state.setcontract_address.map(item => (
+                            <p key={item}>{item}</p>
+                            ))}
+                       </td>
+                       <td>
+                            {this.state.activated.map(item => (
+                            <p key={item}>{item}</p>
+                            ))}
+                       </td>
+                    <td>  
+                    <div id="setback">       
+                    <Form onSubmit={ async (event) => {
+                        event.preventDefault()
+                        this.checkset(this.contractadd.value, this.checkpassword.value)
+                        if ( this.state.account == "" ){
+                            this.refreshPage()
+                        }
+                    
+                        const { value: formValues } = await Swal.fire({
+                            title: 'Enter the address and password',
+                            width: 600,
+                            confirmButtonColor: '#eea13c',
+                            confirmButtonText: 'OK!',
+                            html:
+                                '<form role="form">'+
+                                    '<div class="form-group row">'+
+                                        '<label for="contract" class="col-sm-4" style="margin-top:.5em;text-align:left;">Settestament contract address :</label>'+
+                                        '<div class="col-sm-8">'+
+                                            '<input id="contract" class="form-control" placeholder="0x???????????" required/>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group row">'+
+                                        '<label for="password" class="col-sm-4" style="margin-top:.5em;text-align:left;">Password :</label>'+
+                                        '<div class="col-sm-8">'+
+                                            '<input id="password" type="password" class="form-control" placeholder="password(6~8)" required/>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</form>',
+                            focusConfirm: false,
+                        })
+                            if (formValues) {
+                                this.checkset($('#contract').val(),$('#password').val())
+                            }
+                    }}>
+                        <Button type="submit" variant="outline-secondary">Activate</Button>
+                    </Form>
+                        </div>
+                        </td>
                     </tr>
                 </tbody>
                     </table>
                 <br></br>
-                <p><b>Settestament contract address:</b> {this.state.setcontract_address}</p>
                 </div>
             </div> 
         </Layout>

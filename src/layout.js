@@ -4,17 +4,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Dropdown } from 'bootstrap';
 import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
-
 import './layout.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
+document.body.style = 'background: #fcfaf1;';
 
 export default ({ children }) => (
+    
   <div>
     
     <Navbar class="navbar">
         <Container>
             <Nav className="mr-auto">
-                <Nav.Link href="/Main">Main</Nav.Link>
-                <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Back-up">
+                <Nav.Link href="/"><div><FontAwesomeIcon icon={["fas", "apple-alt"]}/>  platform</div></Nav.Link>
+                <Nav.Link href="/Main">Create</Nav.Link>
+                <Nav.Link href="/ActivateMain">Activate</Nav.Link>
+                {/* <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Back-up">
                         <DropdownItem href="/Backup">Create</DropdownItem>
                         <DropdownItem href="/ActivateBackup">Activate</DropdownItem>
                 </DropdownButton>
@@ -23,7 +30,7 @@ export default ({ children }) => (
                         <DropdownItem href="/TestaManage">Manage</DropdownItem>
                         <DropdownItem href="/SetTestament">Set</DropdownItem>
                         <DropdownItem href="/ActivateTestament">Acvtivate</DropdownItem>
-                </DropdownButton>
+                </DropdownButton> */}
             </Nav>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>

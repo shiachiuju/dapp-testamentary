@@ -144,6 +144,7 @@ app.get("/api/getsetcontract/:acc/:add", (req,res)=>{
     }
 );   
 });
+
 app.get("/api/getsetcontracttttt/:acc/:add", (req,res)=>{
     const accaddress = req.params.acc;
     const setaddress = req.params.add;
@@ -158,7 +159,18 @@ app.get("/api/getsetcontracttttt/:acc/:add", (req,res)=>{
 
 app.get("/api/getsetcontractt/:add", (req,res)=>{
     const accaddress = req.params.add;
-    db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? ", [accaddress], (err,result)=>{
+    db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? ", accaddress, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+);   
+});
+
+app.get("/api/getsetstatus/:add", (req,res)=>{
+    const accaddress = req.params.add;
+    db.query("SELECT activated FROM settestamentcontract WHERE account_address = ? ", [accaddress], (err,result)=>{
         if(err) {
         console.log(err)
         } 
@@ -169,7 +181,7 @@ app.get("/api/getsetcontractt/:add", (req,res)=>{
 
 app.get("/api/getcontractforset/:add", (req,res)=>{
     const accaddress = req.params.add;
-    db.query("SELECT maincontract_address FROM settestamentcontract WHERE account_address = ?", [accaddress], (err,result)=>{
+    db.query("SELECT maincontract_address FROM settestamentcontract WHERE account_address = ?", accaddress, (err,result)=>{
         if(err) {
         console.log(err)
         } 
@@ -210,64 +222,42 @@ app.delete('/api/deleteactivateback/:back',(req,res)=>{
     })
 })
 
+//put
+app.get('/api/changestatus/:act/:acc/:set',(req,res)=>{
+    const activated = req.params.act;
+    const accaddress = req.params.acc;
+    const setaddress = req.params.set;
 
+    db.query("UPDATE settestamentcontract SET activated = ? WHERE account_address = ? AND settestamentcontract_address = ?",  [activated, accaddress, setaddress], (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+        res.send(result)
+    })   
+})
 
+app.put('/api/update/:set', function (req, res) {
+    //處理請求修改的資料和條件
+    const setaddress = req.params.set;
+    var update = '';
+    req.on('data', function (chunk) {
+        update += chunk;
+        console.log(update)
+    });
+    req.on('end', function () {
+        //查詢引數解析
+        update = querystring.parse(update);
+        var sql = 'update settestamentcontract set  activated = ? where settestamentcontract_address=?'
+        var update_value = [update.activated,setaddress]
+        connection.query(sql, update_value, function (err, result) {
+            if (err) {
+                console.log('failed', err.message);
+            }
+            res.send('update')
+        });
+    });
+})
 
-// // Route to get all posts
-// app.get("/api/get", (req,res)=>{
-// db.query("SELECT * FROM posts", (err,result)=>{
-//     if(err) {
-//     console.log(err)
-//     } 
-// res.send(result)
-// });   });
-
-// // Route to get one post
-// app.get("/api/getFromId/:id", (req,res)=>{
-
-// const id = req.params.id;
-//  db.query("SELECT * FROM posts WHERE id = ?", id, 
-//  (err,result)=>{
-//     if(err) {
-//     console.log(err)
-//     } 
-//     res.send(result)
-//     });   });
-
-// // Route for creating the post
-// app.post('/api/create', (req,res)=> {
-
-// const username = req.body.userName;
-// const title = req.body.title;
-// const text = req.body.text;
-
-// db.query("INSERT INTO posts (title, post_text, user_name) VALUES (?,?,?)",[title,text,username], (err,result)=>{
-//    if(err) {
-//    console.log(err)
-//    } 
-//    console.log(result)
-// });   })
-
-// // Route to like a post
-// app.post('/api/like/:id',(req,res)=>{
-
-// const id = req.params.id;
-// db.query("UPDATE posts SET likes = likes + 1 WHERE id = ?",id, (err,result)=>{
-//     if(err) {
-//    console.log(err)   } 
-//    console.log(result)
-//     });    
-// });
-
-// // Route to delete a post
-
-// app.delete('/api/delete/:id',(req,res)=>{
-// const id = req.params.id;
-
-// db.query("DELETE FROM posts WHERE id= ?", id, (err,result)=>{
-// if(err) {
-// console.log(err)
-//         } }) })
 
 app.listen(3002, ()=>{
     // console.log(`Server is running on ${PORT}`)

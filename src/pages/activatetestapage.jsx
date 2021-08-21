@@ -41,7 +41,7 @@ class ConductTestaPage extends Component {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
         .then(() => {
-            Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
+            Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
             .then((con) => {
                 this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
             }).catch((err) => {
