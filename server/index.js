@@ -133,10 +133,21 @@ app.get("/api/getmaincontract/:back", (req,res)=>{
     );   
     });
 
-app.get("/api/getsetcontract/:add", (req,res)=>{
+app.get("/api/getsetcontract/:acc/:add", (req,res)=>{
     const accaddress = req.params.acc;
-    const mainaddress = req.params.back;
+    const mainaddress = req.params.add;
     db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? AND maincontract_address = ?", [accaddress,mainaddress], (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+);   
+});
+app.get("/api/getsetcontracttttt/:acc/:add", (req,res)=>{
+    const accaddress = req.params.acc;
+    const setaddress = req.params.add;
+    db.query("SELECT settestamentcontract_address FROM settestamentcontract WHERE account_address = ? AND settestamentcontract_address = ?", [accaddress,setaddress], (err,result)=>{
         if(err) {
         console.log(err)
         } 

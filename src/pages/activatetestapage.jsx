@@ -37,11 +37,39 @@ class ConductTestaPage extends Component {
         this.refreshPage = this.refreshPage.bind(this);
     }
 
-    async checkset(setpassaddr, checkpassword) {
+    /*async checkset(setpassaddr, checkpassword) {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
         .then(() => {
             Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
+            .then((con) => {
+                this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
+            }).catch((err) => {
+                console.log(setpassaddr)
+            });
+        }).catch((err) => {
+            this.refreshPage();
+        });
+    }*/
+    /*async checkset(setpassaddr, maincon,checkpassword) {
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
+        .then(() => {
+            Axios.get(`http://localhost:3002/api/getsetcontract/${acc}/${maincon}`)
+            .then((con) => {
+                this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
+            }).catch((err) => {
+                console.log(setpassaddr)
+            });
+        }).catch((err) => {
+            this.refreshPage();
+        });
+    }*/
+    async checkset(setpassaddr,checkpassword) {
+        const acc = this.state.account
+        Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
+        .then(() => {
+            Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
             .then((con) => {
                 this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
             }).catch((err) => {
@@ -75,7 +103,7 @@ class ConductTestaPage extends Component {
                 <div id="activateTest">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        this.checkset(this.contractadd.value, this.checkpassword.value)
+                        this.checkset(this.contractadd.value,this.checkpassword.value)
                     }}>
                         <Form.Group id="formCheckAddress">
                             <Row>
@@ -91,7 +119,20 @@ class ConductTestaPage extends Component {
                                 </Col>
                             </Row>
                         </Form.Group>
-                        <br></br>
+                        {/*<Form.Group id="formCheckmain" >
+                            <Row>
+                                <Col md={{ span: 4, offset: 4 }}>
+                                    <Form.Label><b>Main Address</b></Form.Label>
+                                    <Form.Control 
+                                        type="text"
+                                        ref={(input) => { 
+                                            this.maincon = input
+                                        }}  
+                                        placeholder="Enter Main Contract Address"
+                                        required />
+                                </Col>
+                            </Row>
+                                    </Form.Group>*/}
                         {/* <Form.Group id="formCheckEmail">
                             <Row>
                                 <Col md={{ span: 4, offset: 4 }}>
