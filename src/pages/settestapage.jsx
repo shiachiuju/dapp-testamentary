@@ -156,7 +156,7 @@ class ActivateTestamentPage extends Component {
         this.setState({ activatesetcontract });
         //console.log(address);
         this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
-        Axios.get(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
+        Axios.put(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
         .then((con) => {
             console.log('ha')
             //this.refreshPage()

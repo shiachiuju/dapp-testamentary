@@ -77,16 +77,6 @@ app.get("/api/getcontract/:add", (req,res)=>{
     );   
     });
 
-app.put("/api/changestatus/:add", (req,res)=>{
-        const accaddress = req.params.add;
-        db.query("SELECT maincontract_address FROM maincontract WHERE account_address = ?", accaddress, (err,result)=>{
-            if(err) {
-            console.log(err)
-            } 
-        res.send(result)
-        }
-        );   
-        });
 app.get("/api/getbackupcontract/:add", (req,res)=>{
     const accaddress = req.params.add;
     db.query("SELECT backupcontract_address FROM backupcontract WHERE account_address = ?", accaddress, (err,result)=>{
@@ -223,7 +213,7 @@ app.delete('/api/deleteactivateback/:back',(req,res)=>{
 })
 
 //put
-app.get('/api/changestatus/:act/:acc/:set',(req,res)=>{
+app.put('/api/changestatus/:act/:acc/:set',(req,res)=>{
     const activated = req.params.act;
     const accaddress = req.params.acc;
     const setaddress = req.params.set;
