@@ -1,9 +1,6 @@
 import React from "react"
-import { Navbar, Container, Nav, Button, Form, Col, Row, DropdownButton} from 'react-bootstrap'
+import { Navbar, Container, Nav} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Dropdown } from 'bootstrap';
-import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import './layout.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';

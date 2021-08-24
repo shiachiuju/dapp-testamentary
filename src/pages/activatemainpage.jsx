@@ -1,8 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
-import { Button, Col} from 'react-bootstrap'
-import $ from 'jquery';
-import Swal from 'sweetalert2'
+
 //includes
 import '../App.css';
 import Layout from '../layout';

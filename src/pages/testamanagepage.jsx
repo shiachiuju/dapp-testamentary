@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
-import ReactBootstrap, { Button, Form, Col, Row } from 'react-bootstrap'
-import sha256 from 'js-sha256';
+import { Button, Form} from 'react-bootstrap'
 import getWeb3 from '../getWeb3'
-import $ from 'jquery';
-import Swal from 'sweetalert2'
 import '../App.css';
 import Layout from '../layout';
 import Axios from 'axios'
@@ -223,7 +219,7 @@ class TestaManagePage extends Component{
             <p></p>
             <div align="center">
             {this.state.benes.map((val, key) =>{
-                if (this.state.value.length == 0) {
+                if (this.state.value.length === 0) {
                     var beneId=`bene-${key}`
                     return(
                         <table>
@@ -251,7 +247,7 @@ class TestaManagePage extends Component{
             }
             
             {this.state.benes.map((val, key) =>{
-                if(this.state.value.length != 0){
+                if(this.state.value.length !== 0){
                     var beneId=`bene-${key}`
                     var a = <td><button type="button" class={beneId}
                             onClick={
@@ -267,7 +263,7 @@ class TestaManagePage extends Component{
                     var b = null;
                     for(var i=0;i<=this.state.value.length;i++){
                         this.state.value.map((val2, key2) =>{
-                            if (val2.toString()==key.toString()) {
+                            if (val2.toString()===key.toString()) {
                                 a = <td>New Rate: <input 
                                     type="number" 
                                     onChange={(e) => {
@@ -455,10 +451,10 @@ class TestaManagePage extends Component{
                             if (j === i) {
                                 const mail = data.mail
                                 const rate = data.rate
-                                if (this.checkEmail(mail) == true) {
+                                if (this.checkEmail(mail) === true) {
                                     //this.sendEmailtoB(this.mail.value)
                                     this.addHa(mail, rate)
-                                } else if (this.checkEmail(mail) != true) {
+                                } else if (this.checkEmail(mail) !== true) {
                                     alert('Please enter correct email!')
                                 }
                                 // this.addHa(id, rate)
@@ -473,7 +469,7 @@ class TestaManagePage extends Component{
                                 const mail = val.mail
                                 const newrate = val.newrate
                                 const rate = val.rate
-                                if (newrate != "" && newrate != undefined && rate != newrate){
+                                if (newrate !== "" && newrate !== undefined && rate !== newrate){
                                     this.modify(i+1,mail,newrate)
                                 }
                             }

@@ -1,12 +1,11 @@
 //dependencies
 import React, { Component } from 'react'
-import { Nav, Navbar, Button, Form, Col, Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from 'axios'
 //includes
 import '../App.css';
 import Layout from '../layout';
-import $ from 'jquery';
 import Swal from 'sweetalert2'
 //contractabi
 import MainContract from '../contract/MainContract.json'

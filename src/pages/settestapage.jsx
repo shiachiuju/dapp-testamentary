@@ -1,6 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
-import { Button, Form, Col, Row,Table } from 'react-bootstrap'
+import { Button, Form, Col, Row } from 'react-bootstrap'
 import Axios from 'axios'
 import $ from 'jquery';
 import Swal from 'sweetalert2'
@@ -279,7 +279,7 @@ class ActivateTestamentPage extends Component {
                     <Form onSubmit={ async (event) => {
                         event.preventDefault()
                         this.checkset(this.contractadd.value, this.checkpassword.value)
-                        if ( this.state.account == "" ){
+                        if ( this.state.account === "" ){
                             this.refreshPage()
                         }
                     

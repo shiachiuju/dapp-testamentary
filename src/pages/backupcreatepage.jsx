@@ -1,6 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
-import { Button, Form, Col, Row } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import Axios from 'axios'
 import sha256 from 'js-sha256';
 import $ from 'jquery';
