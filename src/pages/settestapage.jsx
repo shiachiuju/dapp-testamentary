@@ -106,7 +106,7 @@ class ActivateTestamentPage extends Component {
             console.log(err);
         });
         const submitNew = (addr,newcontract) => {
-            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract,activated:"NOT ACTIVATED YET"})
+            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract,activated:"Not Activated Yet"})
             .then(() => {
                 alert('success insert!')
             })
@@ -149,17 +149,32 @@ class ActivateTestamentPage extends Component {
     }
 
 
-    async activate(address,checkpassword) {
+    /*async activate(address,checkpassword) {
         const acc = this.state.account
         const act = this.state.activated
         const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
         this.setState({ activatesetcontract });
         //console.log(address);
         this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
-        Axios.put(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
+        Axios.post(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
         .then((con) => {
             console.log('ha')
             //this.refreshPage()
+        }).catch((err) => {
+            console.log('error activate')
+        });
+    }*/
+    async activate(address,checkpassword) {
+        const acc = this.state.account
+        const act = "Activated"
+        const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
+        this.setState({ activatesetcontract });
+        //console.log(address);
+        this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
+        Axios.put(`http://localhost:3002/api/changestatus/${act}/${acc}/${address}`)
+        .then((con) => {
+            console.log('ha')
+            this.refreshPage()
         }).catch((err) => {
             console.log('error activate')
         });
