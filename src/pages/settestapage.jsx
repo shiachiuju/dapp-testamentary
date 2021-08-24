@@ -171,8 +171,8 @@ class ActivateTestamentPage extends Component {
         this.setState({ activatesetcontract });
         //console.log(address);
         this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
-        Axios.put(`http://localhost:3002/api/changestatus/${act}/${acc}/${address}`)
         .then((con) => {
+            Axios.put(`http://localhost:3002/api/changestatus/${act}/${acc}/${address}`)
             console.log('ha')
             this.refreshPage()
         }).catch((err) => {
@@ -204,7 +204,7 @@ class ActivateTestamentPage extends Component {
                                         ref={(input) => { 
                                             this.contractadd = input
                                         }}
-                                        placeholder="Enter testamentary address"
+                                        placeholder="Paste Testamant Address Here"
                                         required />
                                 </Col>
                             </Row>
@@ -293,7 +293,7 @@ class ActivateTestamentPage extends Component {
                                     '<div class="form-group row">'+
                                         '<label for="contract" class="col-sm-4" style="margin-top:.5em;text-align:left;">Settestament contract address :</label>'+
                                         '<div class="col-sm-8">'+
-                                            '<input id="contract" class="form-control" placeholder="0x???????????" required/>'+
+                                            '<input id="contract" class="form-control" placeholder="Paste Your Set Address Here" required/>'+
                                         '</div>'+
                                     '</div>'+
                                     '<div class="form-group row">'+
