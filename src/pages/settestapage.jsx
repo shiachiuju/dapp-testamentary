@@ -85,7 +85,7 @@ class ActivateTestamentPage extends Component {
         this.setState({ spContract });
         console.log(address);
         this.state.spContract.methods.passset(checkemail, checkpassword).send({ from: this.state.account })
-        this.refreshPage()
+        //this.refreshPage()
     }
 
     async Deploy(addr,checkemail,checkpassword) {
@@ -106,7 +106,7 @@ class ActivateTestamentPage extends Component {
             console.log(err);
         });
         const submitNew = (addr,newcontract) => {
-            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract,activated:"Not Activated Yet"})
+            Axios.post('http://localhost:3002/api/insertsettestament', {account_address: this.state.account, maincontract_address: addr, settestamentcontract_address: newcontract, activated:"Not Activated Yet"})
             .then(() => {
                 alert('success insert!')
             })
@@ -135,35 +135,16 @@ class ActivateTestamentPage extends Component {
     //Activate
     async checkset(setpassaddr,checkpassword) {
         const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
-        .then(() => {
-            Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
-            .then((con) => {
-                this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
-            }).catch((err) => {
-                console.log(setpassaddr)
-            });
+        Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
+        .then((con) => {
+            this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
         }).catch((err) => {
-            //this.refreshPage();
+            console.log('err')
         });
+        
     }
 
 
-    /*async activate(address,checkpassword) {
-        const acc = this.state.account
-        const act = this.state.activated
-        const activatesetcontract = new this.state.web3.eth.Contract(Setpassword.abi, address)
-        this.setState({ activatesetcontract });
-        //console.log(address);
-        this.state.activatesetcontract.methods.execute(checkpassword).send({ from: this.state.account })
-        Axios.post(`http://localhost:3002/api/changestatus/${act}/${acc}/${activatesetcontract}`,{activated: "activated"})
-        .then((con) => {
-            console.log('ha')
-            //this.refreshPage()
-        }).catch((err) => {
-            console.log('error activate')
-        });
-    }*/
     async activate(address,checkpassword) {
         const acc = this.state.account
         const act = "Activated"
