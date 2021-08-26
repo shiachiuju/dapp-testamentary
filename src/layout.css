@@ -1,11 +1,18 @@
 /* change the background color */
 .navbar {
-    background-color: #ffd91d;
+    background:rgba(0,0,0,0);
+    /*background-color: #B8B8FF;ffd91d color : white;*/
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0; 
+    color : white;
 }
 
 .footer {
-    background-color:#8C8F8D;
-    /* opacity:0.3; */
+    background:rgba(0,0,0,0);
+    /*background-color:#8C8F8D;
+     opacity:0.3; */
 }
 
 .footer-copyright {
@@ -13,7 +20,7 @@
 }
 
 .dropdown{
-    
+     
     cursor: pointer;
     white-space: nowrap;
 }
@@ -22,7 +29,15 @@
     margin: 1em 1em;
     text-align: center;
 }
+
+.w{
+    color : white;
+}
 .icon{
     vertical-align: -0.125em;
     size:2x;
 }
+
+/*.app{
+    background-image: url('tech.jpg');
+}*/

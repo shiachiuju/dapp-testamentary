@@ -1,7 +1,8 @@
 .App {
   text-align: center;
   margin: 8%;
-  
+  /*background-image: url('tech.jpg');*/
+
 }
 
 .App-logo {
@@ -23,7 +24,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color : black;
 }
 
 .App-link {
@@ -39,37 +40,83 @@
   /* margin:10px 0 0 200px; */
   flex-wrap: wrap;
   text-align: center;
-  /* background-color: #FFFFFF; */
-  
-
+  /* color: black;""sans-serif pangolin Comic Sans MS Papyrus cursive Courier New   */
 }
+
+.sty{
+  height:1300px; 
+  width:2000px;
+}
+
+.article{
+  width: 1000px;
+  margin: 10 auto;
+  height: 400px;
+  padding: 30px;
+  text-align: center;
+  background-repeat: no-repeat;  
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  line-height: 28px; 
+  
+  
+}
+
+.textstyle{
+  font-weight: bold;
+  font: 24px 'OCR A Std, monospace';
+  /*font-family: "OCR A Std, monospace" ;*/
+  color: #fff;
+}
+
+.out{
+  text-indent: -30em;
+}
+
+.in{
+  text-indent : 4em ;
+}
+
+.section1{
+  background-image: url('dblue.png');
+  color: #fff;
+  text-shadow: 2px 1px 2px #575353;
+}
+
+.section2{
+  background-image: url('dblue.png');
+  text-shadow: 1px 0.5px 1px #373030;
+}
+
+.section3{
+  background-image: url('dblue.png');
+  text-shadow: 1px 0.5px 1px #373030;
+}
+
 #leftenter{
   width:40%;
   height: 350px;
   padding:10px;
-  background-color: #FFFFFF;
-  margin: 5% 1% 0 9%;/*上右下左*/
-  display:
-  inline-block;
+  /*margin: 5% 1% 0 10%;上右下左*/
+  display: inline-block;
   justify-content: center;
   align-items: flex-start;
   text-align: center;
-  color: black;
-  font-size: 1rem;
   
 }
 
 #left{
   width:40%;
-  height: 350px;
+  height: 250px;
   padding:10px;
-  background-color: #FFFFFF;
+  
   margin: 5% 1% 0 9%;/*上右下左*/
   display: inline-block;
   justify-content: center;
   align-items: flex-start;
   text-align: center;
-  color: black;
+  
   font-size: 1rem;
   border: 1px solid #FFB326;
 } 
@@ -77,33 +124,29 @@
 #rightenter{
   width: 40%;
   height: 350px;
-  padding:10px;
-  background-color: #FFFFFF;
-  margin: 5% 9% 5% 1%;
+  /*padding:10px;
+  margin: 5% 9% 5% 1%;*/
   display: inline-block;
   justify-content: center;
   align-items: flex-start;
-  color: black;
-  font-size: 1rem;
    
 }
 
 #right{
   width: 40%;
-  height: 350px;
+  height: 250px;
   padding:10px;
-  background-color: #FFFFFF;
   margin: 5% 9% 5% 1%;
   display: inline-block;
   justify-content: center;
   align-items: flex-start;
-  color: black;
+  
   font-size: 1rem;
   border: 1px solid #FFB326;  
 }
 
 .button {
-            background-color: #FFB326;
+            background-color: #fff;
             border: none;
             color: white;
             padding: 15px 32px;
@@ -113,7 +156,7 @@
             font-size: 16px;
             margin: 4px 2px;
             cursor: pointer;
-          }
+}
 
 @keyframes App-logo-spin {
   from {

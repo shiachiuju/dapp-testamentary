@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
-document.body.style = 'background: #fcfaf1;';
+document.body.style = 'background-color: #FFF2F2;';
+
 
 export default ({ children }) => (
     
@@ -15,7 +16,7 @@ export default ({ children }) => (
     <Navbar class="navbar">
         <Container>
             <Nav className="mr-auto">
-                <Nav.Link href="/"><div><FontAwesomeIcon icon={["fas", "apple-alt"]}/>  platform</div></Nav.Link>
+                <Nav.Link href="/"><div><FontAwesomeIcon icon={["fas", "apple-alt"]}/>platform</div></Nav.Link>
                 <Nav.Link href="/Main">Create</Nav.Link>
                 <Nav.Link href="/ActivateMain">Activate</Nav.Link>
                 {/* <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Back-up">
@@ -36,7 +37,7 @@ export default ({ children }) => (
                 </Navbar.Collapse>
         </Container>
     </Navbar>
-
+        
     {children}
 
     <footer class="footer fixed-bottom">

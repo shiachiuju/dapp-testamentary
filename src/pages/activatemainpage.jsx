@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 //includes
 import '../App.css';
 import Layout from '../layout';
+import getWeb3 from '../getWeb3'
 
 
 class ActivateMainPage extends Component {
@@ -13,99 +14,33 @@ class ActivateMainPage extends Component {
     }
 
     async loadBlockchainData() {
-        //web3
-        // const web3 = await getWeb3();
-        // this.setState({ web3: web3 })
-        // //netid
-        // const netId = await web3.eth.net.getId();
-        // this.setState({ netid: netId })
-        // //wallet accounts
-        // const accounts = await web3.eth.getAccounts()
-        // this.setState({ account: accounts[0] })
-
-        // const Contract = require('web3-eth-contract');
-        // const contract = new web3.eth.Contract(MainContract.abi);
-        // contract.deploy({
-        //     data: MainContract.bytecode
-        //     // arguments: [123, 'My String']
-        // })
-        // .send({
-        //     // from: '0x1234567890123456789012345678901234567891',
-        //     from: accounts[0],
-        //     gas: 2100000,
-        //     // gasPrice: '30000000000000'
-        // })
-        // .then((newContractInstance) => {
-        //     console.log('successfully deployed!');
-        //     console.log(newContractInstance.options.address);
-        //     this.setState({
-        //         contractAddress: newContractInstance.options.address
-        //     })
-        // }).catch((err) => {
-        //     console.log(err);
-        // });
+        const web3 = await getWeb3();
+        this.setState({ web3: web3 })
+        const accounts = await web3.eth.getAccounts()
+        this.setState({ account: accounts[0] })
     }
     constructor(props) {
         super(props)
         this.state = {
+            account: '',
         }
-        // this.Deploy=this.Deploy.bind(this);
         
     }
     async refreshPage() { 
         window.location.reload()
     }
-    // async truffledeploy() {
-    //     const contract = require('truffle-contract')
-    //     const mainContract = contract(MainContract)
-    //     let mainContractInstance
-    //     mainContract.setProvider(this.state.web3.currentProvider)
-    //     mainContract.deployed().then((instance) => {
-    //         mainContractInstance = instance
-    //         this.setState({instance: mainContractInstance})
-    //         this.setState({
-    //             contractAddress: mainContractInstance.address
-    //         })
-
-    //     })
-    // }
-    // async Deploy() {
-    //     const contract = new this.state.web3.eth.Contract(MainContract.abi);
-    //     contract.deploy({
-    //         data: MainContract.bytecode
-    //         // arguments: [123, 'My String']
-    //     })
-    //     .send({
-    //         // from: '0x1234567890123456789012345678901234567891',
-    //         from: this.state.account,
-    //         gas: 2100000,
-    //         // gasPrice: '30000000000000'
-    //     })
-    //     .then((newContractInstance) => {
-    //         console.log('successfully deployed!');
-    //         console.log(newContractInstance.options.address);
-    //         this.setState({
-    //             contractAddress: newContractInstance.options.address
-    //         })
-    //     }).catch((err) => {
-    //         console.log(err);
-    //     });
-    // }
     
     render() {
         return (
             <Layout>
             <div className="App">
-                
-        
-                
                 <div id="mainbox">
                 
                 <div id="outer">
-                <br></br>
-                <br></br>
-                <br></br>
-                <p>Welcome,Here you can activate your contracts:</p>
+                
+                <p><h4><b>Welcome,{this.state.account}</b></h4></p>
+                <h5><b>Here you can activate your contracts:</b></h5>
+                
                 </div>
                 <div data-azbox="" data-gjs-type="agjc-box" id="left">
                 <p>If you forget the password of your virtual account:</p>
