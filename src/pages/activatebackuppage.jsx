@@ -1,6 +1,6 @@
 //dependencies
 import React, { Component } from 'react'
-import { Button, Form, Col, Row } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 import sha256 from 'js-sha256';
 import Axios from 'axios'
 import Swal from 'sweetalert2'
