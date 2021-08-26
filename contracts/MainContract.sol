@@ -258,7 +258,8 @@ contract setpassword {
     mapping (address => bytes32) beneficiarypass;
     mapping (string => uint) portions;
     mapping (address => string) mail;
-    
+    bool act;
+
     constructor (address _oneContractAddr) public {
         maincontract = MainContract(_oneContractAddr);
     }
@@ -268,6 +269,7 @@ contract setpassword {
         password = keccak256(abi.encode(_password));
         beneficiarypass[msg.sender] = password;
         mail[msg.sender] = _mail;
+        act=false;
     }
      
     function getmail() public view returns (string memory) {
@@ -284,8 +286,11 @@ contract setpassword {
     
     function execute (string memory _password) public payable{
         require(keccak256(abi.encode(_password)) == beneficiarypass[msg.sender]);
+        require(act == false);
         portion = maincontract.getportion(mail[msg.sender]);
         maincontract.submitTransaction(msg.sender,portion);
+        act=true;
+
      }
 
 

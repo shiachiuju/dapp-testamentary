@@ -85,7 +85,9 @@ class ActivateTestamentPage extends Component {
         this.setState({ spContract });
         console.log(address);
         this.state.spContract.methods.passset(checkemail, checkpassword).send({ from: this.state.account })
-        //this.refreshPage()
+        .then(() => {
+            this.refreshPage()
+        })
     }
 
     async Deploy(addr,checkemail,checkpassword) {
@@ -133,7 +135,7 @@ class ActivateTestamentPage extends Component {
     }
 
     //Activate
-    async checkset(setpassaddr,checkpassword) {
+    /*async checkset(setpassaddr,checkpassword) {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
         .then((con) => {
@@ -141,7 +143,15 @@ class ActivateTestamentPage extends Component {
         }).catch((err) => {
             console.log('err')
         });
-        
+    }*/
+    async checkset(setpassaddr,checkpassword) {
+        const acc = this.state.account
+            Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
+            .then((con) => {
+                this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
+            }).catch((err) => {
+                console.log(setpassaddr)
+            });
     }
 
 
