@@ -133,7 +133,7 @@ class ActivateTestamentPage extends Component {
     }
 
     //Activate
-    async checkset(setpassaddr,checkpassword) {
+    /*async checkset(setpassaddr,checkpassword) {
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontractforset/${setpassaddr}`)
         .then(() => {
@@ -146,6 +146,15 @@ class ActivateTestamentPage extends Component {
         }).catch((err) => {
             //this.refreshPage();
         });
+    }*/
+    async checkset(setpassaddr,checkpassword) {
+        const acc = this.state.account
+            Axios.get(`http://localhost:3002/api/getsetcontracttttt/${acc}/${setpassaddr}`)
+            .then((con) => {
+                this.activate(con.data[0].settestamentcontract_address.toString(),checkpassword)
+            }).catch((err) => {
+                console.log(setpassaddr)
+            });
     }
 
 
