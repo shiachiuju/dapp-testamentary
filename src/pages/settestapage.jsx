@@ -85,7 +85,9 @@ class ActivateTestamentPage extends Component {
         this.setState({ spContract });
         console.log(address);
         this.state.spContract.methods.passset(checkemail, checkpassword).send({ from: this.state.account })
-        //this.refreshPage()
+        .then(() => {
+            this.refreshPage()
+        })
     }
 
     async Deploy(addr,checkemail,checkpassword) {
