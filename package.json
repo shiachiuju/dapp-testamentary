@@ -29,6 +29,7 @@
     "react-bootstrap": "^1.6.1",
     "react-bootstrap-validation": "^0.1.11",
     "react-dom": "^17.0.2",
+    "react-full-page": "^0.1.12",
     "react-html-email": "^3.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

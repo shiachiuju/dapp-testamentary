@@ -241,9 +241,11 @@ class BackupCreatePage extends Component {
     render() {
         return (
             <Layout>
-            <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
+            {/* <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button> */}
             <div class="App">
-                
+            <div class="l">            
+                <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
+            </div>
                 <br></br>
                 <h3><b>Create Back-up Mechanism</b></h3>
                 <br></br>
