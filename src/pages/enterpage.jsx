@@ -51,7 +51,7 @@ class EnterPage extends Component {
             <Layout>
             <div className="App">
                 
-                   <div class="article section1 textstyle center">
+                   <div class="center">
                                 <p>Welcome to GVA(Guardian of Virtual Assets)</p>
                                 <p>We are here to protect your virtual assets.</p>
                                 <br></br>
@@ -59,25 +59,21 @@ class EnterPage extends Component {
                                     <p>About us:</p>
                                 </div>
                                 <p>As a part of virtual account user, you might consider:</p>
-                                <br></br>
+                                
                                 <p>"What if we lose our password for virtual wallet?"</p>
-                                <br></br>
+                                
                                 <p>"What will our virtual asset go if we die without making our testamentary?"</p>
                             </div>
                             <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <div class="article section2 textstyle center">
+                            
+                            <div class="center">
                                 <p>If any accident occurs,</p>
                                 <p>all the virtual currency we gained will become meaningless.</p>     
                                 <p>And here, we can protect your virtual currency from losing or wasting.</p>
                             </div>
                             <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <div class="article section3 textstyle center">
+                            
+                            <div class="center">
                             <br></br>
                             <div id="outer">
                                 <div data-azbox="" data-gjs-type="agjc-box" id="leftenter">

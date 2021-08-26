@@ -58,14 +58,15 @@
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
-  line-height: 28px; 
+  /*line-height: 28px; */
   
   
 }
 
 .textstyle{
   font-weight: bold;
-  font: 24px 'OCR A Std, monospace';
+  font-size :10px ;
+  font: 'OCR A Std, monospace';
   /*font-family: "OCR A Std, monospace" ;*/
   color: #fff;
 }
