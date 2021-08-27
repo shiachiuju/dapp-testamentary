@@ -77,9 +77,18 @@ class TestaManagePage extends Component{
     }
 
     async addHa(mail,rate) {
-        
+
+
+        const submitBeneInfo = (mail,rate) => {
+            Axios.post('http://localhost:3002/api/add', {account_address: this.state.account, bene_mail: mail, bene_rate: rate})
+            .then(() => {
+                alert('success insert!')
+            })
+        }
+
+
         this.sendEmailtoB(mail)
-        this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!' })
+        this.setState({ message:'We have sent an e-mail to your mailbox, please check it out!' })
         this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             submitBeneInfo(mail,rate)
@@ -96,13 +105,8 @@ class TestaManagePage extends Component{
         .catch((err) => {
             console.log(err);
         });
+
         
-        const submitBeneInfo = (mail,rate) => {
-            Axios.post('http://localhost:3002/api/add', {account_address: this.state.account, bene_mail: mail, bene_rate: rate})
-            .then(() => {
-                alert('success insert!')
-            })
-        }
     }
 
     async refreshPage() { 
@@ -147,23 +151,21 @@ class TestaManagePage extends Component{
     handleSubmit = (e) => { e.preventDefalut() }
 
     sendEmailtoB(e) {
-        const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/getsetcontractt/${acc}`)
-        .then((con) => {
-            this.setState({ setcontract_address: con.data[0].settestamentcontract_address.toString()})
-        }).catch((err) => {
-            console.log(err);
-        });
+        
         let service_id = "beautygang";
         let template_id = "testamentary";
         let name = e.split('@')[0];
         let testamen = this.state.account;
-        let setcontract_address = this.setcontract_address;
+
+        const mainContract = this.state.contract_address;
+
 
         emailjs.send(service_id, template_id, {
             to_name: name,
             email: e,
-            message: "Here to notify that you have been set as one of " + testamen + "'s beneficiaries.            Get your contract_address:"+setcontract_address+"go to set up your own password.",
+
+            message: "Here to notify that you have been set as one of " + testamen + "'s beneficiaries.  "+'\n'+"      Get your contract_address:  "+mainContract+"  to set up your own password.",
+
             subject: 'Notification'
         });
         this.setState({ message: "We have sent an e-mail to your beneficiary's mailbox, please check it out!" })

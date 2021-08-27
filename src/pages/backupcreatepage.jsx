@@ -235,7 +235,7 @@ class BackupCreatePage extends Component {
         .catch((err) => {
             console.log(err)
         });
-        // this.setState({ message: 'We have sent an e-mail to your mailbox, please check it out!'})     
+            
     }
 
     render() {
