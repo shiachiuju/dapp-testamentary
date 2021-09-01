@@ -6,6 +6,7 @@ contract MainContract {
     /* backup variable */
     string email; 
     string password;
+    string idno;
     address[] owners;
     address mainowner;
     mapping(address => bool) isOwner;
@@ -27,9 +28,10 @@ contract MainContract {
         _;
     }
     
-    constructor () public {
+    constructor (string memory _id) public {
         email = "";
         password = "";
+        idno =_id;
         owners = [msg.sender];
         mainowner = msg.sender;
         isOwner[msg.sender] = true;
@@ -55,6 +57,11 @@ contract MainContract {
         return address(this).balance;
     }
 
+    //id
+    function getIdno() public view returns (string memory){
+        return idno;
+    }
+    
     /* backup function */
     
     //create back-up, setting email and password

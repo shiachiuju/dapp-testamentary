@@ -7,6 +7,7 @@ import Axios from 'axios'
 import '../App.css';
 import Layout from '../layout';
 import Swal from 'sweetalert2'
+import $ from 'jquery';
 //contractabi
 import MainContract from '../contract/MainContract.json'
 //components
@@ -44,31 +45,106 @@ class MainPage extends Component {
             this.setState({ mainContract});
             this.getinfo();
             console.log(con.data[0].maincontract_address);
-        }).catch((err) => {
-            new Swal({
+        }).catch(async (err) => {
+            // new Swal({
+            //     title: 'Do you want to create your own account?',
+            //     // text: `The minimum amount should more than 0 ether`,
+            //     showCancelButton: true,
+            //     confirmButtonColor: '#eea13c',
+            //     cancelButtonColor: '#8C8F8D',
+            //     confirmButtonText: 'Yes',
+            //     cancelButtonText: 'Cancel',
+            //     width: 600,
+            //     padding: '3em',
+            //     background: '#fff',
+            //     backdrop: `
+            //         shadow: '0px 0px 5px #888888'
+            //         left top
+            //         no-repeat
+            //     `
+            // })
+            const checkId = ( idNo ) => {
+                var id_string = idNo.toString()
+                var UpperCase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+                var Location_num = ["10","11","12","13","14","15","16","17","34","18","19","20","21","22","35","23","24","25","26","27","28","29","30","31","32","33"];
+                var getFirstChar = id_string.substr(0,1);
+                var getRestNumber = id_string.substr(1,9);
+                var getFirstChar_num = 0;
+                var haveMatch = 0;
+                if(id_string.length===10){
+                    for(var i=0;i<=10;i++){
+                        if(id_string[i]==" "){
+                            return false;
+                        }
+                    }
+                    for(var j=0;j<=UpperCase.length;j++){
+                        if(getFirstChar==UpperCase[j]){
+                            getFirstChar_num = Location_num[j];
+                            haveMatch = 1;
+                            break;
+                        }
+                    }
+                    if(isNaN(getRestNumber)){
+                        return false;
+                    }else if(haveMatch == 0){
+                        return false;
+                    }else{
+                        var digitNum = getFirstChar_num.substr(1,1);
+                        var decNum = getFirstChar_num.substr(0,1);
+                        var calulate = parseInt(digitNum)*9 + parseInt(decNum);
+                        for(var m=1;m<=8;m++){
+                            calulate += parseInt(id_string[m])*(9-m);
+                        }
+                        calulate += parseInt(id_string[9])
+                        var totalcheck = (calulate%10 == 0) ? true : false;
+                        if(totalcheck == true){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                }else{
+                    return false
+                }
+            }
+
+            const { value: id } = await Swal.fire({
                 title: 'Do you want to create your own account?',
-                // text: `The minimum amount should more than 0 ether`,
+                text: 'Please enter your ID number',
+                width: 650,
                 showCancelButton: true,
                 confirmButtonColor: '#eea13c',
                 cancelButtonColor: '#8C8F8D',
-                confirmButtonText: 'Yes',
+                confirmButtonText: 'Submit',
                 cancelButtonText: 'Cancel',
-                width: 600,
-                padding: '3em',
-                background: '#fff',
-                backdrop: `
-                    shadow: '0px 0px 5px #888888'
-                    left top
-                    no-repeat
-                `
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.Deploy()
-                }else if(result.dismiss === Swal.DismissReason.cancel){
-                    window.location = "/"
+                html:
+                    '<form role="form">'+
+                        '<div class="form-group row">'+
+                            '<label for="idNo" class="col-sm-3" style="margin-top:.5em;">ID number :</label>'+
+                            '<div class="col-sm-9">'+
+                                '<input id="idNo" type="text" class="form-control" placeholder="ID number" required/>'+
+                            '</div>'+
+                        '</div>'+
+                    '</form>',
+                // input: 'text',
+                // inputLabel: 'ID number',
+                // inputPlaceholder: 'ID number',
+                focusConfirm: false,
+                preConfirm: ()=> {
+                    if(checkId($('#idNo').val()) != true) {
+                        Swal.showValidationMessage('Please enter correct ID number!')
+                    }
+                    return [
+                        document.getElementById('idNo').value
+                        
+                    ]
                 }
-            });
-            // this.Deploy()
+            })
+            if (id) {
+                this.Deploy($('#idNo').val())
+            }else{
+                window.location = "/"
+            }
         });
     }
     async getinfo(){
@@ -137,15 +213,15 @@ class MainPage extends Component {
     //     });
     // }
     
-    async Deploy() {
+    async Deploy(id) {
         const contract = new this.state.web3.eth.Contract(MainContract.abi);
         contract.deploy({
-            data: MainContract.bytecode
-            // arguments: [123, 'My String']
+            data: MainContract.bytecode,
+            arguments: [id]
         })
         .send({
             from: this.state.account,
-            gas: 2100000,
+            gas: 2200000,
         })
         .then((newContractInstance) => {
             console.log('successfully deployed!');
@@ -194,24 +270,6 @@ class MainPage extends Component {
             <div id="ether">
                 <div>
                 <form>
-                    {/* <Form.Group id="ether">
-                        <Row>
-                        <Col md={{ span: 4, offset: 4 }}>
-                        <Form.Label class="dwlabel"><b>Deposit or Withdraw Ether</b></Form.Label></Col>
-                        <Col md={{ span: 2, offset: 5 }}>
-                                <Form.Control
-                                    id="Amount"
-                                    type="number"
-                                    min="0"
-                                    ref={(input) => { 
-                                        this.amount = input
-                                    }} 
-                                    // type="number"  
-                                    placeholder="ETH" 
-                                    required/>
-                            </Col>
-                        </Row>
-                    </Form.Group> */}
                     <div>
                         <Col>
                             <label for="amount" class="dwlabel"><b>Deposit or Withdraw Ether</b></label>
