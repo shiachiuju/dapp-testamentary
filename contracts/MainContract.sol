@@ -27,6 +27,11 @@ contract MainContract {
         require(mainowner == addr, "not contract owner");
         _;
     }
+
+    modifier checkSameId (string memory _idNo){
+        require(keccak256(abi.encodePacked((idno))) == keccak256(abi.encodePacked((_idNo))), "not correct id");
+        _;
+    }
     
     constructor (string memory _id) public {
         email = "";
@@ -58,20 +63,20 @@ contract MainContract {
     }
 
     //id
-    function getIdno() public view returns (string memory){
+    function getIdno() external view returns (string memory){
         return idno;
     }
     
     /* backup function */
     
     //create back-up, setting email and password
-    function setBackup(string calldata _email,string calldata _password,address _call) external checkSameOwner(_call){
+    function setBackup(string calldata _email,string calldata _password,string calldata _idNo,address _call) external checkSameOwner(_call) checkSameId(_idNo){
         email = _email;
         password = _password;
     }
     
     //check email and password
-    function checksubmitTransaction(string calldata _email,string calldata _password,address payable _to) external {
+    function checksubmitTransaction(string calldata _idNo, string calldata _email,string calldata _password,address payable _to) external checkSameId(_idNo){
         require(keccak256(abi.encodePacked((email))) != keccak256(abi.encodePacked((""))),"Do not set the back-up mechanism email.");
         require(keccak256(abi.encodePacked((_email))) == keccak256(abi.encodePacked((email))),"Please enter the former email.");
         require(keccak256(abi.encodePacked((password))) != keccak256(abi.encodePacked((""))),"Do not set the back-up mechanism password.");
@@ -217,16 +222,19 @@ contract Backup {
         maincontract = MainContract(_oneContractAddr);
     }
     
-    function setBackup(string memory _email,string memory _password) public {
-        maincontract.setBackup(_email,_password,msg.sender);
+    function setBackup(string memory _email,string memory _password,string memory _idNo) public {
+        maincontract.setBackup(_email,_password,_idNo,msg.sender);
         
     }
-    function activateBackup(string calldata _email,string calldata _password,address payable _to) external {
-        maincontract.checksubmitTransaction(_email,_password,_to);
+    function activateBackup(string calldata _idNo, string calldata _email,string calldata _password,address payable _to) external {
+        maincontract.checksubmitTransaction(_idNo,_email,_password,_to);
     }
 
     function getEmail() public view returns (string memory){
         return maincontract.getEmail();
+    }
+    function getIdno() public view returns (string memory){
+        return maincontract.getIdno();
     }
     
     
@@ -252,8 +260,8 @@ contract ActivateBackup {
     //     password = _password;
 
     // }
-    function activateBackup(string memory _email,string memory _password) public {
-        backup.activateBackup(_email,_password,msg.sender);
+    function activateBackup(string memory _idNo, string memory _email,string memory _password) public {
+        backup.activateBackup(_idNo,_email,_password,msg.sender);
     }
     
 }

@@ -90,16 +90,27 @@ app.get("/api/getactivatebackupcontract/:acc/:back", (req,res)=>{
     );   
     });
 
-app.get("/api/getbackupcontract/:back", (req,res)=>{
-    const backaddress = req.params.back;
-    db.query("SELECT backupcontract_address FROM backupcontract WHERE backupcontract_address = ?", backaddress, (err,result)=>{
+app.get("/api/getbackupcontract/:add", (req,res)=>{
+    const accaddress = req.params.add;
+    db.query("SELECT backupcontract_address FROM backupcontract WHERE account_address = ?", accaddress, (err,result)=>{
         if(err) {
         console.log(err)
         } 
     res.send(result)
     }
     );   
-    });
+    }); 
+    
+app.get("/api/checkbackupcontract/:back", (req,res)=>{
+    const backaddress = req.params.back;
+    db.query("SELECT * FROM backupcontract WHERE backupcontract_address = ?", backaddress, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    }
+    );   
+    });    
 
 app.get("/api/getmaincontract/:back", (req,res)=>{
     const backaddress = req.params.back;

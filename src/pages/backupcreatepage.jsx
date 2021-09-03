@@ -69,16 +69,16 @@ class BackupCreatePage extends Component {
         this.Enterinfo = this.Enterinfo.bind(this);
         this.refreshPage = this.refreshPage.bind(this);
     }
-    async createBackup(email, password) {
+    async createBackup(email, password, idNo) {
         this.hash = sha256(password.toString())
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
         .then((con) => {
-            this.Enterinfo(con.data[0].backupcontract_address.toString(), email, this.hash);
+            this.Enterinfo(con.data[0].backupcontract_address.toString(), email, this.hash, idNo);
         }).catch((err) => {
             Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
             .then((con) => {
-                this.Deploy(con.data[0].maincontract_address.toString(), email, this.hash)
+                this.Deploy(con.data[0].maincontract_address.toString(), email, this.hash, idNo)
             }).catch((err) => {
                 new Swal({
                     title: 'Please create your account first',
@@ -98,13 +98,13 @@ class BackupCreatePage extends Component {
             });
         });
     }
-    async Enterinfo(address, email, password) {
+    async Enterinfo(address, email, password, idNo) {
         const backupContract = new this.state.web3.eth.Contract(Backup.abi, address)
         this.setState({ backupContract });
         const getemail = await this.state.backupContract.methods.getEmail().call()
         this.setState({ getemail })
         const setBack = () =>{
-            this.state.backupContract.methods.setBackup(email,password).send({ from: this.state.account })
+            this.state.backupContract.methods.setBackup(email,password,idNo).send({ from: this.state.account })
             .once('receipt', (receipt) => {
                 this.sendEmail(email,address)
                 // this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
@@ -163,7 +163,7 @@ class BackupCreatePage extends Component {
     async refreshPage() {
         window.location.reload()
     }
-    async Deploy(mainaddr, email, password) {
+    async Deploy(mainaddr, email, password, idNo) {
         const contract = new this.state.web3.eth.Contract(Backup.abi);
         contract.deploy({
             data: Backup.bytecode,
@@ -176,7 +176,7 @@ class BackupCreatePage extends Component {
         .then((newContractInstance) => {
             console.log('successfully deployed!');
             submitNew(mainaddr, newContractInstance.options.address.toString())
-            this.Enterinfo(newContractInstance.options.address.toString(), email, password);
+            this.Enterinfo(newContractInstance.options.address.toString(), email, password, idNo);
         }).catch((err) => {
             new Swal({
                 title: 'Transaction has dismissed',
@@ -220,7 +220,7 @@ class BackupCreatePage extends Component {
                 title: 'We have sent an e-mail to your mailbox,' + '\n' + 'please check it out!',
                 confirmButtonColor: '#eea13c',
                 confirmButtonText: 'OK',
-                width: 600,
+                width: 700,
                 padding: '3em',
                 background: '#fff',
                 backdrop: `
@@ -259,13 +259,6 @@ class BackupCreatePage extends Component {
                         if ( this.state.account == "" ){
                             this.refreshPage()
                         }
-                        // if (this.password.value == this.checkpassword.value && this.checkEmail(this.email.value) == true){
-                        //     this.createBackup(this.email.value,this.password.value)
-                        // }else if (this.checkEmail(this.email.value) != true){
-                        //     alert('Please enter correct email!')
-                        // }else{
-                        //     alert('Please check the password again. The password is not confirmed.')
-                        // }
                         const checkEmail = ( email ) => {
 
                             // checkemail
@@ -281,6 +274,50 @@ class BackupCreatePage extends Component {
                             }
                         
                         }
+                        const checkId = ( idNo ) => {
+                            var id_string = idNo.toString()
+                            var UpperCase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+                            var Location_num = ["10","11","12","13","14","15","16","17","34","18","19","20","21","22","35","23","24","25","26","27","28","29","30","31","32","33"];
+                            var getFirstChar = id_string.substr(0,1);
+                            var getRestNumber = id_string.substr(1,9);
+                            var getFirstChar_num = 0;
+                            var haveMatch = 0;
+                            if(id_string.length===10){
+                                for(var i=0;i<=10;i++){
+                                    if(id_string[i]==" "){
+                                        return false;
+                                    }
+                                }
+                                for(var j=0;j<=UpperCase.length;j++){
+                                    if(getFirstChar==UpperCase[j]){
+                                        getFirstChar_num = Location_num[j];
+                                        haveMatch = 1;
+                                        break;
+                                    }
+                                }
+                                if(isNaN(getRestNumber)){
+                                    return false;
+                                }else if(haveMatch == 0){
+                                    return false;
+                                }else{
+                                    var digitNum = getFirstChar_num.substr(1,1);
+                                    var decNum = getFirstChar_num.substr(0,1);
+                                    var calulate = parseInt(digitNum)*9 + parseInt(decNum);
+                                    for(var m=1;m<=8;m++){
+                                        calulate += parseInt(id_string[m])*(9-m);
+                                    }
+                                    calulate += parseInt(id_string[9])
+                                    var totalcheck = (calulate%10 == 0) ? true : false;
+                                    if(totalcheck == true){
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                }
+                            }else{
+                                return false
+                            }
+                        }
                         const { value: formValues } = await Swal.fire({
                             title: 'Enter the email and password',
                             width: 600,
@@ -291,6 +328,12 @@ class BackupCreatePage extends Component {
                             cancelButtonText: 'Cancel',
                             html:
                                 '<form role="form">'+
+                                    '<div class="form-group row">'+
+                                        '<label for="idNo" class="col-sm-4" style="margin-top:.5em;text-align:left;">ID number :</label>'+
+                                        '<div class="col-sm-8">'+
+                                            '<input id="idNo" type="text" class="form-control" placeholder="ID number" required/>'+
+                                        '</div>'+
+                                    '</div>'+
                                     '<div class="form-group row">'+
                                         '<label for="email" class="col-sm-4" style="margin-top:.5em;text-align:left;">Email :</label>'+
                                         '<div class="col-sm-8">'+
@@ -334,6 +377,13 @@ class BackupCreatePage extends Component {
                                         Swal.resetValidationMessage()
                                     }
                                 })
+                                $('#idNo').blur(function(){
+                                    if ($('#idNo').val().length !== 6) {
+                                        Swal.showValidationMessage('The ID numebr should be 10 characters!')
+                                    } else {
+                                        Swal.resetValidationMessage()
+                                    }
+                                })
                             },
                             preConfirm: ()=> {
                                 if(checkEmail($('#email').val()) != true) {
@@ -345,15 +395,19 @@ class BackupCreatePage extends Component {
                                 if ($('#password').val() != $('#cpassword').val()) {
                                     Swal.showValidationMessage('Please check the password again!\nThe confirm password should be the same with password!')
                                 }
+                                if(checkId($('#idNo').val()) != true) {
+                                    Swal.showValidationMessage('Please enter correct ID number!')
+                                }
                                 return [
                                     document.getElementById('email').value,
                                     document.getElementById('password').value,
-                                    document.getElementById('cpassword').value
+                                    document.getElementById('cpassword').value,
+                                    document.getElementById('idNo').value
                                 ]
                             }
                         })
                         if (formValues) {
-                            this.createBackup($('#email').val(),$('#password').val())
+                            this.createBackup($('#email').val(),$('#password').val(),$('#idNo').val())
                         }
                     }}>
                         {/* <Form.Group id="formBasicEmail">

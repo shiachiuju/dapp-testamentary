@@ -37,17 +37,17 @@ class ActivateBackupPage extends Component {
         this.Activate = this.Activate.bind(this);
         this.Delete = this.Delete.bind(this);
     }
-    async BackEth(backaddr,address,checkemail,checkpassword) {
+    async BackEth(idNo,backaddr,address,checkemail,checkpassword) {
         const acBackupContract = new this.state.web3.eth.Contract(ActivateBackup.abi, address)
         this.setState({ acBackupContract });
         console.log(address);
-        this.state.acBackupContract.methods.activateBackup(checkemail,checkpassword)
+        this.state.acBackupContract.methods.activateBackup(idNo,checkemail,checkpassword)
         .send({ from: this.state.account })
         .once('receipt', async (receipt) => {
             const newba = await this.state.web3.eth.getBalance(this.state.account)
             const shownewba = Math.round((newba/10**18)*10000)/10000
             new Swal({
-                title: 'Your assets from previous wallet has transferred to' + '\n' + this.state.account + '\n' + 'New balance : ' + shownewba,
+                title: 'Your assets from previous wallet has transferred to' + '\n' + this.state.account + '\n' + 'New balance : ' + shownewba + ' ETH',
                 confirmButtonColor: '#eea13c',
                 confirmButtonText: 'OK',
                 width: 600,
@@ -63,7 +63,7 @@ class ActivateBackupPage extends Component {
             this.Delete(backaddr);
         }).once('error', (error) => {
             new Swal({
-                title: 'Please enter the right email and password',
+                title: 'Please enter the right ID, email and password',
                 confirmButtonColor: '#eea13c',
                 confirmButtonText: 'OK',
                 width: 600,
@@ -96,7 +96,7 @@ class ActivateBackupPage extends Component {
                 
         });
     }
-    async Deploy(backaddr,checkemail,checkpassword) {
+    async Deploy(idNo,backaddr,checkemail,checkpassword) {
         const contract = new this.state.web3.eth.Contract(ActivateBackup.abi);
         contract.deploy({
             data: ActivateBackup.bytecode,
@@ -109,7 +109,7 @@ class ActivateBackupPage extends Component {
         .then((newContractInstance) => {
             console.log('successfully deployed!');
             submitNew(backaddr,newContractInstance.options.address.toString())
-            this.BackEth(backaddr,newContractInstance.options.address.toString(),checkemail,checkpassword)     
+            this.BackEth(idNo,backaddr,newContractInstance.options.address.toString(),checkemail,checkpassword)     
         }).catch((err) => {
             new Swal({
                 title: 'Please enter the submit on MetaMask',
@@ -137,10 +137,10 @@ class ActivateBackupPage extends Component {
         }
         
     }
-    async Activate(contractadd,checkemail,checkpassword){
+    async Activate(idNo,contractadd,checkemail,checkpassword){
         this.checkhash = sha256(checkpassword.toString())
         const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/getbackupcontract/${contractadd}`)
+        Axios.get(`http://localhost:3002/api/checkbackupcontract/${contractadd}`)
         .then((con) => {
             if(con.data.length == 0){
                 new Swal({
@@ -160,9 +160,9 @@ class ActivateBackupPage extends Component {
             }else{
                 Axios.get(`http://localhost:3002/api/getactivatebackupcontract/${acc}/${contractadd}`)
                 .then((con) => {
-                    this.BackEth(contractadd,con.data[0].activatebackup_address.toString(),checkemail,this.checkhash)
+                    this.BackEth(idNo,contractadd,con.data[0].activatebackup_address.toString(),checkemail,this.checkhash)
                 }).catch((err) => {
-                    this.Deploy(contractadd,checkemail,this.checkhash)
+                    this.Deploy(idNo,contractadd,checkemail,this.checkhash)
                 });
                 }
         }).catch((err) => {
@@ -187,7 +187,68 @@ class ActivateBackupPage extends Component {
                     <form onSubmit={(event) => {
                         event.preventDefault()
                         this.setState({ message : 'Once you send the request, we will confirm your identity.\nPlease wait a moment and soon your assets will be back!'})
-                        this.Activate(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                        const checkId = ( idNo ) => {
+                            var id_string = idNo.toString()
+                            var UpperCase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+                            var Location_num = ["10","11","12","13","14","15","16","17","34","18","19","20","21","22","35","23","24","25","26","27","28","29","30","31","32","33"];
+                            var getFirstChar = id_string.substr(0,1);
+                            var getRestNumber = id_string.substr(1,9);
+                            var getFirstChar_num = 0;
+                            var haveMatch = 0;
+                            if(id_string.length===10){
+                                for(var i=0;i<=10;i++){
+                                    if(id_string[i]==" "){
+                                        return false;
+                                    }
+                                }
+                                for(var j=0;j<=UpperCase.length;j++){
+                                    if(getFirstChar==UpperCase[j]){
+                                        getFirstChar_num = Location_num[j];
+                                        haveMatch = 1;
+                                        break;
+                                    }
+                                }
+                                if(isNaN(getRestNumber)){
+                                    return false;
+                                }else if(haveMatch == 0){
+                                    return false;
+                                }else{
+                                    var digitNum = getFirstChar_num.substr(1,1);
+                                    var decNum = getFirstChar_num.substr(0,1);
+                                    var calulate = parseInt(digitNum)*9 + parseInt(decNum);
+                                    for(var m=1;m<=8;m++){
+                                        calulate += parseInt(id_string[m])*(9-m);
+                                    }
+                                    calulate += parseInt(id_string[9])
+                                    var totalcheck = (calulate%10 == 0) ? true : false;
+                                    if(totalcheck == true){
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                }
+                            }else{
+                                return false
+                            }
+                        }
+                        if (checkId(this.idNo.value) !== true){
+                            new Swal({
+                                title: 'Please enter correct ID number!',
+                                confirmButtonColor: '#eea13c',
+                                confirmButtonText: 'OK',
+                                width: 600,
+                                padding: '3em',
+                                background: '#fff',
+                                backdrop: `
+                                    shadow: '0px 0px 5px #888888'
+                                    left top
+                                    no-repeat
+                                `
+                            }).then(function() {
+                            });
+                        }else{
+                            this.Activate(this.idNo.value,this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                        }
                     }}>
                         <Col>
                             <label for="contract" class="acbulabel">Back-up contract address : </label>
@@ -199,6 +260,19 @@ class ActivateBackupPage extends Component {
                                 this.contractadd = input
                             }}
                             placeholder="check mailbox to get back-up address"
+                            required/>
+                        </Col>
+                        <Col>
+                            <label for="idNo" class="acbulabel">ID number : </label>
+                            <input
+                            class="acbuinput" 
+                            id="idNo" 
+                            type="text" 
+                            ref={(input) => { 
+                                this.idNo = input
+                            }}
+                            placeholder="ID number"
+                            maxlength="10"
                             required/>
                         </Col>
                         <Col>

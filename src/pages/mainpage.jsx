@@ -221,7 +221,7 @@ class MainPage extends Component {
         })
         .send({
             from: this.state.account,
-            gas: 2200000,
+            gas: 2400000,
         })
         .then((newContractInstance) => {
             console.log('successfully deployed!');
