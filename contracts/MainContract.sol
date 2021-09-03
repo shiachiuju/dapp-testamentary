@@ -40,6 +40,10 @@ contract MainContract {
         owners = [msg.sender];
         mainowner = msg.sender;
         isOwner[msg.sender] = true;
+         //mailexist["barbie@mail"]=true;
+        //portions["barbie@mail"]=0;
+        //beneficiaryidentity.push("0000000000");
+        //identity["barbie@mail"]="0000000000";
     }
     
     /* bank function */
@@ -110,6 +114,9 @@ contract MainContract {
     mapping(string=>bool) mailexist;
     mapping(string=>uint) portions;
     mapping(address=>uint) transferamount;
+    string[] beneficiaryidentity;
+    mapping(string=>string) identity;
+    mapping(string=>bool) idexist;
     address payable[] toadds;
     uint[] reviseportion;
     
@@ -124,12 +131,7 @@ contract MainContract {
         return owneremail;
     }
     
-    //add beneficiary
-    function create() public{
-        addbene("barbie@mail",0);
-    }
-    
-    function addbene(string memory _benemail,uint _distriburate) public checkSameOwner(msg.sender){
+    function addbene(string memory _benemail,uint _distriburate,string memory _identity) public checkSameOwner(msg.sender){
        require(getBalance() > 0);
        uint id = beneficiaryids.length + 1;
        Beneficiary storage newbene = beneficiaryinfo[id];
@@ -140,6 +142,9 @@ contract MainContract {
        beneficiarymails.push(_benemail);
        mailexist[_benemail] = true;
        portions[_benemail] = _distriburate;
+       beneficiaryidentity.push(_identity);
+       identity[_benemail]=_identity;
+       idexist[_identity]=true;
     }
     
     //check beneficiary info
@@ -151,10 +156,14 @@ contract MainContract {
     function getbeneficiarybymail(string memory _mail) public view returns(bool){
         return mailexist[_mail];
     }
+
     function getportion(string memory _mail) public view returns(uint){
         return portions[_mail];
     }
-    
+
+    function getbeneficiaryidbymail(string memory _mail) public view returns(string memory){
+        return identity[_mail];
+    }
     //change beneficiary portion
     function modifybene(uint _id,string memory _mail,uint _portion)public checkSameOwner(msg.sender){
         Beneficiary storage s = beneficiaryinfo[_id];
@@ -279,8 +288,8 @@ contract setpassword {
         maincontract = MainContract(_oneContractAddr);
     }
     
-    function passset(string memory _mail,string memory _password) public {
-        require(maincontract.getbeneficiarybymail(_mail) == true);
+    function passset(string memory _mail,string memory _password,string memory _identity) public {
+        require(maincontract.getbeneficiarybymail(_mail) == true&&keccak256(abi.encodePacked((maincontract.getbeneficiaryidbymail(_mail))))==keccak256(abi.encodePacked(_identity)));
         password = keccak256(abi.encode(_password));
         beneficiarypass[msg.sender] = password;
         mail[msg.sender] = _mail;

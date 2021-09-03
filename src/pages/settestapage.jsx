@@ -80,17 +80,17 @@ class ActivateTestamentPage extends Component {
        
     }
 
-    async testaEth(address,checkemail,checkpassword) {
+    async testaEth(address,checkemail,checkpassword,checkid) {
         const spContract = new this.state.web3.eth.Contract(Setpassword.abi, address)
         this.setState({ spContract });
         console.log(address);
-        this.state.spContract.methods.passset(checkemail, checkpassword).send({ from: this.state.account })
+        this.state.spContract.methods.passset(checkemail, checkpassword, checkid).send({ from: this.state.account })
         .then(() => {
             this.refreshPage()
         })
     }
 
-    async Deploy(addr,checkemail,checkpassword) {
+    async Deploy(addr,checkemail,checkpassword,checkid) {
         const contract = new this.state.web3.eth.Contract(Setpassword.abi);
         contract.deploy({
             data: Setpassword.bytecode,
@@ -103,7 +103,7 @@ class ActivateTestamentPage extends Component {
         .then((newContractInstance) => {
             console.log('successfully deployed!');
             submitNew(addr,newContractInstance.options.address.toString())
-            this.testaEth(newContractInstance.options.address.toString(),checkemail,checkpassword)     
+            this.testaEth(newContractInstance.options.address.toString(),checkemail,checkpassword,checkid)     
         }).catch((err) => {
             console.log(err);
         });
@@ -115,15 +115,15 @@ class ActivateTestamentPage extends Component {
         }
     }
 
-    async Set(contractadd,checkemail,checkpassword){
+    async Set(contractadd,checkemail,checkpassword,checkid){
         const acc = this.state.account
         Axios.get(`http://localhost:3002/api/getcontract/${contractadd}`)
         .then(() => {
             Axios.get(`http://localhost:3002/api/getsetcontract/${acc}/${contractadd}`)
             .then((con) => {
-                this.testaEth(con.data[0].settestamentcontract_address.toString(),checkemail,checkpassword)
+                this.testaEth(con.data[0].settestamentcontract_address.toString(),checkemail,checkpassword,checkid)
             }).catch((err) => {
-                this.Deploy(contractadd,checkemail,checkpassword)
+                this.Deploy(contractadd,checkemail,checkpassword,checkid)
             });
         }).catch((err) => {
             alert('this address not create!')
@@ -211,6 +211,23 @@ class ActivateTestamentPage extends Component {
                                             this.checkemail = input
                                         }}
                                         placeholder="Enter email"
+                                        required />
+                                </Col>
+                            </Row>
+                        </Form.Group>
+
+                        <Form.Group id="formCheckId">
+                            <Row>
+                                <Col md={{ span: 4, offset: 4 }}>
+                                    <Form.Label class=" col-form-label"><b>ID number</b></Form.Label>
+                                    <Form.Control
+                                        type="text" 
+                                        minLength="10" 
+                                        maxLength="10"
+                                        ref={(input) => { 
+                                            this.checkid = input
+                                        }}
+                                        placeholder="Enter ID number"
                                         required />
                                 </Col>
                             </Row>

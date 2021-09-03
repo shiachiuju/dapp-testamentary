@@ -65,7 +65,7 @@ class TestaManagePage extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            beneficiary:[{mail:"",rate:""}],
+            beneficiary:[{mail:"",idnumber:"",rate:""}],
             benes:[],
             message: '',
             value:[],
@@ -76,7 +76,7 @@ class TestaManagePage extends Component{
         this.checkEmail = this.checkEmail.bind(this);
     }
 
-    async addHa(mail,rate) {
+    async addHa(mail,idnumber,rate) {
 
 
         const submitBeneInfo = (mail,rate) => {
@@ -89,7 +89,7 @@ class TestaManagePage extends Component{
 
         this.sendEmailtoB(mail)
         this.setState({ message:'We have sent an e-mail to your mailbox, please check it out!' })
-        this.state.mainContract.methods.addbene(mail,rate).send({ from: this.state.account })
+        this.state.mainContract.methods.addbene(mail,rate,idnumber).send({ from: this.state.account })
         .once('receipt', (receipt) => {
             submitBeneInfo(mail,rate)
             console.log('successfully deployed!');
@@ -126,28 +126,7 @@ class TestaManagePage extends Component{
            beneficiary:[...prevState.beneficiary,{mail:"",rate:""}] 
         }))
     }
-    // newportion = (e) => {
-    //     this.state.benes.map((val, key) => {
-    //         <input
-    //         type="number"
-    //         placeholder={val.rate}
-    //         onChange={(e) => {
-    //             this.setState({
-    //                 benes: this.state.benes.map((item, j) => {
-    //                     if (j === key) {
-    //                         return {
-    //                             ...item,
-    //                             newrate: e.target.value
-    //                         }
-    //                     }
-            
-    //                     return item
-    //                 })
-    //             })
-    //         }}
-    //         className="rate"/>
-    //     })
-    // }
+    
     handleSubmit = (e) => { e.preventDefalut() }
 
     sendEmailtoB(e) {
@@ -228,10 +207,7 @@ class TestaManagePage extends Component{
             </div>
             <h3><b>Create Testament</b></h3>
             <br></br>
-            {/* <p><b>Wallet account:</b> {this.state.account}</p>
-            <p><b>Contract address:</b> {this.state.contract_address} </p>
-            <p><b>Contract balance:</b> {this.state.balance / 10**18} ether </p> */}
-            {/* <p>{this.state.len}</p> */}
+    
             <Form>
             <p></p>
             <div align="center">
@@ -240,6 +216,7 @@ class TestaManagePage extends Component{
                 <thead>
                     <tr>
                         <th scope="col">Email</th>
+                        <th scope='col'>ID</th>
                         <th scope="col">Rate</th>
                         <th scope="col">New rate</th>
                         
@@ -253,6 +230,7 @@ class TestaManagePage extends Component{
                         <tbody>
                             <tr>
                                 <td>{val.mail}</td>
+                                <td>{val.id}</td>
                                 <td>{val.rate}</td>
                                 <td><button type="button" class="mobtn"
                                 onClick={
@@ -347,6 +325,7 @@ class TestaManagePage extends Component{
                         <tbody>
                             <tr>
                                 <td>{val.mail}</td>
+                                <td>{val.id}</td>
                                 <td>{val.rate}</td>
                                 <td>{a}</td>
                                 {/* <td>{b}</td> */}
@@ -357,123 +336,19 @@ class TestaManagePage extends Component{
                 })}
                 </table>
             </div>
-            {/* {this.state.benes.map((val, key) =>{
-                if (this.state.value.length === 0) {
-                    var beneId=`bene-${key}`
-                    return(
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>{val.mail}</td>
-                                    <td>{val.rate}</td>
-                                    <td><button type="button" class={beneId}
-                                    onClick={
-                                        ()=>{
-                                            const a = this.state.value
-                                            a.push(key)
-                                            this.setState({ value: a })
-                                            // console.log(key)
-                                            // console.log(this.state.value.toString())
-                                        }
-                                    }
-                                    >modify</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    )
-                }
-            })
-            } */}
             
-            {/* {this.state.benes.map((val, key) =>{
-                if(this.state.value.length !== 0){
-                    var beneId=`bene-${key}`
-                    var a = <td><button type="button" class={beneId}
-                            onClick={
-                                ()=>{
-                                    const a = this.state.value
-                                    a.push(key)
-                                    this.setState({ value: a })
-                                    // console.log(key)
-                                    // console.log(this.state.value.toString())
-                                }
-                            }
-                            >modify</button></td>;
-                    var b = null;
-                    for(var i=0;i<=this.state.value.length;i++){
-                        this.state.value.map((val2, key2) =>{
-                            if (val2.toString()===key.toString()) {
-                                a = <td>New Rate: <input 
-                                    type="number" 
-                                    onChange={(e) => {
-                                        this.setState(()=> ({
-                                            benes: this.state.benes.map((item, j) => {
-                                                if (j === key) {
-                                                    return {
-                                                        ...item,
-                                                        newrate: e.target.value
-                                                    }
-                                                }
-                                    
-                                                return item
-                                            })
-                                        }))
-                                    }}>
-                                    </input></td>;
-                                b = <td><button type="button" class={beneId}
-                                onClick={
-                                    ()=>{
-                                        var no = [...this.state.value]
-                                        no.splice(key2,1)
-                                        this.setState({ value: no })
-                                        // console.log(no)
-                                        // console.log(this.state.value)
-                                        // console.log(this.state.value.toString())
-                                        this.setState(()=> ({
-                                            benes: this.state.benes.map((item, j) => {
-                                                if (j === key) {
-                                                    return {
-                                                        ...item,
-                                                        newrate: undefined
-                                                    }
-                                                }
-                                    
-                                                return item
-                                            })
-                                        }))
-                                        // console.log(this.state.benes)
-
-                                    }
-                                }
-                                >unchange</button></td>;
-                            }
-                        })
-                    }
-                    return(
-                        <table>
-                        <tbody>
-                            <tr>
-                                <td>Email: {val.mail}</td>
-                                <td>Rate: {val.rate}</td>
-                                <td>{a}</td>
-                                <td>{b}</td>
-                            </tr>
-                        </tbody>
-                        </table>
-                    )
-                }
-            })} */}
             </div>
             <Button variant="warning" onClick={this.addBene}>Add Beneficiary</Button>
             {   this.state.beneficiary.map((val,idx)=>{
-                    let beneficiaryId=`beneficiary-${idx}`,rateId=`rate-${idx}`
-                    if (val.mail !== "" && val.rate !== ""){
+                    let beneficiaryId=`beneficiary-${idx}`,Idnumber=`id-${idx}`, rateId=`rate-${idx}`
+                    if (val.mail !== "" && val.idnumber !== "" && val.rate !== ""){
                         var newe = val.mail;
+                        var newi = val.idnumber;
                         var newr = val.rate;
                         var emailinput =
                             <input
                             type="email"
-                            size='30'
+                            size='20'
                             name={beneficiaryId}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -494,6 +369,30 @@ class TestaManagePage extends Component{
                             id={beneficiaryId}
                             // placeholder="Enter email"
                             className="mail"/>;
+                        var idinput =
+                            <input
+                            type="text"
+                            size='20'
+                            name={Idnumber}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                idnumber: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newi}
+                            data-id={idx}
+                            id={Idnumber}
+                            // placeholder="Enter email"
+                            className="idnumber"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -524,6 +423,10 @@ class TestaManagePage extends Component{
                             &nbsp;
                             {emailinput}
                             &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={Idnumber}>ID number:</label>
+                            &nbsp;
+                            {idinput}
+                            &nbsp;&nbsp;&nbsp;
                             <label htmlFor={rateId}>Distribution rate:</label>
                             &nbsp;
                             {rateinput}
@@ -552,12 +455,13 @@ class TestaManagePage extends Component{
                             </div>
                         )
                     }
-                    if (val.mail !== "" && val.rate === ""){
+                    if (val.mail !== "" && val.idnumber !== "" && val.rate === ""){
                         var newe = val.mail;
+                        var newi = val.idnumber;
                         var emailinput =
                             <input
                             type="email"
-                            size='30'
+                            size='20'
                             name={beneficiaryId}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -578,6 +482,30 @@ class TestaManagePage extends Component{
                             id={beneficiaryId}
                             // placeholder="Enter email"
                             className="mail"/>;
+                        var idinput =
+                            <input
+                            type="text"
+                            size='20'
+                            name={Idnumber}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                idnumber: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newi}
+                            data-id={idx}
+                            id={Idnumber}
+                            // placeholder="Enter email"
+                            className="idnumber"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -608,6 +536,10 @@ class TestaManagePage extends Component{
                                 &nbsp;
                                 {emailinput}
                                 &nbsp;&nbsp;&nbsp;
+                                <label htmlFor={Idnumber}>ID number:</label>
+                                &nbsp;
+                                {idinput}
+                                &nbsp;&nbsp;&nbsp;
                                 <label htmlFor={rateId}>Distribution rate:</label>
                                 &nbsp;
                                 {rateinput}
@@ -636,12 +568,12 @@ class TestaManagePage extends Component{
                                 </div>
                             )
                     }
-                    if (val.mail === "" && val.rate !== ""){
+                    if (val.mail === "" && val.idnumber === "" && val.rate !== ""){
                         var newr = val.rate;
                         var emailinput =
                             <input
                             type="email"
-                            size='30'
+                            size='20'
                             name={beneficiaryId}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -662,6 +594,30 @@ class TestaManagePage extends Component{
                             id={beneficiaryId}
                             placeholder="Enter email"
                             className="mail"/>;
+                        var idinput =
+                            <input
+                            type="text"
+                            size='20'
+                            name={Idnumber}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                idnumber: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newi}
+                            data-id={idx}
+                            id={Idnumber}
+                            // placeholder="Enter email"
+                            className="idnumber"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -692,6 +648,10 @@ class TestaManagePage extends Component{
                                 &nbsp;
                                 {emailinput}
                                 &nbsp;&nbsp;&nbsp;
+                                <label htmlFor={Idnumber}>ID number:</label>
+                                &nbsp;
+                                {idinput}
+                                &nbsp;&nbsp;&nbsp;
                                 <label htmlFor={rateId}>Distribution rate:</label>
                                 &nbsp;
                                 {rateinput}
@@ -720,11 +680,11 @@ class TestaManagePage extends Component{
                                 </div>
                             )
                     }
-                    if (val.mail === "" && val.rate === ""){
+                    if (val.mail === "" && val.idnumber === "" && val.rate === ""){
                         var emailinput =
                             <input
                             type="email"
-                            size='30'
+                            size='20'
                             name={beneficiaryId}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -745,6 +705,30 @@ class TestaManagePage extends Component{
                             id={beneficiaryId}
                             placeholder="Enter email"
                             className="mail"/>;
+                        var idinput =
+                            <input
+                            type="text"
+                            size='20'
+                            name={Idnumber}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                idnumber: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newi}
+                            data-id={idx}
+                            id={Idnumber}
+                            // placeholder="Enter email"
+                            className="idnumber"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -774,6 +758,10 @@ class TestaManagePage extends Component{
                                 <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
                                 &nbsp;
                                 {emailinput}
+                                &nbsp;&nbsp;&nbsp;
+                                <label htmlFor={Idnumber}>ID number:</label>
+                                &nbsp;
+                                {idinput}
                                 &nbsp;&nbsp;&nbsp;
                                 <label htmlFor={rateId}>Distribution rate:</label>
                                 &nbsp;
@@ -911,6 +899,7 @@ class TestaManagePage extends Component{
                     this.state.beneficiary.map((data, j) => {
                         if (j === i) {
                             const mail = data.mail
+                            const idnumber = data.idnumber
                             const rate = data.rate
                             if (this.checkEmail(mail) == true) {
                                 count-=rate
@@ -945,6 +934,7 @@ class TestaManagePage extends Component{
                         this.state.beneficiary.map((data, j) => {
                             if (j === i) {
                                 const mail = data.mail
+                                const idnumber = data.idnumber
                                 const rate = data.rate
                                 if (this.checkEmail(mail) === true) {
                                     //this.sendEmailtoB(this.mail.value)
