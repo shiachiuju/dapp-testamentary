@@ -74,7 +74,7 @@ contract MainContract {
     /* backup function */
     
     //create back-up, setting email and password
-    function setBackup(string calldata _email,string calldata _password,string calldata _idNo,address _call) external checkSameOwner(_call) checkSameId(_idNo){
+    function setBackup(string calldata _email,string calldata _password,string calldata _idNo) external checkSameOwner(msg.sender) checkSameId(_idNo){
         email = _email;
         password = _password;
     }
@@ -225,55 +225,55 @@ contract MainContract {
     // }
 }
 
-contract Backup {
-    MainContract maincontract;
-    constructor (address _oneContractAddr) public {
-        maincontract = MainContract(_oneContractAddr);
-    }
+// contract Backup {
+//     MainContract maincontract;
+//     constructor (address _oneContractAddr) public {
+//         maincontract = MainContract(_oneContractAddr);
+//     }
     
-    function setBackup(string memory _email,string memory _password,string memory _idNo) public {
-        maincontract.setBackup(_email,_password,_idNo,msg.sender);
+//     function setBackup(string memory _email,string memory _password,string memory _idNo) public {
+//         maincontract.setBackup(_email,_password,_idNo);
         
-    }
-    function activateBackup(string calldata _idNo, string calldata _email,string calldata _password,address payable _to) external {
-        maincontract.checksubmitTransaction(_idNo,_email,_password,_to);
-    }
+//     }
+//     function activateBackup(string calldata _idNo, string calldata _email,string calldata _password,address payable _to) external {
+//         maincontract.checksubmitTransaction(_idNo,_email,_password,_to);
+//     }
 
-    function getEmail() public view returns (string memory){
-        return maincontract.getEmail();
-    }
-    function getIdno() public view returns (string memory){
-        return maincontract.getIdno();
-    }
+//     function getEmail() public view returns (string memory){
+//         return maincontract.getEmail();
+//     }
+//     function getIdno() public view returns (string memory){
+//         return maincontract.getIdno();
+//     }
     
     
-}
+// }
 
-contract ActivateBackup {
-    Backup backup;
-    constructor (address _oneContractAddr) public {
-        backup = Backup(_oneContractAddr);
-    }
-    // function getbackaddress() public view returns (Backup){
-    //     return backup;
-    // }
-    // function checkContract(address _contractaddress,string memory _email,string memory _password) public {
-    //     Backup a = backup;
-    //     backup = Backup(_contractaddress);
-    //     activateBackup(_email,_password);
-    //     backup = a;
-    // }
-    // constructor (address _oneContractAddr,string memory _email,string memory _password) public {
-    //     backup = Backup(_oneContractAddr);
-    //     email = _email;
-    //     password = _password;
+// contract ActivateBackup {
+//     Backup backup;
+//     constructor (address _oneContractAddr) public {
+//         backup = Backup(_oneContractAddr);
+//     }
+//     // function getbackaddress() public view returns (Backup){
+//     //     return backup;
+//     // }
+//     // function checkContract(address _contractaddress,string memory _email,string memory _password) public {
+//     //     Backup a = backup;
+//     //     backup = Backup(_contractaddress);
+//     //     activateBackup(_email,_password);
+//     //     backup = a;
+//     // }
+//     // constructor (address _oneContractAddr,string memory _email,string memory _password) public {
+//     //     backup = Backup(_oneContractAddr);
+//     //     email = _email;
+//     //     password = _password;
 
-    // }
-    function activateBackup(string memory _idNo, string memory _email,string memory _password) public {
-        backup.activateBackup(_idNo,_email,_password,msg.sender);
-    }
+//     // }
+//     function activateBackup(string memory _idNo, string memory _email,string memory _password) public {
+//         backup.activateBackup(_idNo,_email,_password,msg.sender);
+//     }
     
-}
+// }
 
 contract setpassword {
     MainContract maincontract;

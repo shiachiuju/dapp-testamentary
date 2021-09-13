@@ -9,7 +9,8 @@ import Swal from 'sweetalert2'
 import '../App.css';
 import Layout from '../layout';
 //contractabi
-import Backup from '../contract/Backup.json'
+// import Backup from '../contract/Backup.json'
+import MainContract from '../contract/MainContract.json'
 //components
 import getWeb3 from '../getWeb3';
 import emailjs, { init } from 'emailjs-com';
@@ -34,52 +35,10 @@ class BackupCreatePage extends Component {
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
         const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
+        Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
         .then((con) => {
             console.log(con.data)
             if(con.data.length == 0){
-                this.setState({ set: 'Backup mechanism has not been set' });
-            }else{
-                const backupContract = new this.state.web3.eth.Contract(Backup.abi, con.data[0].backupcontract_address.toString())
-                this.setState({ backupContract });
-                getemail()
-            }
-        }).catch((err) => {
-            
-        });
-        const getemail = () => {
-            const email = this.state.backupContract.methods.getEmail().call()
-            this.setState({ email })
-            if (this.state.email != '' ){
-                this.setState({ set: 'Backup mechanism has been set' })
-                console.log(this.state.email)
-            }
-        }
-
-    }
-    constructor(props) {
-        super(props)
-        this.state = {
-            account:'',
-            set: '',
-            // message: ''
-        }
-        this.createBackup = this.createBackup.bind(this);
-        this.Deploy = this.Deploy.bind(this);
-        this.Enterinfo = this.Enterinfo.bind(this);
-        this.refreshPage = this.refreshPage.bind(this);
-    }
-    async createBackup(email, password, idNo) {
-        this.hash = sha256(password.toString())
-        const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
-        .then((con) => {
-            this.Enterinfo(con.data[0].backupcontract_address.toString(), email, this.hash, idNo);
-        }).catch((err) => {
-            Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
-            .then((con) => {
-                this.Deploy(con.data[0].maincontract_address.toString(), email, this.hash, idNo)
-            }).catch((err) => {
                 new Swal({
                     title: 'Please create your account first',
                     confirmButtonColor: '#eea13c',
@@ -92,23 +51,51 @@ class BackupCreatePage extends Component {
                         left top
                         no-repeat
                     `
-                }).then(function() {
+                }).then(() => {
                     window.location = "/Main"
-                });
-            });
+                })
+            }else{
+                const mainContract = new web3.eth.Contract(MainContract.abi, con.data[0].maincontract_address.toString())
+                this.setState({ mainContract});
+                this.setState({ mainAddress: con.data[0].maincontract_address.toString()})
+                getemail()
+            }
+        }).catch((err) => {
+            
         });
+        const getemail = async () => {
+            const email = await this.state.mainContract.methods.getEmail().call()
+                this.setState({ email })
+            const password = await this.state.mainContract.methods.getPassword().call()
+                this.setState({ password })
+            if (this.state.email !== '' && this.state.password !== ''){
+                this.setState({ set: 'Backup mechanism has been set' })
+                // console.log(this.state.email)
+                // console.log(this.state.password)
+            }else{
+                this.setState({ set: 'Backup mechanism has not been set' });
+            }
+        }
+
     }
-    async Enterinfo(address, email, password, idNo) {
-        const backupContract = new this.state.web3.eth.Contract(Backup.abi, address)
-        this.setState({ backupContract });
-        const getemail = await this.state.backupContract.methods.getEmail().call()
-        this.setState({ getemail })
+    constructor(props) {
+        super(props)
+        this.state = {
+            account:'',
+            set: '',
+            // message: ''
+        }
+        this.createBackup = this.createBackup.bind(this);
+        // this.Deploy = this.Deploy.bind(this);
+        // this.Enterinfo = this.Enterinfo.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
+    }
+    async createBackup(email, password, idNo) {
+        this.hash = sha256(password.toString())
         const setBack = () =>{
-            this.state.backupContract.methods.setBackup(email,password,idNo).send({ from: this.state.account })
+            this.state.mainContract.methods.setBackup(email,this.hash,idNo).send({ from: this.state.account })
             .once('receipt', (receipt) => {
-                this.sendEmail(email,address)
-                // this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
-                // this.refreshPage()
+                this.sendEmail(email,this.state.mainAddress)
             })
             .once('error', (error) => {
                 new Swal({
@@ -129,80 +116,185 @@ class BackupCreatePage extends Component {
                 });
             })
         }
-        if (this.state.getemail != '' ){
-            new Swal({
-                title: 'Are you sure to change the email and password?',
-                showCancelButton: true,
-                confirmButtonColor: '#eea13c',
-                cancelButtonColor: '#8C8F8D',
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'Cancel',
-                width: 600,
-                padding: '3em',
-                background: '#fff',
-                backdrop: `
-                    shadow: '0px 0px 5px #888888'
-                    left top
-                    no-repeat
-                `
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    setBack()
-                }else if(result.dismiss === Swal.DismissReason.cancel){
+        if (this.state.mail !== '' && this.state.password !== ''){
+            if(this.state.mail !== email && this.state.password !== this.hash){
+                new Swal({
+                    title: 'Are you sure to change the email and password?',
+                    showCancelButton: true,
+                    confirmButtonColor: '#eea13c',
+                    cancelButtonColor: '#8C8F8D',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'Cancel',
+                    width: 600,
+                    padding: '3em',
+                    background: '#fff',
+                    backdrop: `
+                        shadow: '0px 0px 5px #888888'
+                        left top
+                        no-repeat
+                    `
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setBack()
+                    }else if(result.dismiss === Swal.DismissReason.cancel){
+                        window.location.reload()
+                    }
+                    
+                });
+            }else{
+                new Swal({
+                    title: 'Please enter the new email and password',
+                    text: 'Setting remain the same',
+                    confirmButtonColor: '#eea13c',
+                    confirmButtonText: 'OK',
+                    width: 600,
+                    padding: '3em',
+                    background: '#fff',
+                    backdrop: `
+                        shadow: '0px 0px 5px #888888'
+                        left top
+                        no-repeat
+                    `
+                }).then(function() {
                     window.location.reload()
-                }
-                
-            });
+                });
+            }
             // alert('Your backup mechanism has been set. \nClick confirm to change a new one!')
             // this.setState({ backup : 'The backup mechanism has been set.'})
         }else{
             setBack()
         }
-        }
+        // Axios.get(`http://localhost:3002/api/getbackupcontract/${acc}`)
+        // .then((con) => {
+        //     this.Enterinfo(con.data[0].backupcontract_address.toString(), email, this.hash, idNo);
+        // }).catch((err) => {
+        //     Axios.get(`http://localhost:3002/api/getcontract/${acc}`)
+        //     .then((con) => {
+        //         this.Deploy(con.data[0].maincontract_address.toString(), email, this.hash, idNo)
+        //     }).catch((err) => {
+        //         new Swal({
+        //             title: 'Please create your account first',
+        //             confirmButtonColor: '#eea13c',
+        //             confirmButtonText: 'OK',
+        //             width: 600,
+        //             padding: '3em',
+        //             background: '#fff',
+        //             backdrop: `
+        //                 shadow: '0px 0px 5px #888888'
+        //                 left top
+        //                 no-repeat
+        //             `
+        //         }).then(function() {
+        //             window.location = "/Main"
+        //         });
+        //     });
+        // });
+    }
+    // async Enterinfo(address, email, password, idNo) {
+    //     const backupContract = new this.state.web3.eth.Contract(Backup.abi, address)
+    //     this.setState({ backupContract });
+    //     const getemail = await this.state.backupContract.methods.getEmail().call()
+    //     this.setState({ getemail })
+    //     const setBack = () =>{
+    //         this.state.backupContract.methods.setBackup(email,password,idNo).send({ from: this.state.account })
+    //         .once('receipt', (receipt) => {
+    //             this.sendEmail(email,address)
+    //             // this.setState({ message : 'We have sent an e-mail to your mailbox, please check it out!'})
+    //             // this.refreshPage()
+    //         })
+    //         .once('error', (error) => {
+    //             new Swal({
+    //                 title: 'Transaction has dismissed',
+    //                 text: 'Setting remain the same',
+    //                 confirmButtonColor: '#eea13c',
+    //                 confirmButtonText: 'OK',
+    //                 width: 600,
+    //                 padding: '3em',
+    //                 background: '#fff',
+    //                 backdrop: `
+    //                     shadow: '0px 0px 5px #888888'
+    //                     left top
+    //                     no-repeat
+    //                 `
+    //             }).then(function() {
+    //                 window.location.reload()
+    //             });
+    //         })
+    //     }
+    //     if (this.state.getemail != '' ){
+    //         new Swal({
+    //             title: 'Are you sure to change the email and password?',
+    //             showCancelButton: true,
+    //             confirmButtonColor: '#eea13c',
+    //             cancelButtonColor: '#8C8F8D',
+    //             confirmButtonText: 'Yes',
+    //             cancelButtonText: 'Cancel',
+    //             width: 600,
+    //             padding: '3em',
+    //             background: '#fff',
+    //             backdrop: `
+    //                 shadow: '0px 0px 5px #888888'
+    //                 left top
+    //                 no-repeat
+    //             `
+    //         }).then((result) => {
+    //             if (result.isConfirmed) {
+    //                 setBack()
+    //             }else if(result.dismiss === Swal.DismissReason.cancel){
+    //                 window.location.reload()
+    //             }
+                
+    //         });
+    //         // alert('Your backup mechanism has been set. \nClick confirm to change a new one!')
+    //         // this.setState({ backup : 'The backup mechanism has been set.'})
+    //     }else{
+    //         setBack()
+    //     }
+    //     }
 
     async refreshPage() {
         window.location.reload()
     }
-    async Deploy(mainaddr, email, password, idNo) {
-        const contract = new this.state.web3.eth.Contract(Backup.abi);
-        contract.deploy({
-            data: Backup.bytecode,
-            arguments: [mainaddr]
-        })
-        .send({
-            from: this.state.account,
-            gas: 2100000,
-        })
-        .then((newContractInstance) => {
-            console.log('successfully deployed!');
-            submitNew(mainaddr, newContractInstance.options.address.toString())
-            this.Enterinfo(newContractInstance.options.address.toString(), email, password, idNo);
-        }).catch((err) => {
-            new Swal({
-                title: 'Transaction has dismissed',
-                text: 'Please enter the submit on Metamask',
-                confirmButtonColor: '#eea13c',
-                confirmButtonText: 'OK',
-                width: 600,
-                padding: '3em',
-                background: '#fff',
-                backdrop: `
-                    shadow: '0px 0px 5px #888888'
-                    left top
-                    no-repeat
-                `
-            }).then(function() {
-                // this.refreshPage()
-            });
-        });
-        const submitNew = (mainaddr, newcontract) => {
-            Axios.post('http://localhost:3002/api/insertbackup', { account_address: this.state.account, maincontract_address: mainaddr, backupcontract_address: newcontract })
-                .then(() => {
-                    alert('success insert!')
-                })
-        }
+    // async Deploy(mainaddr, email, password, idNo) {
+    //     const contract = new this.state.web3.eth.Contract(Backup.abi);
+    //     contract.deploy({
+    //         data: Backup.bytecode,
+    //         arguments: [mainaddr]
+    //     })
+    //     .send({
+    //         from: this.state.account,
+    //         gas: 2100000,
+    //     })
+    //     .then((newContractInstance) => {
+    //         console.log('successfully deployed!');
+    //         submitNew(mainaddr, newContractInstance.options.address.toString())
+    //         this.Enterinfo(newContractInstance.options.address.toString(), email, password, idNo);
+    //     }).catch((err) => {
+    //         new Swal({
+    //             title: 'Transaction has dismissed',
+    //             text: 'Please enter the submit on Metamask',
+    //             confirmButtonColor: '#eea13c',
+    //             confirmButtonText: 'OK',
+    //             width: 600,
+    //             padding: '3em',
+    //             background: '#fff',
+    //             backdrop: `
+    //                 shadow: '0px 0px 5px #888888'
+    //                 left top
+    //                 no-repeat
+    //             `
+    //         }).then(function() {
+    //             // this.refreshPage()
+    //         });
+    //     });
+    //     const submitNew = (mainaddr, newcontract) => {
+    //         Axios.post('http://localhost:3002/api/insertbackup', { account_address: this.state.account, maincontract_address: mainaddr, backupcontract_address: newcontract })
+    //             .then(() => {
+    //                 alert('success insert!')
+    //             })
+    //     }
 
-    }
+    // }
 
 
     sendEmail(e,address) {
@@ -410,53 +502,6 @@ class BackupCreatePage extends Component {
                             this.createBackup($('#email').val(),$('#password').val(),$('#idNo').val())
                         }
                     }}>
-                        {/* <Form.Group id="formBasicEmail">
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Email address</b></Form.Label>
-                                    <Form.Control
-                                        type="email" 
-                                        ref={(input) => { 
-                                            this.email = input
-                                        }}
-                                        placeholder="example@email.com"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <p></p>
-                        <Form.Group id="formBasicPassword" >
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Password</b></Form.Label>
-                                    <Form.Control 
-                                        type="password"
-                                        ref={(input) => { 
-                                            this.password = input
-                                        }}  
-                                        placeholder="must have at least 6 characters"
-                                        minlength="6"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <p></p>
-                        <Form.Group id="formBasicPassword" >
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label><b>Confirm Password</b></Form.Label>
-                                    <Form.Control 
-                                        type="password"
-                                        ref={(input) => { 
-                                            this.checkpassword = input
-                                        }}  
-                                        placeholder="confirm password again"
-                                        minlength="6"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <br></br> */}
                         <button type="submit" class="bubtn">Set</button>
                     </Form>
 
