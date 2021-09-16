@@ -1,22 +1,29 @@
 /* change the background color */
 .navbar {
-    background:rgba(0,0,0,0);
-    /*background-color: #B8B8FF;ffd91d color : white;*/
+    background:#faf0e6;
+    /*background-color: #B8B8FF;ffd91d color : white;rgba(0,0,0,0)*/
     position: fixed;
     right: 0;
     left: 0;
     top: 0; 
-    color : white;
+    color : black;
+    font-size: 15px;
+    border-bottom-color: black;
+    border-bottom-width: 0.5px;
+    border-bottom-style: solid;
 }
 
 .footer {
-    background:rgba(0,0,0,0);
-    /*background-color:#8C8F8D;
+    background:#faf0e6;
+    border-top-color: black;
+    border-top-width: 0.5px;
+    border-top-style: solid;
+    /*background-color:#8C8F8D ;
      opacity:0.3; */
 }
 
 .footer-copyright {
-    color: white; 
+    color: black; 
 }
 
 .dropdown{
@@ -28,16 +35,14 @@
 .text{
     margin: 1em 1em;
     text-align: center;
+    color : black;
 }
 
 .w{
-    color : white;
+    color : black;
+
 }
 .icon{
     vertical-align: -0.125em;
     size:2x;
 }
-
-/*.app{
-    background-image: url('tech.jpg');
-}*/

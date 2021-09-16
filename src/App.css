@@ -2,6 +2,7 @@
   text-align: center;
   margin: 8%;
   /*background-image: url('tech.jpg');*/
+  
 
 }
 .l{
@@ -64,63 +65,115 @@
   /* color: black;""sans-serif pangolin Comic Sans MS Papyrus cursive Courier New   */
 }
 
+.main{
+  border-width: 5px;
+  border-color:black;
+}
+
 .sty{
   height:1300px; 
   width:2000px;
 }
 
-.article{
-  width: 1000px;
+.article1{
+  
+  width: 1100px;
   margin: 10 auto;
-  height: 400px;
+  height: 300px;
   padding: 30px;
   text-align: center;
   background-repeat: no-repeat;  
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
-  /*line-height: 28px; */
-  
-  
+  font: "Oleo Script";
+  /*line-height: 28px; */ 
+}
+
+.article{
+  width: 900px;
+  margin: 10 auto;
+  height: 600px;
+  padding: 30px;
+  text-align: center;
+  background-repeat: no-repeat;  
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  /*line-height: 28px; */ 
+}
+
+.w{
+  color: black;
+}
+
+.big{
+  font-size: 25px;
+  color: #FFBB00;
+}
+
+.color{
+  color: #FFBB00;
 }
 
 .textstyle{
-  font-weight: bold;
-  font-size :10px ;
-  font: 'OCR A Std, monospace';
-  /*font-family: "OCR A Std, monospace" ;*/
-  color: #fff;
+  
+  font-size :20px ;
+  font: "Oleo Script", Helvetica, sans–serif;
+  /*font: "Trebuchet MS";font-family: "OCR A Std, monospace" ;*/
+  color: #black;
+  
+}
+
+.dot{
+  border-bottom-color:black;
+  border-bottom-style:dotted;
 }
 
 .out{
   text-indent: -30em;
+  
 }
 
 .in{
   text-indent : 4em ;
 }
 
+.bimg{
+  background-image: url('backup.jpg');
+  width: 50%;
+  height: 87%;
+}
+
+.wimg{
+  background-image: url('grandpa.png');
+  width: 45%;
+  height: 87%;
+}
+
 .section1{
-  background-image: url('dblue.png');
-  color: #fff;
-  text-shadow: 2px 1px 2px #575353;
+  background-color: 	#faf0e6;
+  /*background-image: url('crypto.jpg');text-shadow: 2px 1px 2px #575353;*/
+  color: black;
+  
 }
 
 .section2{
-  background-image: url('dblue.png');
-  text-shadow: 1px 0.5px 1px #373030;
+  background-color: 	#faf0e6;
+  /*background-image: url('crypto.png');text-shadow: 1px 0.5px 1px #373030;*/
+  
 }
 
 .section3{
-  background-image: url('dblue.png');
-  text-shadow: 1px 0.5px 1px #373030;
+  background-color: 	#faf0e6;
+  /*background-image: url('crypto.png');text-shadow: 1px 0.5px 1px #373030;*/
+  
 }
 
 #leftenter{
-  width:40%;
-  height: 350px;
-  padding:10px;
-  /*margin: 5% 1% 0 10%;上右下左*/
+  width:45%;
+  height: 200px;
+  margin: 0 5% 0 0;/*上右下左*/
   display: inline-block;
   justify-content: center;
   align-items: flex-start;
@@ -128,11 +181,11 @@
   
 }
 
+
 #left{
   width:40%;
   height: 250px;
   padding:10px;
-  
   margin: 5% 1% 0 9%;/*上右下左*/
   display: inline-block;
   justify-content: center;
@@ -144,15 +197,17 @@
 } 
 
 #rightenter{
-  width: 40%;
-  height: 350px;
+  width: 45%;
+  height: 200px;
   /*padding:10px;
-  margin: 5% 9% 5% 1%;*/
+  margin: 0 0 0 0;*/
   display: inline-block;
   justify-content: center;
   align-items: flex-start;
    
 }
+
+
 
 #right{
   width: 40%;
@@ -339,3 +394,4 @@
     width: 100%;
   }
 } */
+

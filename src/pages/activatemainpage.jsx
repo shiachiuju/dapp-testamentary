@@ -33,7 +33,7 @@ class ActivateMainPage extends Component {
     render() {
         return (
             <Layout>
-            <div className="App">
+            <div className="App textstyle">
                 <div id="mainbox">
                 
                 <div id="outer">
