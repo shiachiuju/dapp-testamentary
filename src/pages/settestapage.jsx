@@ -184,7 +184,7 @@ class ActivateTestamentPage extends Component {
                 <div class="form-group" id="activateTest">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
-                        this.Set(this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                        this.Set(this.contractadd.value,this.checkemail.value,this.checkpassword.value,this.checkid.value)
                     }}>
                         <Form.Group id="formCheckAddress">
                             <Row>

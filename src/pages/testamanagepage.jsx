@@ -216,7 +216,7 @@ class TestaManagePage extends Component{
                 <thead>
                     <tr>
                         <th scope="col">Email</th>
-                        <th scope='col'>ID</th>
+                        <th class='collapse' scope='col'>ID</th>
                         <th scope="col">Rate</th>
                         <th scope="col">New rate</th>
                         
@@ -348,7 +348,6 @@ class TestaManagePage extends Component{
                         var emailinput =
                             <input
                             type="email"
-                            size='20'
                             name={beneficiaryId}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -367,12 +366,11 @@ class TestaManagePage extends Component{
                             value={newe}
                             data-id={idx}
                             id={beneficiaryId}
-                            // placeholder="Enter email"
+                            placeholder="Enter email"
                             className="mail"/>;
                         var idinput =
                             <input
                             type="text"
-                            size='20'
                             name={Idnumber}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -391,7 +389,7 @@ class TestaManagePage extends Component{
                             value={newi}
                             data-id={idx}
                             id={Idnumber}
-                            // placeholder="Enter email"
+                            placeholder="Enter ID"
                             className="idnumber"/>;
                         var rateinput = 
                             <input
@@ -414,7 +412,7 @@ class TestaManagePage extends Component{
                             value={newr}
                             data-id={idx}
                             id={rateId}
-                            // placeholder="0~100"
+                            placeholder="0~100"
                             className="rate"/>;
                         return(
                             <div key={idx}>
@@ -461,7 +459,6 @@ class TestaManagePage extends Component{
                         var emailinput =
                             <input
                             type="email"
-                            size='20'
                             name={beneficiaryId}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -480,12 +477,11 @@ class TestaManagePage extends Component{
                             value={newe}
                             data-id={idx}
                             id={beneficiaryId}
-                            // placeholder="Enter email"
+                            placeholder="Enter email"
                             className="mail"/>;
                         var idinput =
                             <input
                             type="text"
-                            size='20'
                             name={Idnumber}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -504,7 +500,7 @@ class TestaManagePage extends Component{
                             value={newi}
                             data-id={idx}
                             id={Idnumber}
-                            // placeholder="Enter email"
+                            placeholder="Enter ID"
                             className="idnumber"/>;
                         var rateinput = 
                             <input
@@ -568,12 +564,13 @@ class TestaManagePage extends Component{
                                 </div>
                             )
                     }
-                    if (val.mail === "" && val.idnumber === "" && val.rate !== ""){
+                    if (val.mail !== "" && val.idnumber == "" && val.rate !== ""){
+                        var newe = val.mail;
+                        var newi = val.idnumber;
                         var newr = val.rate;
                         var emailinput =
                             <input
                             type="email"
-                            size='20'
                             name={beneficiaryId}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -589,7 +586,7 @@ class TestaManagePage extends Component{
                                     })
                                 }))
                             }}
-                            value=''
+                            value={newe}
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
@@ -597,7 +594,6 @@ class TestaManagePage extends Component{
                         var idinput =
                             <input
                             type="text"
-                            size='20'
                             name={Idnumber}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -616,7 +612,7 @@ class TestaManagePage extends Component{
                             value={newi}
                             data-id={idx}
                             id={Idnumber}
-                            // placeholder="Enter email"
+                            placeholder="Enter ID"
                             className="idnumber"/>;
                         var rateinput = 
                             <input
@@ -639,7 +635,229 @@ class TestaManagePage extends Component{
                             value={newr}
                             data-id={idx}
                             id={rateId}
-                            // placeholder="0~100"
+                            placeholder="0~100"
+                            className="rate"/>;
+                        return(
+                            <div key={idx}>
+                            <br></br>
+                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            &nbsp;
+                            {emailinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={Idnumber}>ID number:</label>
+                            &nbsp;
+                            {idinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={rateId}>Distribution rate:</label>
+                            &nbsp;
+                            {rateinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <FontAwesomeIcon 
+                                color="red" 
+                                icon={["fas", "times"]} 
+                                type="submit"  
+                                onClick={
+                                    ()=>{
+                                        var nob = [...this.state.beneficiary]
+                                        nob.splice(idx,1)
+                                        this.setState({ beneficiary: nob })
+                                        // console.log(a)
+                                        console.log(nob)
+                                        console.log(this.state.beneficiary)
+                                        this.state.beneficiary.map((v,i)=>{
+                                            console.log(v)
+                                            // console.log(v.rate)
+                                            console.log(i)
+                                        })
+                                        
+                                    }
+                                }
+                                />
+                            </div>
+                        )
+                    }
+                    if (val.mail == "" && val.idnumber !== "" && val.rate !== ""){
+                        var newe = val.mail;
+                        var newi = val.idnumber;
+                        var newr = val.rate;
+                        var emailinput =
+                            <input
+                            type="email"
+                            name={beneficiaryId}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                mail: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newe}
+                            data-id={idx}
+                            id={beneficiaryId}
+                            placeholder="Enter email"
+                            className="mail"/>;
+                        var idinput =
+                            <input
+                            type="text"
+                            name={Idnumber}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                idnumber: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newi}
+                            data-id={idx}
+                            id={Idnumber}
+                            placeholder="Enter ID"
+                            className="idnumber"/>;
+                        var rateinput = 
+                            <input
+                            type="number"
+                            name={rateId}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                rate: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newr}
+                            data-id={idx}
+                            id={rateId}
+                            placeholder="0~100"
+                            className="rate"/>;
+                        return(
+                            <div key={idx}>
+                            <br></br>
+                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            &nbsp;
+                            {emailinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={Idnumber}>ID number:</label>
+                            &nbsp;
+                            {idinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={rateId}>Distribution rate:</label>
+                            &nbsp;
+                            {rateinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <FontAwesomeIcon 
+                                color="red" 
+                                icon={["fas", "times"]} 
+                                type="submit"  
+                                onClick={
+                                    ()=>{
+                                        var nob = [...this.state.beneficiary]
+                                        nob.splice(idx,1)
+                                        this.setState({ beneficiary: nob })
+                                        // console.log(a)
+                                        console.log(nob)
+                                        console.log(this.state.beneficiary)
+                                        this.state.beneficiary.map((v,i)=>{
+                                            console.log(v)
+                                            // console.log(v.rate)
+                                            console.log(i)
+                                        })
+                                        
+                                    }
+                                }
+                                />
+                            </div>
+                        )
+                    }
+                    if (val.mail === "" && val.idnumber === "" && val.rate !== ""){
+                        var newr = val.rate;
+                        var emailinput =
+                            <input
+                            type="email"
+                            name={beneficiaryId}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                mail: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value=''
+                            data-id={idx}
+                            id={beneficiaryId}
+                            placeholder="Enter email"
+                            className="mail"/>;
+                        var idinput =
+                            <input
+                            type="text"
+                            name={Idnumber}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                idnumber: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newi}
+                            data-id={idx}
+                            id={Idnumber}
+                            placeholder="Enter ID"
+                            className="idnumber"/>;
+                        var rateinput = 
+                            <input
+                            type="number"
+                            name={rateId}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                rate: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newr}
+                            data-id={idx}
+                            id={rateId}
+                            placeholder="0~100"
                             className="rate"/>;
                             return(
                                 <div key={idx}>
@@ -680,11 +898,234 @@ class TestaManagePage extends Component{
                                 </div>
                             )
                     }
+                    if (val.mail !== "" && val.idnumber == "" && val.rate == ""){
+                        var newe = val.mail;
+                        var newi = val.idnumber;
+                        var newr = val.rate;
+                        var emailinput =
+                            <input
+                            type="email"
+                            name={beneficiaryId}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                mail: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newe}
+                            data-id={idx}
+                            id={beneficiaryId}
+                            placeholder="Enter email"
+                            className="mail"/>;
+                        var idinput =
+                            <input
+                            type="text"
+                            name={Idnumber}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                idnumber: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newi}
+                            data-id={idx}
+                            id={Idnumber}
+                            placeholder="Enter ID"
+                            className="idnumber"/>;
+                        var rateinput = 
+                            <input
+                            type="number"
+                            name={rateId}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                rate: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newr}
+                            data-id={idx}
+                            id={rateId}
+                            placeholder="0~100"
+                            className="rate"/>;
+                        return(
+                            <div key={idx}>
+                            <br></br>
+                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            &nbsp;
+                            {emailinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={Idnumber}>ID number:</label>
+                            &nbsp;
+                            {idinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={rateId}>Distribution rate:</label>
+                            &nbsp;
+                            {rateinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <FontAwesomeIcon 
+                                color="red" 
+                                icon={["fas", "times"]} 
+                                type="submit"  
+                                onClick={
+                                    ()=>{
+                                        var nob = [...this.state.beneficiary]
+                                        nob.splice(idx,1)
+                                        this.setState({ beneficiary: nob })
+                                        // console.log(a)
+                                        console.log(nob)
+                                        console.log(this.state.beneficiary)
+                                        this.state.beneficiary.map((v,i)=>{
+                                            console.log(v)
+                                            // console.log(v.rate)
+                                            console.log(i)
+                                        })
+                                        
+                                    }
+                                }
+                                />
+                            </div>
+                        )
+                    }
+                    if (val.mail == "" && val.idnumber !== "" && val.rate == ""){
+                        var newe = val.mail;
+                        var newi = val.idnumber;
+                        var newr = val.rate;
+                        var emailinput =
+                            <input
+                            type="email"
+                            name={beneficiaryId}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                mail: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newe}
+                            data-id={idx}
+                            id={beneficiaryId}
+                            placeholder="Enter email"
+                            className="mail"/>;
+                        var idinput =
+                            <input
+                            type="text"
+                            name={Idnumber}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                idnumber: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newi}
+                            data-id={idx}
+                            id={Idnumber}
+                            placeholder="Enter ID"
+                            className="idnumber"/>;
+                        var rateinput = 
+                            <input
+                            type="number"
+                            name={rateId}
+                            onChange={(e) => {
+                                this.setState(() => ({
+                                    beneficiary: this.state.beneficiary.map((item, j) => {
+                                        if (j === idx) {
+                                            return {
+                                                ...item,
+                                                rate: e.target.value
+                                            }
+                                        }
+                            
+                                        return item
+                                    })
+                                }))
+                            }}
+                            value={newr}
+                            data-id={idx}
+                            id={rateId}
+                            placeholder="0~100"
+                            className="rate"/>;
+                        return(
+                            <div key={idx}>
+                            <br></br>
+                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            &nbsp;
+                            {emailinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={Idnumber}>ID number:</label>
+                            &nbsp;
+                            {idinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <label htmlFor={rateId}>Distribution rate:</label>
+                            &nbsp;
+                            {rateinput}
+                            &nbsp;&nbsp;&nbsp;
+                            <FontAwesomeIcon 
+                                color="red" 
+                                icon={["fas", "times"]} 
+                                type="submit"  
+                                onClick={
+                                    ()=>{
+                                        var nob = [...this.state.beneficiary]
+                                        nob.splice(idx,1)
+                                        this.setState({ beneficiary: nob })
+                                        // console.log(a)
+                                        console.log(nob)
+                                        console.log(this.state.beneficiary)
+                                        this.state.beneficiary.map((v,i)=>{
+                                            console.log(v)
+                                            // console.log(v.rate)
+                                            console.log(i)
+                                        })
+                                        
+                                    }
+                                }
+                                />
+                            </div>
+                        )
+                    }
                     if (val.mail === "" && val.idnumber === "" && val.rate === ""){
                         var emailinput =
                             <input
                             type="email"
-                            size='20'
                             name={beneficiaryId}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -708,7 +1149,6 @@ class TestaManagePage extends Component{
                         var idinput =
                             <input
                             type="text"
-                            size='20'
                             name={Idnumber}
                             onChange={(e) => {
                                 this.setState(() => ({
@@ -727,7 +1167,7 @@ class TestaManagePage extends Component{
                             value={newi}
                             data-id={idx}
                             id={Idnumber}
-                            // placeholder="Enter email"
+                            placeholder="Enter ID"
                             className="idnumber"/>;
                         var rateinput = 
                             <input
@@ -791,104 +1231,8 @@ class TestaManagePage extends Component{
                                 </div>
                             )
                     }
-                    // if (val.rate != 0 && val.rate != ""){
-                    //     newr = val.rate;
-                    // }
-                    // else{
-                    //     newe = "Enter";
-                    // }
-                    // return(
-                    //     <div key={idx}>
-                    //     <br></br>
-                    //     <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
-                    //     &nbsp;
-                    //     {emailinput}
-                    //     {/* <input
-                    //         type="email"
-                    //         size='30'
-                    //         name={beneficiaryId}
-                    //         onChange={(e) => {
-                    //             this.setState(state => ({
-                    //                 beneficiary: state.beneficiary.map((item, j) => {
-                    //                     if (j === idx) {
-                    //                         return {
-                    //                             ...item,
-                    //                             mail: e.target.value
-                    //                         }
-                    //                     }
-                            
-                    //                     return item
-                    //                 })
-                    //             }))
-                    //         }}
-                    //         value={newe}
-                    //         data-id={idx}
-                    //         id={beneficiaryId}
-                    //         placeholder="Enter email"
-                    //         className="mail"/> */}
-                    //     &nbsp;&nbsp;&nbsp;
-                    //     <label htmlFor={rateId}>Distribution rate:</label>
-                    //     &nbsp;
-                    //     {rateinput}
-                    //     {/* <input
-                    //         type="number"
-                    //         name={rateId}
-                    //         data-id={idx}
-                    //         id={rateId}
-                    //         onChange={(e) => {
-                    //             this.setState(state => ({
-                    //                 beneficiary: state.beneficiary.map((item, j) => {
-                    //                     if (j === idx) {
-                    //                         return {
-                    //                             ...item,
-                    //                             rate: e.target.value
-                    //                         }
-                    //                     }
-                            
-                    //                     return item
-                    //                 })
-                    //             }))
-                    //         }}
-                    //         value={newr}
-                    //         placeholder="0~100"
-                    //         className="rate"/> */}
-                    //         <button type="button" 
-                    //             onClick={
-                    //                 ()=>{
-                    //                     // const nn = this.state.beneficiary.filter(c => id !== idx)
-                    //                     // this.setState({ beneficiary : nn })
-                    //                     var nob = [...this.state.beneficiary]
-                    //                     nob.splice(idx,1)
-                    //                     this.setState({ beneficiary: nob })
-                    //                     // console.log(a)
-                    //                     console.log(nob)
-                    //                     console.log(this.state.beneficiary)
-                    //                     this.state.beneficiary.map((v,i)=>{
-                    //                         console.log(v)
-                    //                         // console.log(v.rate)
-                    //                         console.log(i)
-                    //                     })
-                                        
-                    //                     // this.setState({ beneficiary: nob })
-                    //                     // console.log(this.state.value.toString())
-                    //                     // this.setState(()=> ({
-                    //                     //     benes: this.state.benes.map((item, j) => {
-                    //                     //         if (j === key) {
-                    //                     //             return {
-                    //                     //                 ...item,
-                    //                     //                 newrate: undefined
-                    //                     //             }
-                    //                     //         }
-                                    
-                    //                     //         return item
-                    //                     //     })
-                    //                     // }))
-
-                    //                 }
-                    //             }
-                    //             >xx</button>
-                    //     </div>
-                    // )
+                    
+                    
                 })
             }        
             <br></br>
@@ -938,7 +1282,7 @@ class TestaManagePage extends Component{
                                 const rate = data.rate
                                 if (this.checkEmail(mail) === true) {
                                     //this.sendEmailtoB(this.mail.value)
-                                    this.addHa(mail, rate)
+                                    this.addHa(mail, idnumber, rate)
                                 } else if (this.checkEmail(mail) !== true) {
                                     alert('Please enter correct email!')
                                 }
@@ -952,10 +1296,11 @@ class TestaManagePage extends Component{
                         this.state.benes.map((val, key) => {
                             if (key === i) {
                                 const mail = val.mail
+                                const idnumber = val.idnumber
                                 const newrate = val.newrate
                                 const rate = val.rate
                                 if (newrate !== "" && newrate !== undefined && rate !== newrate){
-                                    this.modify(i+1,mail,newrate)
+                                    this.modify(i+1,mail,idnumber,newrate)
                                 }
                             }
                         }        
