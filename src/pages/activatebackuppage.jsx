@@ -8,7 +8,8 @@ import Swal from 'sweetalert2'
 import '../App.css';
 import Layout from '../layout';
 //contract
-import ActivateBackup from '../contract/ActivateBackup.json'
+import MainContract from '../contract/MainContract.json'
+// import ActivateBackup from '../contract/ActivateBackup.json'
 //components
 import getWeb3 from '../getWeb3';
 
@@ -29,118 +30,117 @@ class ActivateBackupPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            message: '',
-            message2: ''
+            message: ''
         }
-        this.BackEth = this.BackEth.bind(this);
-        this.Deploy = this.Deploy.bind(this);
         this.Activate = this.Activate.bind(this);
-        this.Delete = this.Delete.bind(this);
+        // this.BackEth = this.BackEth.bind(this);
+        // this.Deploy = this.Deploy.bind(this);
+        // this.Delete = this.Delete.bind(this);
     }
-    async BackEth(idNo,backaddr,address,checkemail,checkpassword) {
-        const acBackupContract = new this.state.web3.eth.Contract(ActivateBackup.abi, address)
-        this.setState({ acBackupContract });
-        console.log(address);
-        this.state.acBackupContract.methods.activateBackup(idNo,checkemail,checkpassword)
-        .send({ from: this.state.account })
-        .once('receipt', async (receipt) => {
-            const newba = await this.state.web3.eth.getBalance(this.state.account)
-            const shownewba = Math.round((newba/10**18)*10000)/10000
-            new Swal({
-                title: 'Your assets from previous wallet has transferred to' + '\n' + this.state.account + '\n' + 'New balance : ' + shownewba + ' ETH',
-                confirmButtonColor: '#eea13c',
-                confirmButtonText: 'OK',
-                width: 600,
-                padding: '3em',
-                background: '#fff',
-                backdrop: `
-                    shadow: '0px 0px 5px #888888'
-                    left top
-                    no-repeat
-                `
-            }).then(function() {
-            });
-            this.Delete(backaddr);
-        }).once('error', (error) => {
-            new Swal({
-                title: 'Please enter the right ID, email and password',
-                confirmButtonColor: '#eea13c',
-                confirmButtonText: 'OK',
-                width: 600,
-                padding: '3em',
-                background: '#fff',
-                backdrop: `
-                    shadow: '0px 0px 5px #888888'
-                    left top
-                    no-repeat
-                `
-            }).then(function() {
-            });
-    })}
+    // async BackEth(idNo,backaddr,address,checkemail,checkpassword) {
+    //     const acBackupContract = new this.state.web3.eth.Contract(ActivateBackup.abi, address)
+    //     this.setState({ acBackupContract });
+    //     console.log(address);
+    //     this.state.acBackupContract.methods.activateBackup(idNo,checkemail,checkpassword)
+    //     .send({ from: this.state.account })
+    //     .once('receipt', async (receipt) => {
+    //         const newba = await this.state.web3.eth.getBalance(this.state.account)
+    //         const shownewba = Math.round((newba/10**18)*10000)/10000
+    //         new Swal({
+    //             title: 'Your assets from previous wallet has transferred to' + '\n' + this.state.account + '\n' + 'New balance : ' + shownewba + ' ETH',
+    //             confirmButtonColor: '#eea13c',
+    //             confirmButtonText: 'OK',
+    //             width: 600,
+    //             padding: '3em',
+    //             background: '#fff',
+    //             backdrop: `
+    //                 shadow: '0px 0px 5px #888888'
+    //                 left top
+    //                 no-repeat
+    //             `
+    //         }).then(function() {
+    //         });
+    //         this.Delete(backaddr);
+    //     }).once('error', (error) => {
+    //         new Swal({
+    //             title: 'Please enter the right ID, email and password',
+    //             confirmButtonColor: '#eea13c',
+    //             confirmButtonText: 'OK',
+    //             width: 600,
+    //             padding: '3em',
+    //             background: '#fff',
+    //             backdrop: `
+    //                 shadow: '0px 0px 5px #888888'
+    //                 left top
+    //                 no-repeat
+    //             `
+    //         }).then(function() {
+    //         });
+    // })}
     
-    async Delete(backaddr) {
-        Axios.get(`http://localhost:3002/api/getmaincontract/${backaddr}`)
-        .then((con) => {
-            const deletemain = con.data[0].maincontract_address.toString();
-            console.log(deletemain);
-            Axios.delete(`http://localhost:3002/api/deletemain/${deletemain}`).then((response)=>{
-                alert("deleted!")
-            })
-            Axios.delete(`http://localhost:3002/api/deleteback/${backaddr}`).then((response)=>{
-                alert("deleted!")
-            })
-            Axios.delete(`http://localhost:3002/api/deleteactivateback/${backaddr}`).then((response)=>{
-                alert("deleted!")
-            })
-        }).catch((err) => {
+    // async Delete(backaddr) {
+    //     Axios.get(`http://localhost:3002/api/getmaincontract/${backaddr}`)
+    //     .then((con) => {
+    //         const deletemain = con.data[0].maincontract_address.toString();
+    //         console.log(deletemain);
+    //         Axios.delete(`http://localhost:3002/api/deletemain/${deletemain}`).then((response)=>{
+    //             alert("deleted!")
+    //         })
+    //         Axios.delete(`http://localhost:3002/api/deleteback/${backaddr}`).then((response)=>{
+    //             alert("deleted!")
+    //         })
+    //         Axios.delete(`http://localhost:3002/api/deleteactivateback/${backaddr}`).then((response)=>{
+    //             alert("deleted!")
+    //         })
+    //     }).catch((err) => {
                 
-        });
-    }
-    async Deploy(idNo,backaddr,checkemail,checkpassword) {
-        const contract = new this.state.web3.eth.Contract(ActivateBackup.abi);
-        contract.deploy({
-            data: ActivateBackup.bytecode,
-            arguments: [backaddr]
-        })
-        .send({
-            from: this.state.account,
-            gas: 2100000,
-        })
-        .then((newContractInstance) => {
-            console.log('successfully deployed!');
-            submitNew(backaddr,newContractInstance.options.address.toString())
-            this.BackEth(idNo,backaddr,newContractInstance.options.address.toString(),checkemail,checkpassword)     
-        }).catch((err) => {
-            new Swal({
-                title: 'Please enter the submit on MetaMask',
-                confirmButtonColor: '#eea13c',
-                // cancelButtonColor: '#8C8F8D',
-                confirmButtonText: 'OK',
-                // cancelButtonText: 'Cancel',
-                width: 600,
-                padding: '3em',
-                background: '#fff',
-                backdrop: `
-                    shadow: '0px 0px 5px #888888'
-                    left top
-                    no-repeat
-                `
-            }).then(() => {
-                window.location.reload()
-            })
-        });
-        const submitNew = (backaddr,newcontract) => {
-            Axios.post('http://localhost:3002/api/insertactivatebackup', {account_address: this.state.account, backupcontract_address: backaddr, activatebackup_address: newcontract})
-            .then(() => {
-                alert('success insert!')
-            })
-        }
+    //     });
+    // }
+    // async Deploy(idNo,backaddr,checkemail,checkpassword) {
+    //     const contract = new this.state.web3.eth.Contract(ActivateBackup.abi);
+    //     contract.deploy({
+    //         data: ActivateBackup.bytecode,
+    //         arguments: [backaddr]
+    //     })
+    //     .send({
+    //         from: this.state.account,
+    //         gas: 2100000,
+    //     })
+    //     .then((newContractInstance) => {
+    //         console.log('successfully deployed!');
+    //         submitNew(backaddr,newContractInstance.options.address.toString())
+    //         this.BackEth(idNo,backaddr,newContractInstance.options.address.toString(),checkemail,checkpassword)     
+    //     }).catch((err) => {
+    //         new Swal({
+    //             title: 'Please enter the submit on MetaMask',
+    //             confirmButtonColor: '#eea13c',
+    //             // cancelButtonColor: '#8C8F8D',
+    //             confirmButtonText: 'OK',
+    //             // cancelButtonText: 'Cancel',
+    //             width: 600,
+    //             padding: '3em',
+    //             background: '#fff',
+    //             backdrop: `
+    //                 shadow: '0px 0px 5px #888888'
+    //                 left top
+    //                 no-repeat
+    //             `
+    //         }).then(() => {
+    //             window.location.reload()
+    //         })
+    //     });
+    //     const submitNew = (backaddr,newcontract) => {
+    //         Axios.post('http://localhost:3002/api/insertactivatebackup', {account_address: this.state.account, backupcontract_address: backaddr, activatebackup_address: newcontract})
+    //         .then(() => {
+    //             alert('success insert!')
+    //         })
+    //     }
         
-    }
-    async Activate(idNo,contractadd,checkemail,checkpassword){
+    // }
+    async Activate(contractadd,idNo,checkemail,checkpassword){
         this.checkhash = sha256(checkpassword.toString())
         const acc = this.state.account
-        Axios.get(`http://localhost:3002/api/checkbackupcontract/${contractadd}`)
+        Axios.get(`http://localhost:3002/api/checkcontract/${contractadd}`)
         .then((con) => {
             if(con.data.length == 0){
                 new Swal({
@@ -158,13 +158,57 @@ class ActivateBackupPage extends Component {
                 }).then(function() {
                 });
             }else{
-                Axios.get(`http://localhost:3002/api/getactivatebackupcontract/${acc}/${contractadd}`)
-                .then((con) => {
-                    this.BackEth(idNo,contractadd,con.data[0].activatebackup_address.toString(),checkemail,this.checkhash)
-                }).catch((err) => {
-                    this.Deploy(idNo,contractadd,checkemail,this.checkhash)
-                });
-                }
+                const mainContract = new this.state.web3.eth.Contract(MainContract.abi, contractadd)
+                this.setState({ mainContract});
+                this.state.mainContract.methods.checksubmitTransaction(idNo,checkemail,this.checkhash,this.state.account)
+                .send({ from: this.state.account })
+                .once('receipt', async (receipt) => {
+                    const newba = await this.state.web3.eth.getBalance(this.state.account)
+                    const shownewba = Math.round((newba/10**18)*10000)/10000
+                    new Swal({
+                        title: 'Your assets from previous wallet has transferred to' + '\n' + this.state.account + '\n' + 'New balance : ' + shownewba + ' ETH',
+                        confirmButtonColor: '#eea13c',
+                        confirmButtonText: 'OK',
+                        width: 600,
+                        padding: '3em',
+                        background: '#fff',
+                        backdrop: `
+                            shadow: '0px 0px 5px #888888'
+                            left top
+                            no-repeat
+                        `
+                    }).then(function() {
+                        Axios.delete(`http://localhost:3002/api/deletemain/${contractadd}`).then(()=>{
+                            
+                        })
+                        // window.location.reload()
+                        
+                    });
+                    // this.Delete(backaddr);
+                }).once('error', (error) => {
+                    new Swal({
+                        title: 'Please enter the right ID, email and password',
+                        confirmButtonColor: '#eea13c',
+                        confirmButtonText: 'OK',
+                        width: 600,
+                        padding: '3em',
+                        background: '#fff',
+                        backdrop: `
+                            shadow: '0px 0px 5px #888888'
+                            left top
+                            no-repeat
+                        `
+                    }).then(function() {
+                    });
+                })
+                // Axios.get(`http://localhost:3002/api/getactivatebackupcontract/${acc}/${contractadd}`)
+                // .then((con) => {
+                //     this.BackEth(idNo,contractadd,con.data[0].activatebackup_address.toString(),checkemail,this.checkhash)
+                // }).catch((err) => {
+                //     this.Deploy(idNo,contractadd,checkemail,this.checkhash)
+                // });
+                // }
+            }
         }).catch((err) => {
             
         });
@@ -247,7 +291,7 @@ class ActivateBackupPage extends Component {
                             }).then(function() {
                             });
                         }else{
-                            this.Activate(this.idNo.value,this.contractadd.value,this.checkemail.value,this.checkpassword.value)
+                            this.Activate(this.contractadd.value,this.idNo.value,this.checkemail.value,this.checkpassword.value)
                         }
                     }}>
                         <Col>
@@ -358,7 +402,6 @@ class ActivateBackupPage extends Component {
                     </Form> */}
                     <p></p>
                     <p>{this.state.message}</p>
-                    <p>{this.state.message2}</p>
                 </div>
             </div>
             </Layout> 

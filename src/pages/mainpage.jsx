@@ -295,20 +295,6 @@ class MainPage extends Component {
                                 <p>Testament</p>
                             </Col>
                         </Row>
-                        {/* <Col>
-                        <button>left</button>
-                            <input 
-                                class="dwinput"
-                                type="number" 
-                                id="amount" 
-                                name="amount" 
-                                ref={(input) => { 
-                                    this.amount = input
-                                }}
-                                placeholder="ETH" 
-                                required
-                            ></input>
-                        </Col> */}
                     </div>
                     <p></p>
                     <button class="dw" onClick={(event) => {
