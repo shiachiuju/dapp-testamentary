@@ -1,7 +1,7 @@
 .App {
   text-align: center;
-  margin: 8%;
-  /*background-image: url('tech.jpg');*/
+  
+  /*background-image: url('tech.jpg');margin: 8%;*/
   
 
 }
@@ -109,7 +109,7 @@
 
 .big{
   font-size: 25px;
-  color: #FFBB00;
+  color: #89817E;
 }
 
 .color{
@@ -119,20 +119,15 @@
 .textstyle{
   
   font-size :20px ;
-  font: "Oleo Script", Helvetica, sans–serif;
+  font-family: "Josefin Sans";
   /*font: "Trebuchet MS";font-family: "OCR A Std, monospace" ;*/
-  color: #black;
+  color: #1B1617;
   
 }
 
-.dot{
-  border-bottom-color:black;
-  border-bottom-style:dotted;
-}
 
 .out{
   text-indent: -30em;
-  
 }
 
 .in{
@@ -149,6 +144,18 @@
   background-image: url('grandpa.png');
   width: 45%;
   height: 87%;
+}
+
+.welcome{
+  background-image: url('welcome.png');
+  width: 1366px;
+  height: 768px;
+}
+
+.about{
+  background-image: url('aboutus.png');
+  width: 1366px;
+  height: 768px;
 }
 
 .section1{

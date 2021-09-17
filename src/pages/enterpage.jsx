@@ -52,22 +52,16 @@ class EnterPage extends Component {
     render() {
         return (
             <Layout>
+                
             <div className="App textstyle">
-                                <p>Welcome to cryptotrust</p>
-                                <p>We are here to protect your virtual assets.</p>
-                                <br></br>
-                            <div class="main">
-                            <div class="out big">
-                                <p>About us:</p>
+                            <div class="welcome" >
+
                             </div>
-                    <div class="article1 section1 center">                             
-                                <p>We are cryptotrust, provides an Encrypted Trust, also stand as your virtual wallet guardian.</p>
-                                <p >We use blockchain as our base to build up all the function, therefore all the data is decentralized and immutable.</p>
-                                <p >Slide down to see more.</p>
-                            </div>                         
+                            <div class="about " >
+
                             </div>
                             
-                            <div class="main">
+                            <div class="main ">
                             <div class="out big">
                                 <p>What can we do with cryptotrust?</p>
                             </div>
@@ -83,14 +77,14 @@ class EnterPage extends Component {
                                     <div class="big center">Testamentary </div>  
                                 </div>
                                     
-                                <div data-azbox="" data-gjs-type="agjc-box" id="leftenter">
-                                <p>You can set the backup contract in advance. <br></br>Once if you lost your wallet password, you can come here to activate the backup contract<br></br>Then all your virtual currency in the previous wallet will be return to your new wallet.</p>    
+                                <div data-azbox="" data-gjs-type="agjc-box" id="leftenter" >
+                                <p class="textstyle">You can set the backup contract in advance. <br></br>Once if you lost your wallet password, you can come here to activate the backup contract<br></br>Then all your virtual currency in the previous wallet will be return to your new wallet.</p>    
                                 </div>
 
                                 
-                                <div data-azbox="" data-gjs-type="agjc-box" id="rightenter">
-                                <p>The testament function is for people who are willing to distribute their property secretly.<br></br>Testators can add more than one beneficiaries with the customized percentage</p>
-                                <p> (N.B. Each proportion of designated beneficiary should add up to 100% )</p>
+                                <div data-azbox="" data-gjs-type="agjc-box" id="rightenter" >
+                                <p class="textstyle">The testament function is for people who are willing to distribute their property secretly.<br></br>Testators can add more than one beneficiaries with the customized percentage</p>
+                                <p class="textstyle"> (N.B. Each proportion of designated beneficiary should add up to 100% )</p>
                                           
                                 </div>
                                
