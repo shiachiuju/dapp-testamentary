@@ -2,13 +2,28 @@
 font-family: 'Questrial', sans-serif; */
 .App {
   text-align: center;
-  
-  /*background-image: url('tech.jpg');margin: 8%;*/
+  margin: 8%;
+  /*background-image: url('tech.jpg');*/
   
 
 }
+.a{
+  margin: 10% 20% 5% 25% ;
+
+}
+.b{
+  font-size: 35px;
+}
+
+.bl{
+  color:#1B1617;
+}
 .l{
   text-align: left;
+
+}
+.r{
+  margin: 25% 25% 25% 20% ;
 
 }
 .modify{
@@ -48,7 +63,8 @@ font-family: 'Questrial', sans-serif; */
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color : black;
+  color : #1B1617;
+  font-family: "Jost";
 }
 
 .App-link {
@@ -88,7 +104,7 @@ font-family: 'Questrial', sans-serif; */
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
-  font: "Oleo Script";
+  font-family: "Jost";
   /*line-height: 28px; */ 
 }
 
@@ -111,7 +127,9 @@ font-family: 'Questrial', sans-serif; */
 
 .big{
   font-size: 25px;
-  color: #89817E;
+  color: #635B5A;
+  font-weight: bold;
+  font-family: "Jost";
 }
 
 .color{
@@ -121,11 +139,12 @@ font-family: 'Questrial', sans-serif; */
 .textstyle{
   
   font-size :20px ;
-  font-family: "Josefin Sans";
-  /*font: "Trebuchet MS";font-family: "OCR A Std, monospace" ;*/
+  font-family: "Jost";
   color: #1B1617;
+  /*font: "Trebuchet MS";font-family: "OCR A Std, monospace" ;*/
   
 }
+
 
 
 .out{
@@ -149,15 +168,27 @@ font-family: 'Questrial', sans-serif; */
 }
 
 .welcome{
-  background-image: url('welcome.png');
-  width: 1366px;
-  height: 768px;
+  background-color: #E6DDDA;
+  width: 1519px;
+  height: 700px;
+  font-size :30px ;
+  /*font-family: 'Questrial', sans-serif;*/
+  font-family: "Jost";
+  color: #89817E;
+  display: flex;
+  align-items: center;
 }
 
 .about{
-  background-image: url('aboutus.png');
-  width: 1366px;
-  height: 768px;
+  background-color: #635B5A;
+  width: 1519px;
+  height: 800px;
+  font-size :25px ;
+  font-family: "Jost";
+  color: #cfc5bf;
+  display: flex;
+  text-align: center;
+  
 }
 
 .section1{
@@ -187,6 +218,9 @@ font-family: 'Questrial', sans-serif; */
   justify-content: center;
   align-items: flex-start;
   text-align: center;
+  font-size :20px ;
+  font-family: "Jost";
+  color: #89817E;
   
 }
 
@@ -213,6 +247,9 @@ font-family: 'Questrial', sans-serif; */
   display: inline-block;
   justify-content: center;
   align-items: flex-start;
+  font-size :20px ;
+  font-family: "Jost";
+  color: #89817E;
    
 }
 

@@ -53,12 +53,32 @@ class EnterPage extends Component {
         return (
             <Layout>
                 
-            <div className="App textstyle">
+            <div className="app">
                             <div class="welcome" >
-
+                                <div class="r">
+                                <p>WELCOME TO <b>CRYPTOTRUST</b><br></br>WE ARE HERE TO PROTECT YOUR <b>VIRTUAL ASSETS</b></p>
+                                </div>
                             </div>
+                            
                             <div class="about " >
-
+                            
+                                
+                           
+                            <div class="a">
+                                <p class="b"><b>-About us-</b></p>
+                                <br></br>
+                                <br></br>
+                                <p>We are <b>CryptoTrust</b>,<br></br>provides an Encrypted Trust, also stand as your <b>virtual wallet guardian</b></p>
+                                <br></br>
+                                <p>We use blockchain as our base to build up all the function,<br></br>therefore all the data is <b>decentralized and immutable.</b></p>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br><br></br>
+                                <p class="bl">Slide down to see more.</p>
+                                
+                            </div>
+                            
                             </div>
                             
                             <div class="main ">
@@ -67,7 +87,7 @@ class EnterPage extends Component {
                             </div>
                             <div class="article section2 center">
                                 <p class="big">We have two main function:</p>
-                                
+                                <br></br>
                                 <div data-azbox="" data-gjs-type="agjc-box" id="leftenter">
                                     <div class="bimg center" ></div>
                                     <div class="big center" >Backup-mechanism</div>
@@ -78,13 +98,15 @@ class EnterPage extends Component {
                                 </div>
                                     
                                 <div data-azbox="" data-gjs-type="agjc-box" id="leftenter" >
-                                <p class="textstyle">You can set the backup contract in advance. <br></br>Once if you lost your wallet password, you can come here to activate the backup contract<br></br>Then all your virtual currency in the previous wallet will be return to your new wallet.</p>    
+                                    
+                                <p >You can set the backup contract in advance. <br></br>Once if you lost your wallet password, you can come here to activate the backup contract<br></br>Then all your virtual currency in the previous wallet will be return to your new wallet.</p>    
                                 </div>
 
                                 
-                                <div data-azbox="" data-gjs-type="agjc-box" id="rightenter" >
-                                <p class="textstyle">The testament function is for people who are willing to distribute their property secretly.<br></br>Testators can add more than one beneficiaries with the customized percentage</p>
-                                <p class="textstyle"> (N.B. Each proportion of designated beneficiary should add up to 100% )</p>
+                                <div id="rightenter" >
+                                <br></br>
+                                <p>The testament function is for people who are willing to distribute their property secretly.<br></br>Testators can add more than one beneficiaries with the customized percentage</p>
+                                <p> (N.B. Each proportion of designated beneficiary should add up to 100% )</p>
                                           
                                 </div>
                                
@@ -95,11 +117,11 @@ class EnterPage extends Component {
                             <div class="article section2  center">
                             <p class="big">By this two function, <br></br>we can ensure that all the virtual currency can be circulated, and not wasted</p>
                             <br></br>
-                                <div data-azbox="" data-gjs-type="agjc-box" id="leftenter">
+                                <div id="leftenter">
                                 <p>Create your own back-up mechanism or testamentary</p>
                                 <Button class="button" href="/Main" variant="outline-warning">Create your own.</Button>
                                 </div>
-                                <div data-azbox="" data-gjs-type="agjc-box" id="rightenter">
+                                <div id="rightenter">
                                 <p>Activate your own back-up mechanism or testamentary</p>
                                 <Button href="/ActivateMain" variant="outline-warning">Activate.</Button>
                                 </div>
