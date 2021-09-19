@@ -74,7 +74,6 @@ class EnterPage extends Component {
                                 <br></br>
                                 <br></br>
                                 <br></br>
-                                <br></br><br></br>
                                 <p class="bl">Slide down to see more.</p>
                                 
                             </div>
