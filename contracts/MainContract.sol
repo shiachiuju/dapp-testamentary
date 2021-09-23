@@ -74,7 +74,7 @@ contract MainContract {
     /* backup function */
     
     //create back-up, setting email and password
-    function setBackup(string calldata _email,string calldata _password,string calldata _idNo) external checkSameOwner(msg.sender) checkSameId(_idNo){
+    function setBackup(string memory _email,string memory _password,string memory _idNo) public checkSameOwner(msg.sender) checkSameId(_idNo){
         email = _email;
         password = _password;
     }
