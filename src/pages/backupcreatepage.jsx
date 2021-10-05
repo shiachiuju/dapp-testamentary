@@ -69,11 +69,11 @@ class BackupCreatePage extends Component {
             const password = await this.state.mainContract.methods.getPassword().call()
                 this.setState({ password })
             if (this.state.email !== '' && this.state.password !== ''){
-                this.setState({ set: 'Backup mechanism has been set' })
+                this.setState({ set: '已建立救援機制' })
                 // console.log(this.state.email)
                 // console.log(this.state.password)
             }else{
-                this.setState({ set: 'Backup mechanism has not been set' });
+                this.setState({ set: '尚未建立救援機制' });
             }
         }
 
@@ -336,14 +336,14 @@ class BackupCreatePage extends Component {
             {/* <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button> */}
             <div class="App">
             <div class="l">            
-                <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
+                <button class="prev font" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
             </div>
                 <br></br>
-                <h3><b>Create Back-up Mechanism</b></h3>
+                <h3 className="font">建立救援機制</h3>
                 <br></br>
                 {/* <p><b>Wallet account:</b> {this.state.account}</p> */}
-                <p><b>{this.state.set}</b></p>
-                <p>Click the button to set your back-up mechanism!</p>
+                <p className="font" id="f18">{this.state.set}</p>
+                <p className="font" id="f18">點選 <b>設定</b> 開始建立</p>
                 <br></br>
                 <div id="setback">
                     <Form onSubmit={ async (event) => {
@@ -411,35 +411,35 @@ class BackupCreatePage extends Component {
                             }
                         }
                         const { value: formValues } = await Swal.fire({
-                            title: 'Enter the email and password',
+                            title: '請輸入資料',
                             width: 600,
                             showCancelButton: true,
                             confirmButtonColor: '#eea13c',
                             cancelButtonColor: '#8C8F8D',
-                            confirmButtonText: 'Submit',
-                            cancelButtonText: 'Cancel',
+                            confirmButtonText: '提交',
+                            cancelButtonText: '取消',
                             html:
                                 '<form role="form">'+
-                                    '<div class="form-group row">'+
-                                        '<label for="idNo" class="col-sm-4" style="margin-top:.5em;text-align:left;">ID number :</label>'+
+                                    '<div class="form-group row font">'+
+                                        '<label for="idNo" class="col-sm-4" style="margin-top:.5em;text-align:left;">身分證字號：</label>'+
                                         '<div class="col-sm-8">'+
                                             '<input id="idNo" type="text" class="form-control" placeholder="ID number" required/>'+
                                         '</div>'+
                                     '</div>'+
-                                    '<div class="form-group row">'+
-                                        '<label for="email" class="col-sm-4" style="margin-top:.5em;text-align:left;">Email :</label>'+
+                                    '<div class="form-group row font">'+
+                                        '<label for="email" class="col-sm-4" style="margin-top:.5em;text-align:left;">電子郵件信箱：</label>'+
                                         '<div class="col-sm-8">'+
                                             '<input id="email" type="email" class="form-control" placeholder="example@email.com" required/>'+
                                         '</div>'+
                                     '</div>'+
-                                    '<div class="form-group row">'+
-                                        '<label for="password" class="col-sm-4" style="margin-top:.5em;text-align:left;">Password :</label>'+
+                                    '<div class="form-group row font">'+
+                                        '<label for="password" class="col-sm-4" style="margin-top:.5em;text-align:left;">密碼：</label>'+
                                         '<div class="col-sm-8">'+
                                             '<input id="password" type="password" class="form-control" placeholder="must have at least 6 characters" required/>'+
                                         '</div>'+
                                     '</div>'+
-                                    '<div class="form-group row">'+
-                                        '<label for="cpassword" class="col-sm-4" style="margin-top:.5em;text-align:left;">Confirm Password :</label>'+
+                                    '<div class="form-group row font">'+
+                                        '<label for="cpassword" class="col-sm-4" style="margin-top:.5em;text-align:left;">再輸入一次密碼：</label>'+
                                         '<div class="col-sm-8 ">'+
                                             '<input id="cpassword" type="password" class="form-control" placeholder="confirm password again" required/>'+
                                         '</div>'+
@@ -502,7 +502,7 @@ class BackupCreatePage extends Component {
                             this.createBackup($('#email').val(),$('#password').val(),$('#idNo').val())
                         }
                     }}>
-                        <button type="submit" class="bubtn">Set</button>
+                        <button type="submit" class="bubtn font">設定</button>
                     </Form>
 
                 </div>

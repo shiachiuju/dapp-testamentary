@@ -34,33 +34,32 @@ class ActivateMainPage extends Component {
         return (
             <Layout>
             <div className="App textstyle">
-                <div id="mainbox">
-                
-                <div id="outer">
-                
-                <p><h4><b>Welcome,{this.state.account}</b></h4></p>
-                <h5><b>Here you can activate your contracts:</b></h5>
-                
+                <div id="mainbox ">
+                    <div id="outer">
+                        <h2 className="font">您好，</h2>
+                        <h4 className="font"><b>{this.state.account}</b></h4>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                    </div>
+                    <h4 className="font"><b>salVAger</b> 提供 帳戶救援 與 帳後遺囑 功能：</h4>
+                    <div id="outerdown">
+                        <div data-azbox="" data-gjs-type="agjc-box" id="left">
+                            <p className="font" id="f18">原有帳號私鑰已遺失</p>
+                            <p className="font" id="f18">請按 <b> 啟動救援 </b> 以啟用救援合約</p>
+                            <form method="get" action="/ActivateBackup">
+                                <button class="button font" type="submit">啟動救援</button>
+                            </form>
+                        </div>
+                        <div data-azbox="" data-gjs-type="agjc-box" id="right">
+                            <p className="font" id="f18">收到受益人確認信</p>
+                            <p className="font" id="f18">請按 <b> 啟動遺囑 </b> 以確認身份或啟用遺產分配合約</p>
+                            <form method="get" action="/SetTestament">
+                                <button class="button font" type="submit">啟動遺囑</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div data-azbox="" data-gjs-type="agjc-box" id="left">
-                <p>If you forget the password of your virtual account:</p>
-                <p>You can press <b>"Activate Back-up"</b> to Activate your back-up machanism.</p>
-                <br></br>
-                
-                <form method="get" action="/ActivateBackup">
-                <button class="button" type="submit">Activate Back-up</button>
-                </form></div>
-
-                <div data-azbox="" data-gjs-type="agjc-box" id="right">
-                <p>As a beneficiary ,</p>
-                
-                <p>You can press <b>"Activate Testamentary"</b> to set and activate the testamentary if needed.</p>
-                <br></br>
-                <form method="get" action="/SetTestament">
-                <button class="button" type="submit">Set/Activate Testament</button>
-                </form></div>
-                </div>
-                
             </div>
             <br></br>
             

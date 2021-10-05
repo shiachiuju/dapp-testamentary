@@ -77,16 +77,12 @@ class TestaManagePage extends Component{
     }
 
     async addHa(mail,idnumber,rate) {
-
-
         const submitBeneInfo = (mail,rate) => {
             Axios.post('http://localhost:3002/api/add', {account_address: this.state.account, bene_mail: mail, bene_rate: rate})
             .then(() => {
                 alert('success insert!')
             })
         }
-
-
         this.sendEmailtoB(mail)
         this.setState({ message:'We have sent an e-mail to your mailbox, please check it out!' })
         this.state.mainContract.methods.addbene(mail,rate,idnumber).send({ from: this.state.account })
@@ -105,8 +101,6 @@ class TestaManagePage extends Component{
         .catch((err) => {
             console.log(err);
         });
-
-        
     }
 
     async refreshPage() { 
@@ -130,7 +124,7 @@ class TestaManagePage extends Component{
     handleSubmit = (e) => { e.preventDefalut() }
 
     sendEmailtoB(e) {
-        
+
         let service_id = "beautygang";
         let template_id = "testamentary";
         let name = e.split('@')[0];
@@ -192,47 +186,40 @@ class TestaManagePage extends Component{
             }
             
         })
-        
-        
     }
-
-
     render() {
         // let {beneficiary} = this.state
         return (
         <Layout>
             <div className="App">
             <div class="l">            
-                <button class="prev" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
+                <button class="prev font" onClick={(event)=>{event.preventDefault();window.location="/Main"}}><FontAwesomeIcon color="white" icon={["fas", "angle-left"]} type="submit" /> Prev</button>
             </div>
-            <h3><b>Create Testament</b></h3>
+            <h3 className="font">建立數位遺囑</h3>
             <br></br>
     
             <Form>
             <p></p>
             <div align="center">
             <div class="table-responsive">
-                <table class="table table-hover table-sm">
-                <thead>
+                <table class="table table-hover table-sm cc">
+                <thead className="font">
                     <tr>
-                        <th scope="col">Email</th>
-                        <th class='collapse' scope='col'>ID</th>
-                        <th scope="col">Rate</th>
-                        <th scope="col">New rate</th>
-                        
+                        <th scope="col" className="font">電子郵件</th>
+                        <th scope="col" className="font">分配比例</th>
+                        <th scope="col" className="font">修改分配比例</th>
+                        {/* <th scope="col" className="font"></th> */}
                     </tr>
                 </thead>
                 {this.state.benes.map((val, key) =>{
                 if (this.state.value.length === 0) {
                     var beneId=`bene-${key}`
                     return(
-                        
-                        <tbody>
+                        <tbody className="font">
                             <tr>
                                 <td>{val.mail}</td>
-                                <td>{val.id}</td>
                                 <td>{val.rate}</td>
-                                <td><button type="button" class="mobtn"
+                                <td><button type="button" class="mobtn font"
                                 onClick={
                                     ()=>{
                                         const a = this.state.value
@@ -242,18 +229,17 @@ class TestaManagePage extends Component{
                                         // console.log(this.state.value.toString())
                                     }
                                 }
-                                >modify</button></td>
+                                >修改</button></td>
+                                {/* <td></td> */}
                             </tr>
                         </tbody>
-                        
                     )
                 }
-                })
-                }
+                })}
                 {this.state.benes.map((val, key) =>{
                 if(this.state.value.length !== 0){
                     var beneId=`bene-${key}`
-                    var a = <button type="button" class="mobtn"
+                    var a = <button type="button" class="mobtn font"
                             onClick={
                                 ()=>{
                                     const a = this.state.value
@@ -263,14 +249,14 @@ class TestaManagePage extends Component{
                                     // console.log(this.state.value.toString())
                                 }
                             }
-                            >modify</button>;
+                            >修改</button>;
                     // var b = null;
                     for(var i=0;i<=this.state.value.length;i++){
                         this.state.value.map((val2, key2) =>{
                             if (val2.toString()===key.toString()) {
-                                a = 
-                                <div class="modify">
+                                a = <div>
                                     <input 
+                                    className="modifyinput"
                                     type="number" 
                                     onChange={(e) => {
                                         this.setState(()=> ({
@@ -287,9 +273,9 @@ class TestaManagePage extends Component{
                                         }))
                                     }}>
                                     </input>
-                                    <FontAwesomeIcon 
-                                    color="red" 
-                                    size='2x'
+                                    <span>{"  "}</span>
+                                    <FontAwesomeIcon
+                                    color="red"
                                     icon={["fas", "times"]} 
                                     type="submit" 
                                     // class={beneId}
@@ -317,15 +303,15 @@ class TestaManagePage extends Component{
 
                                         }
                                     }/>
-                                </div>;
+                                    </div>
+                                    ;
                             }
                         })
                     }
                     return(
-                        <tbody>
+                        <tbody className="font">
                             <tr>
                                 <td>{val.mail}</td>
-                                <td>{val.id}</td>
                                 <td>{val.rate}</td>
                                 <td>{a}</td>
                                 {/* <td>{b}</td> */}
@@ -338,7 +324,7 @@ class TestaManagePage extends Component{
             </div>
             
             </div>
-            <Button variant="warning" onClick={this.addBene}>Add Beneficiary</Button>
+            <Button variant="warning" onClick={this.addBene} className="font">新增受益人</Button>
             {   this.state.beneficiary.map((val,idx)=>{
                     let beneficiaryId=`beneficiary-${idx}`,Idnumber=`id-${idx}`, rateId=`rate-${idx}`
                     if (val.mail !== "" && val.idnumber !== "" && val.rate !== ""){
@@ -367,7 +353,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
-                            className="mail"/>;
+                            className="mail newbeneinput font"/>;
                         var idinput =
                             <input
                             type="text"
@@ -390,7 +376,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={Idnumber}
                             placeholder="Enter ID"
-                            className="idnumber"/>;
+                            className="idnumber newbeneinput font"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -413,19 +399,19 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={rateId}
                             placeholder="0~100"
-                            className="rate"/>;
+                            className="rate newbenerateinput font"/>;
                         return(
                             <div key={idx}>
                             <br></br>
-                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            <label htmlFor={beneficiaryId}>#{idx+1} 受益人電子郵件：</label>
                             &nbsp;
                             {emailinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={Idnumber}>ID number:</label>
+                            <label htmlFor={Idnumber}>身分證字號：</label>
                             &nbsp;
                             {idinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={rateId}>Distribution rate:</label>
+                            <label htmlFor={rateId}>分配比例：</label>
                             &nbsp;
                             {rateinput}
                             &nbsp;&nbsp;&nbsp;
@@ -478,7 +464,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
-                            className="mail"/>;
+                            className="mail newbeneinput font"/>;
                         var idinput =
                             <input
                             type="text"
@@ -501,7 +487,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={Idnumber}
                             placeholder="Enter ID"
-                            className="idnumber"/>;
+                            className="idnumber newbeneinput font"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -524,19 +510,19 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={rateId}
                             placeholder="0~100"
-                            className="rate"/>;
+                            className="rate newbenerateinput font"/>;
                             return(
                                 <div key={idx}>
                                 <br></br>
-                                <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                                <label htmlFor={beneficiaryId}>#{idx+1} 受益人電子郵件：</label>
                                 &nbsp;
                                 {emailinput}
                                 &nbsp;&nbsp;&nbsp;
-                                <label htmlFor={Idnumber}>ID number:</label>
+                                <label htmlFor={Idnumber}>身分證字號：</label>
                                 &nbsp;
                                 {idinput}
                                 &nbsp;&nbsp;&nbsp;
-                                <label htmlFor={rateId}>Distribution rate:</label>
+                                <label htmlFor={rateId}>分配比例：</label>
                                 &nbsp;
                                 {rateinput}
                                 &nbsp;&nbsp;&nbsp;
@@ -590,7 +576,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
-                            className="mail"/>;
+                            className="mail newbeneinput font"/>;
                         var idinput =
                             <input
                             type="text"
@@ -613,7 +599,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={Idnumber}
                             placeholder="Enter ID"
-                            className="idnumber"/>;
+                            className="idnumber newbeneinput font"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -636,19 +622,19 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={rateId}
                             placeholder="0~100"
-                            className="rate"/>;
+                            className="rate newbenerateinput font"/>;
                         return(
                             <div key={idx}>
                             <br></br>
-                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            <label htmlFor={beneficiaryId}>#{idx+1} 受益人電子郵件：</label>
                             &nbsp;
                             {emailinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={Idnumber}>ID number:</label>
+                            <label htmlFor={Idnumber}>身分證字號：</label>
                             &nbsp;
                             {idinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={rateId}>Distribution rate:</label>
+                            <label htmlFor={rateId}>分配比例：</label>
                             &nbsp;
                             {rateinput}
                             &nbsp;&nbsp;&nbsp;
@@ -702,7 +688,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
-                            className="mail"/>;
+                            className="mail newbeneinput font"/>;
                         var idinput =
                             <input
                             type="text"
@@ -725,7 +711,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={Idnumber}
                             placeholder="Enter ID"
-                            className="idnumber"/>;
+                            className="idnumber newbeneinput font"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -748,19 +734,19 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={rateId}
                             placeholder="0~100"
-                            className="rate"/>;
+                            className="rate newbenerateinput font"/>;
                         return(
                             <div key={idx}>
                             <br></br>
-                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            <label htmlFor={beneficiaryId}>#{idx+1} 受益人電子郵件：</label>
                             &nbsp;
                             {emailinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={Idnumber}>ID number:</label>
+                            <label htmlFor={Idnumber}>身分證字號：</label>
                             &nbsp;
                             {idinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={rateId}>Distribution rate:</label>
+                            <label htmlFor={rateId}>分配比例：</label>
                             &nbsp;
                             {rateinput}
                             &nbsp;&nbsp;&nbsp;
@@ -812,7 +798,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
-                            className="mail"/>;
+                            className="mail newbeneinput font"/>;
                         var idinput =
                             <input
                             type="text"
@@ -835,7 +821,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={Idnumber}
                             placeholder="Enter ID"
-                            className="idnumber"/>;
+                            className="idnumber newbeneinput font"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -858,19 +844,19 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={rateId}
                             placeholder="0~100"
-                            className="rate"/>;
+                            className="rate newbenerateinput font"/>;
                             return(
                                 <div key={idx}>
                                 <br></br>
-                                <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                                <label htmlFor={beneficiaryId}>#{idx+1} 受益人電子郵件：</label>
                                 &nbsp;
                                 {emailinput}
                                 &nbsp;&nbsp;&nbsp;
-                                <label htmlFor={Idnumber}>ID number:</label>
+                                <label htmlFor={Idnumber}>身分證字號：</label>
                                 &nbsp;
                                 {idinput}
                                 &nbsp;&nbsp;&nbsp;
-                                <label htmlFor={rateId}>Distribution rate:</label>
+                                <label htmlFor={rateId}>分配比例：</label>
                                 &nbsp;
                                 {rateinput}
                                 &nbsp;&nbsp;&nbsp;
@@ -924,7 +910,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
-                            className="mail"/>;
+                            className="mail newbeneinput font"/>;
                         var idinput =
                             <input
                             type="text"
@@ -947,7 +933,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={Idnumber}
                             placeholder="Enter ID"
-                            className="idnumber"/>;
+                            className="idnumber newbeneinput font"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -970,19 +956,19 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={rateId}
                             placeholder="0~100"
-                            className="rate"/>;
+                            className="rate newbenerateinput font"/>;
                         return(
                             <div key={idx}>
                             <br></br>
-                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            <label htmlFor={beneficiaryId}>#{idx+1} 受益人電子郵件：</label>
                             &nbsp;
                             {emailinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={Idnumber}>ID number:</label>
+                            <label htmlFor={Idnumber}>身分證字號：</label>
                             &nbsp;
                             {idinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={rateId}>Distribution rate:</label>
+                            <label htmlFor={rateId}>分配比例：</label>
                             &nbsp;
                             {rateinput}
                             &nbsp;&nbsp;&nbsp;
@@ -1036,7 +1022,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
-                            className="mail"/>;
+                            className="mail newbeneinput font"/>;
                         var idinput =
                             <input
                             type="text"
@@ -1059,7 +1045,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={Idnumber}
                             placeholder="Enter ID"
-                            className="idnumber"/>;
+                            className="idnumber newbeneinput font"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -1082,19 +1068,19 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={rateId}
                             placeholder="0~100"
-                            className="rate"/>;
+                            className="rate newbenerateinput font"/>;
                         return(
                             <div key={idx}>
                             <br></br>
-                            <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                            <label htmlFor={beneficiaryId}>#{idx+1} 受益人電子郵件：</label>
                             &nbsp;
                             {emailinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={Idnumber}>ID number:</label>
+                            <label htmlFor={Idnumber}>身分證字號：</label>
                             &nbsp;
                             {idinput}
                             &nbsp;&nbsp;&nbsp;
-                            <label htmlFor={rateId}>Distribution rate:</label>
+                            <label htmlFor={rateId}>分配比例：</label>
                             &nbsp;
                             {rateinput}
                             &nbsp;&nbsp;&nbsp;
@@ -1145,7 +1131,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={beneficiaryId}
                             placeholder="Enter email"
-                            className="mail"/>;
+                            className="mail newbeneinput font"/>;
                         var idinput =
                             <input
                             type="text"
@@ -1168,7 +1154,7 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={Idnumber}
                             placeholder="Enter ID"
-                            className="idnumber"/>;
+                            className="idnumber newbeneinput font"/>;
                         var rateinput = 
                             <input
                             type="number"
@@ -1191,19 +1177,19 @@ class TestaManagePage extends Component{
                             data-id={idx}
                             id={rateId}
                             placeholder="0~100"
-                            className="rate"/>;
+                            className="rate newbenerateinput font"/>;
                             return(
                                 <div key={idx}>
                                 <br></br>
-                                <label htmlFor={beneficiaryId}>#{idx+1} Beneficiary Email:</label>
+                                <label htmlFor={beneficiaryId}>#{idx+1} 受益人電子郵件：</label>
                                 &nbsp;
                                 {emailinput}
                                 &nbsp;&nbsp;&nbsp;
-                                <label htmlFor={Idnumber}>ID number:</label>
+                                <label htmlFor={Idnumber}>身分證字號：</label>
                                 &nbsp;
                                 {idinput}
                                 &nbsp;&nbsp;&nbsp;
-                                <label htmlFor={rateId}>Distribution rate:</label>
+                                <label htmlFor={rateId}>分配比例：</label>
                                 &nbsp;
                                 {rateinput}
                                 &nbsp;&nbsp;&nbsp;
@@ -1235,6 +1221,7 @@ class TestaManagePage extends Component{
                     
                 })
             }        
+            <br></br>
             <br></br>
             <Button variant="outline-warning" onClick={(event) => {
                 event.preventDefault()
@@ -1315,7 +1302,7 @@ class TestaManagePage extends Component{
                 // } else if (this.checkEmail(this.mail.value) != true) {
                 //     alert('Please enter correct email!')
                 // }
-            }}>Create</Button>
+            }}>建立</Button>
             </Form>
             <br></br>
             <p></p>

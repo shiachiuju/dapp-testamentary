@@ -222,7 +222,7 @@ class ActivateBackupPage extends Component {
             <Layout>
             <div className="App">
                 <br></br>
-                <h3><b>Activate Back-up Mechanism</b></h3>
+                <h3 className="font">啟動救援合約</h3>
                 <br></br>
                 {/* <p><b>Wallet account:</b> {this.state.account}</p> */}
                 {/* <p><b>*Contract address:</b> {this.state.contract_address}</p> */}
@@ -295,9 +295,9 @@ class ActivateBackupPage extends Component {
                         }
                     }}>
                         <Col>
-                            <label for="contract" class="acbulabel">Back-up contract address : </label>
+                            <label for="contract" class="acbulabel font">救援合約地址：</label>
                             <input
-                            class="acbuinput" 
+                            class="acbuinput font" 
                             id="contract" 
                             type="text" 
                             ref={(input) => { 
@@ -307,9 +307,9 @@ class ActivateBackupPage extends Component {
                             required/>
                         </Col>
                         <Col>
-                            <label for="idNo" class="acbulabel">ID number : </label>
+                            <label for="idNo" class="acbulabel font">身分證字號：</label>
                             <input
-                            class="acbuinput" 
+                            class="acbuinput font" 
                             id="idNo" 
                             type="text" 
                             ref={(input) => { 
@@ -320,9 +320,9 @@ class ActivateBackupPage extends Component {
                             required/>
                         </Col>
                         <Col>
-                            <label for="email" class="acbulabel">Email address :</label>
+                            <label for="email" class="acbulabel font">電子郵件信箱：</label>
                             <input 
-                            class="acbuinput"
+                            class="acbuinput font"
                             id="email" 
                             type="email" 
                             ref={(input) => { 
@@ -332,9 +332,9 @@ class ActivateBackupPage extends Component {
                             required />
                         </Col>
                         <Col>
-                            <label for="cpassword" class="acbulabel">Password :</label>
+                            <label for="cpassword" class="acbulabel font">密碼：</label>
                             <input 
-                            class="acbuinput"
+                            class="acbuinput font"
                             id="cpassword" 
                             type="password"
                             ref={(input) => { 
@@ -345,7 +345,7 @@ class ActivateBackupPage extends Component {
                             required />
                         </Col>
                         <br></br>
-                        <button type="submit" class="bubtn">Activate</button>
+                        <button type="submit" class="bubtn font">提交</button>
                     </form>
                     {/* <Form onSubmit={(event) => {
                         event.preventDefault()

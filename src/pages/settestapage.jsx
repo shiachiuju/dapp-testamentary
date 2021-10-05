@@ -178,152 +178,141 @@ class ActivateTestamentPage extends Component {
         <Layout>
             <div className="App">
                 <br></br>
-                <h3><b>Set Activated Information</b></h3>
+                <h3 className="font">輸入遺囑資訊</h3>
                 <br></br>
-                <p><b>Wallet account:</b> {this.state.account}</p>
                 <div class="form-group" id="activateTest">
                     <Form onSubmit={(event) => {
                         event.preventDefault()
                         this.Set(this.contractadd.value,this.checkemail.value,this.checkpassword.value,this.checkid.value)
                     }}>
-                        <Form.Group id="formCheckAddress">
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label class="col-form-label"><b>Testamentary contract address</b></Form.Label>
-                                    <Form.Control
-                                        type="text" 
-                                        ref={(input) => { 
-                                            this.contractadd = input
-                                        }}
-                                        placeholder="Paste Testamant Address Here"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-
-                        <Form.Group id="formCheckEmail">
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label class=" col-form-label"><b>Email address</b></Form.Label>
-                                    <Form.Control
-                                        type="email" 
-                                        ref={(input) => { 
-                                            this.checkemail = input
-                                        }}
-                                        placeholder="Enter email"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-
-                        <Form.Group id="formCheckId">
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label class=" col-form-label"><b>ID number</b></Form.Label>
-                                    <Form.Control
-                                        type="text" 
-                                        minLength="10" 
-                                        maxLength="10"
-                                        ref={(input) => { 
-                                            this.checkid = input
-                                        }}
-                                        placeholder="Enter ID number"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                                
-                        <Form.Group id="formCheckPassword" >
-                            <Row>
-                                <Col md={{ span: 4, offset: 4 }}>
-                                    <Form.Label class=" col-form-label"><b>Password</b></Form.Label>
-                                    <Form.Control 
-                                        type="password"
-                                        minLength="6" 
-                                        maxLength="8"
-                                        ref={(input) => { 
-                                            this.checkpassword = input
-                                        }}  
-                                        placeholder="Password(6~8)"
-                                        required />
-                                </Col>
-                            </Row>
-                        </Form.Group>
+                        <Col>
+                            <label for="formCheckAddress" class="acbulabel font">遺囑合約地址：</label>
+                            <input
+                            class="acbuinput font" 
+                            id="formCheckAddress" 
+                            type="text" 
+                            ref={(input) => { 
+                                this.contractadd = input
+                            }}
+                            placeholder="Paste Testamant Address Here"
+                            required/>
+                        </Col>
+                        <Col>
+                            <label for="formCheckEmail" class="acbulabel font">電子郵件信箱：</label>
+                            <input
+                            class="acbuinput font" 
+                            id="formCheckEmail" 
+                            type="email" 
+                            ref={(input) => { 
+                                this.checkemail = input
+                            }}
+                            placeholder="Enter email"
+                            required/>
+                        </Col>
+                        <Col>
+                            <label for="formCheckId" class="acbulabel font">身分證字號：</label>
+                            <input
+                            class="acbuinput font" 
+                            id="formCheckId" 
+                            type="text" 
+                            minLength="10" 
+                            maxLength="10"
+                            ref={(input) => { 
+                                this.checkid = input
+                            }}
+                            placeholder="Enter ID number"
+                            required/>
+                        </Col>
+                        <Col>
+                            <label for="formCheckPassword" class="acbulabel font">密碼：</label>
+                            <input
+                            class="acbuinput font" 
+                            id="formCheckPassword" 
+                            type="password"
+                            minLength="6" 
+                            maxLength="8"
+                            ref={(input) => { 
+                                this.checkpassword = input
+                            }}  
+                            placeholder="Password(6~8)"
+                            required/>
+                        </Col>
                         <br></br>
-                        <Button  type="submit" class="btn-primary btn-lg" variant="outline-secondary">Set My Password</Button>
+                        <button type="submit" class="bubtn font">加入遺囑</button>
                     </Form>
                     <br></br>
                 </div>
                 <div class="table-responsive">
-                <table class="table table-hover table-sm">
-                    <thead>
-                     <tr>
-                        <th scope="col">Testament Address</th>
-                        <th scope="col">Set Address</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Activate</th>
-                    </tr>
-                 </thead>
-                 <tbody>
-                    <tr>
-                       
-                       <td>
-                            {this.state.maincontract_address.map(item => (
-                            <p key={item}>{item}</p>
-                            ))}
-                       </td>
-                       <td>
-                           {this.state.setcontract_address.map(item => (
-                            <p key={item}>{item}</p>
-                            ))}
-                       </td>
-                       <td>
-                            {this.state.activated.map(item => (
-                            <p key={item}>{item}</p>
-                            ))}
-                       </td>
-                    <td>  
-                    <div id="setback">       
-                    <Form onSubmit={ async (event) => {
-                        event.preventDefault()
-                        this.checkset(this.contractadd.value, this.checkpassword.value)
-                        if ( this.state.account === "" ){
-                            this.refreshPage()
-                        }
-                    
-                        const { value: formValues } = await Swal.fire({
-                            title: 'Enter the address and password',
-                            width: 600,
-                            confirmButtonColor: '#eea13c',
-                            confirmButtonText: 'OK!',
-                            html:
-                                '<form role="form">'+
-                                    '<div class="form-group row">'+
-                                        '<label for="contract" class="col-sm-4" style="margin-top:.5em;text-align:left;">Settestament contract address :</label>'+
-                                        '<div class="col-sm-8">'+
-                                            '<input id="contract" class="form-control" placeholder="Paste Your Set Address Here" required/>'+
-                                        '</div>'+
-                                    '</div>'+
-                                    '<div class="form-group row">'+
-                                        '<label for="password" class="col-sm-4" style="margin-top:.5em;text-align:left;">Password :</label>'+
-                                        '<div class="col-sm-8">'+
-                                            '<input id="password" type="password" class="form-control" placeholder="password(6~8)" required/>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</form>',
-                            focusConfirm: false,
-                        })
-                            if (formValues) {
-                                this.checkset($('#contract').val(),$('#password').val())
-                            }
-                    }}>
-                        <Button type="submit" variant="outline-secondary">Activate</Button>
-                    </Form>
-                        </div>
-                        </td>
-                    </tr>
-                </tbody>
-                    </table>
+                <table class="table table-hover table-sm cc">
+                    <thead className="font">
+                        <tr>
+                            <th scope="col">遺囑合約地址</th>
+                            <th scope="col">設定合約地址</th>
+                            <th scope="col">合約狀態</th>
+                            <th scope="col">啟用合約</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {this.state.maincontract_address.map(item => (
+                                    <p key={item}>{item}</p>
+                                ))}
+                            </td>
+                            <td>
+                                {this.state.setcontract_address.map(item => (
+                                    <p key={item}>{item}</p>
+                                ))}
+                            </td>
+                            <td>
+                                {this.state.activated.map(item => (
+                                    <p key={item}>{item}</p>
+                                ))}
+                            </td>
+                            <td>  
+                                <div id="setback">       
+                                <Form onSubmit={ async (event) => {
+                                    event.preventDefault()
+                                    this.checkset(this.contractadd.value, this.checkpassword.value)
+                                    if ( this.state.account === "" ){
+                                        this.refreshPage()
+                                    }
+                                    const { value: formValues } = await Swal.fire({
+                                        title: '輸入資料啟動合約',
+                                        width: 600,
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#eea13c',
+                                        cancelButtonColor: '#8C8F8D',
+                                        confirmButtonText: '提交',
+                                        cancelButtonText: '取消',
+                                        html:
+                                            '<form role="form">'+
+                                                '<div class="form-group row font">'+
+                                                    '<label for="contract" class="col-sm-4" style="margin-top:.5em;text-align:left;">已建立合約地址：</label>'+
+                                                    '<div class="col-sm-8">'+
+                                                        '<input id="contract" class="form-control" placeholder="Paste Your Set Address Here" required/>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group row font">'+
+                                                    '<label for="password" class="col-sm-4" style="margin-top:.5em;text-align:left;">密碼：</label>'+
+                                                    '<div class="col-sm-8">'+
+                                                        '<input id="password" type="password" class="form-control" placeholder="password(6~8)" required/>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</form>',
+                                        focusConfirm: false,
+                                    })
+                                    if (formValues) {
+                                        this.checkset($('#contract').val(),$('#password').val())
+                                    }
+                                }}>
+                                <button type="submit" class="actestbtn font">啟動</button>
+                                </Form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <br></br>
                 </div>
             </div> 

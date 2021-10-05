@@ -34,6 +34,7 @@ class MainPage extends Component {
         //wallet accounts
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
+        console.log(this.state.account)
         const walletb = await web3.eth.getBalance(this.state.account)
         const maximum = walletb*0.99
         this.setState({ maximum: maximum })
@@ -258,8 +259,8 @@ class MainPage extends Component {
         <Layout>
         <div class="App">
             
-            <h2><b>Hello, </b></h2>
-            <h5>{this.state.account}</h5>
+            <h2 className="font">您好，</h2>
+            <h4 className="font"><b>{this.state.account}</b></h4>
             
             {/* <p><b>Wallet account:</b> {this.state.account}</p> */}
             {/* <p><b>{this.state.backup}</b></p> */}
@@ -272,12 +273,12 @@ class MainPage extends Component {
                 <form>
                     <div>
                         <Col>
-                            <label for="amount" class="dwlabel"><b>Deposit or Withdraw Ether</b></label>
+                            <label for="amount" class="dwlabel font">請輸入金額</label>
                         </Col>
                         <Row>
                             <Col sm={3}>
                                 <FontAwesomeIcon color="#8C8F8D" icon={["fas", "angle-left"]}  size="3x" type="submit" onClick={(event)=>{event.preventDefault();window.location="/Backup"}}/>
-                                <p>Backup</p>
+                                <p>救援機制</p>
                             </Col>
                             <Col lg={6}><input 
                                 class="dwinput"
@@ -292,7 +293,7 @@ class MainPage extends Component {
                             ></input></Col>
                             <Col sm={3}>
                                 <FontAwesomeIcon color="#8C8F8D" icon={["fas", "angle-right"]} size="3x" type="submit" onClick={(event)=>{event.preventDefault();window.location="/TestaManage"}}/>
-                                <p>Testament</p>
+                                <p>數位遺囑</p>
                             </Col>
                         </Row>
                     </div>
@@ -338,7 +339,7 @@ class MainPage extends Component {
                         }else{
                             this.Deposit((this.amount.value * (10**18)).toString()) 
                         }
-                    }}>Deposit</button>{' '}
+                    }}>存款</button>{' '}
                     <button class="dw" onClick={(event) => {
                         // console.log(this.amount.value)
                         // console.log(this.state.balance)
@@ -380,11 +381,11 @@ class MainPage extends Component {
                         }else{
                             this.Withdraw((this.amount.value* (10**18)).toString())
                         }
-                    }}>Withdraw</button>
+                    }}>提款</button>
                 </form>
                 </div>
                 <p></p>
-                <p class="dwlabel"><b>Balance:</b> {this.state.balance / 10**18} (ether)</p>
+                <p class="dwlabel font">餘額： {this.state.balance / 10**18} (ether)</p>
             </div>
             <br></br>
             {/* <div id="outer">

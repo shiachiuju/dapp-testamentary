@@ -9,6 +9,16 @@ font-family: 'Questrial', sans-serif; */
   
 
 }
+.cc{
+ text-align: center;
+}
+
+.font{
+  font-family:'Poppins', sans-serif;
+}
+#f18{
+  font-size: 18px;
+}
 .a{
   margin: 7% 25% 1% 25% ;
   text-align: center;
@@ -74,7 +84,18 @@ font-family: 'Questrial', sans-serif; */
   color: #FCFAF1;
   border: none;
   font-size: 14px;
-  width: 70px;
+  width: 50px;
+  height: 30px;
+  margin: 2px 2px;
+  border-radius: 5px;
+}
+.actestbtn{
+  text-align: center;
+  background-color: #eea13c;
+  color: #FCFAF1;
+  border: none;
+  font-size: 16px;
+  width: 60px;
   height: 40px;
   margin: 2px 2px;
   border-radius: 5px;
@@ -284,7 +305,7 @@ font-family: 'Questrial', sans-serif; */
 #left{
   width:40%;
   height: 250px;
-  padding:10px;
+  padding:45px;
   margin: 5% 1% 0 9%;/*上右下左*/
   display: inline-block;
   justify-content: center;
@@ -314,7 +335,7 @@ font-family: 'Questrial', sans-serif; */
 #right{
   width: 40%;
   height: 250px;
-  padding:10px;
+  padding:45px;
   margin: 5% 9% 5% 1%;
   display: inline-block;
   justify-content: center;
@@ -402,7 +423,39 @@ font-family: 'Questrial', sans-serif; */
   border-radius: 5px;
   font-size: 20px;
 }
-
+.modifyinput{
+  width: 50px;
+  height: 30px;
+  /* box-sizing: border-box; */
+  border: none;
+  box-shadow: 0px 0px 5px #888888;
+  padding: 4px 8px;
+  margin: 4px 2px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.newbeneinput{
+  width: 250px;
+  height: 30px;
+  /* box-sizing: border-box; */
+  border: none;
+  box-shadow: 0px 0px 5px #888888;
+  padding: 4px 8px;
+  margin: 4px 2px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.newbenerateinput{
+  width: 80px;
+  height: 30px;
+  /* box-sizing: border-box; */
+  border: none;
+  box-shadow: 0px 0px 5px #888888;
+  padding: 4px 8px;
+  margin: 4px 2px;
+  border-radius: 5px;
+  font-size: 16px;
+}
 .bubtn{
   background-color: #eea13c;
   color: #FCFAF1;
@@ -422,7 +475,7 @@ font-family: 'Questrial', sans-serif; */
   font-size: 20px;
   margin: 4px 0;
   font-size: 16px;
-  width: 26%;
+  width: 12%;
   padding: 10px;
 }
 .acbuinput{
@@ -461,10 +514,14 @@ font-family: 'Questrial', sans-serif; */
   transform: translateY(10px);
 }
 
-#outer /* http://jsfiddle.net/6uL5e/ */
-{
-    width:100%;
-    text-align: center;
+#outer /* http://jsfiddle.net/6uL5e/ */{
+  width:100%;
+  text-align: center;
+}
+#outerdown{
+  width:100%;
+  text-align: center;
+  margin-top:10px;
 }
 .inner
 {
