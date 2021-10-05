@@ -1,13 +1,13 @@
 /* change the background color */
 .navbar {
-    background:#faf0e6;
+    background:rgba(0,0,0,0);
     /*background-color: #B8B8FF;ffd91d color : white;rgba(0,0,0,0)*/
     position: fixed;
     right: 0;
     left: 0;
     top: 0; 
     color : #00000080;
-    font-family: "Jost";
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
     border-bottom-color: #00000080;
     border-bottom-width: 0.2px;
@@ -15,7 +15,7 @@
 }
 
 .footer {
-    background:#faf0e6;
+    background:rgba(0,0,0,0);
     border-top-color: #00000080;
     border-top-width: 0.2px;
     border-top-style: solid;

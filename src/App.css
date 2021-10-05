@@ -1,5 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 font-family: 'Questrial', sans-serif; */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&display=swap');
 .App {
   text-align: center;
   margin: 8%;
@@ -8,22 +10,56 @@ font-family: 'Questrial', sans-serif; */
 
 }
 .a{
-  margin: 10% 20% 5% 25% ;
+  margin: 7% 25% 1% 25% ;
+  text-align: center;
+
+}
+.aa{
+  margin: 7% 25% 1% 25% ;
+  text-align: right;
 
 }
 .b{
-  font-size: 35px;
+  font-size: 43px;
+  
 }
 
 .bl{
-  color:#1B1617;
+  color:#ffffff;
+  font-size: 20px;
+  font-family:'Poppins', sans-serif;
+  
+  
+}
+.bl2{
+  color:#666463;
+  font-size: 20px;
+  font-family:'Poppins', sans-serif;
+  
+}
+.o{
+  color:#ffffff;
+  font-size: 26px;
+  font-family:'Poppins', sans-serif;
+  
+}
+.o2{
+  color:#666463;
+  font-size: 26px;
+  font-family:'Poppins', sans-serif;
+  
 }
 .l{
   text-align: left;
 
 }
+.le{
+  margin: 2% 9% 9% 10% ;
+  font-size: 45px;
+
+}
 .r{
-  margin: 25% 25% 25% 20% ;
+  margin: 10% 25% 20% 10% ;
 
 }
 .modify{
@@ -157,37 +193,57 @@ font-family: 'Questrial', sans-serif; */
 
 .bimg{
   background-image: url('backup.jpg');
-  width: 50%;
-  height: 87%;
+  margin: 0% 0% 50% 0% ;
+  width: 100%;
+  height: 120%;
+  text-align: right;
 }
 
 .wimg{
   background-image: url('grandpa.png');
-  width: 45%;
-  height: 87%;
+  margin: 50% 50% 50% 10% ;
+  width: 80%;
+  height: 100%;
+  
 }
 
 .welcome{
-  background-color: #E6DDDA;
-  width: 1519px;
-  height: 700px;
-  font-size :30px ;
+  background-color: #dd7538;
+ /* width: 1519px;
+  /*height: 700px;*/
+  width: 100%;
+  height: 70%;
+  font-size :58px ;
   /*font-family: 'Questrial', sans-serif;*/
-  font-family: "Jost";
-  color: #89817E;
+  font-family:'Poppins', sans-serif;
+  color: #ffffff;
   display: flex;
   align-items: center;
 }
+.welcome2{
+  background-color: #faf0e6;
+ /* width: 1519px;
+  /*height: 700px;*/
+  width: 100%;
+  height: 70%;
+  font-size :58px ;
+  /*font-family: 'Questrial', sans-serif;*/
+  font-family:'Poppins', sans-serif;
+  color: #666463;
+  display: flex;
+  align-items: right;
+}
 
 .about{
-  background-color: #635B5A;
-  width: 1519px;
-  height: 700px;
+  background-color: #faf0e6;
+  width: 100%;
+  height: 80%;
   font-size :25px ;
-  font-family: "Jost";
-  color: #cfc5bf;
+  font-family:'Poppins', sans-serif;
+  color: #666463;
   display: flex;
-  text-align: center;
+  
+  
   
 }
 
@@ -199,13 +255,13 @@ font-family: 'Questrial', sans-serif; */
 }
 
 .section2{
-  background-color: 	#faf0e6;
+  background-color: 	#eb7531;
   /*background-image: url('crypto.png');text-shadow: 1px 0.5px 1px #373030;*/
   
 }
 
 .section3{
-  background-color: 	#faf0e6;
+  background-color: 	#eb7531;
   /*background-image: url('crypto.png');text-shadow: 1px 0.5px 1px #373030;*/
   
 }
