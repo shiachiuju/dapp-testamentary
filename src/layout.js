@@ -16,9 +16,9 @@ export default ({ children }) => (
     <Navbar class="navbar">
         <Container>
             <Nav className="mr-auto">
-                <Nav.Link href="/"><div><FontAwesomeIcon icon={["fas", "apple-alt"]}/><b>salVAger</b></div></Nav.Link>
-                <Nav.Link href="/Main"><div class="w"><b>Create</b></div></Nav.Link>
-                <Nav.Link href="/ActivateMain"><div class="w"><b>Activate</b></div></Nav.Link>
+                <Nav.Link href="/"><div><img src="/logo-black.png" alt="" width="22"/><b>  salVAger</b></div></Nav.Link>
+                <Nav.Link href="/Main"><div><b>Create</b></div></Nav.Link>
+                <Nav.Link href="/ActivateMain"><div><b>Activate</b></div></Nav.Link>
 
                 {/* <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Back-up">
                         <DropdownItem href="/Backup">Create</DropdownItem>
