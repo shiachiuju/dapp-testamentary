@@ -8,11 +8,9 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 document.body.style = 'background-color:#faf0e6;';
 
-
 export default ({ children }) => (
-    
   <div>
-    
+    {children}
     <Navbar class="navbar">
         <Container>
             <Nav className="mr-auto">
@@ -20,7 +18,8 @@ export default ({ children }) => (
                 <Nav.Link href="/Main"><div><b>Create</b></div></Nav.Link>
                 <Nav.Link href="/ActivateMain"><div><b>Activate</b></div></Nav.Link>
 
-                {/* <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Back-up">
+
+          {/* <DropdownButton variant="sencondary" id="dropdown-basic-button" title="Back-up">
                         <DropdownItem href="/Backup">Create</DropdownItem>
                         <DropdownItem href="/ActivateBackup">Activate</DropdownItem>
                 </DropdownButton>
@@ -30,22 +29,25 @@ export default ({ children }) => (
                         <DropdownItem href="/SetTestament">Set</DropdownItem>
                         <DropdownItem href="/ActivateTestament">Acvtivate</DropdownItem>
                 </DropdownButton> */}
-            </Nav>
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text><div class="w">
-                    Signed in as: Beauty
-                    </div></Navbar.Text>
-                </Navbar.Collapse>
-        </Container>
+        </Nav>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            {/* <div class="w">Signed in as: Beauty</div> */}
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
-        
-    {children}
+
+    {/* {children} */}
 
     <footer class="footer fixed-bottom">
-        <div class="footer-copyright text-center py-3">© 2021 Copyright:
-            <a> BeautyGang</a>
-        </div>
+      <div class="footer-copyright text-center py-3">
+        © 2021 Copyright:
+        <a> BeautyGang</a>
+      </div>
     </footer>
     
   </div>
-)
+  
+);
+
