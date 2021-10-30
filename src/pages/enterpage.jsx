@@ -59,7 +59,7 @@ class EnterPage extends Component {
                     <div class="welcome r">
                       <br></br>
                       <p>
-                        sal<b>VA</b>ger—<br></br>虛擬資產我救的
+                        sal<b>VA</b>ger<br></br>虛擬資產我救的
                       </p>
                       <div class="" id="right1enter">
                         <div class="himg" align="right"></div>
@@ -69,7 +69,7 @@ class EnterPage extends Component {
                   <div className="section">
                     <div class="a">
                       <p class="b">
-                        關於sal<b>VA</b>ger
+                      <b>關於salVAger</b>
                       </p>
                       
                       <br></br>

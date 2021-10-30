@@ -40,10 +40,15 @@ contract MainContract {
         owners = [msg.sender];
         mainowner = msg.sender;
         isOwner[msg.sender] = true;
-         //mailexist["barbie@mail"]=true;
-        //portions["barbie@mail"]=0;
-        //beneficiaryidentity.push("0000000000");
-        //identity["barbie@mail"]="0000000000";
+        Beneficiary storage newbene = beneficiaryinfo[0];
+        newbene.beneficiaryemail = "beautygang4@gmail.com";
+        newbene.portion = 5;
+        newbene.execute = false;
+        beneficiarymails.push("beautygang4@gmail.com");
+        mailexist["beautygang4@gmail.com"]=true;
+        portions["beautygang4@gmail.com"]=5;
+        beneficiaryidentity.push("0000000000");
+        identity["beautygang4@gmail.com"]="0000000000";
     }
     
     /* bank function */

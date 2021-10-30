@@ -4,7 +4,7 @@ font-family: 'Questrial', sans-serif; */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&display=swap");
 .App {
   text-align: center;
-  margin: 8%;
+  margin: 10%;
   /* background-image: url('tech.jpg');*/
 }
 
@@ -37,7 +37,7 @@ font-family: 'Questrial', sans-serif; */
   font-family: "Poppins", sans-serif;
 }
 .bt {
-  font-size: 25px;
+  font-size: 24px;
   font-family: "Poppins", sans-serif;
 }
 .bb {
@@ -86,7 +86,7 @@ font-family: 'Questrial', sans-serif; */
   font-size: 45px;
 }
 .r {
-  margin: 15% 25% 20% 13%;
+  margin: 15% 25% 20% 10%;
 }
 .modify {
   width: 20px;
@@ -396,17 +396,20 @@ font-family: 'Questrial', sans-serif; */
   font-size: 1rem;
   border: 1px solid #ffb326;
 }
-
+#two{
+  position: fixed;
+}
 .button {
+  background-color: #eea13c;
   border: none;
-  margin: 2% -25% 2% -10%;
-  color: white;
+  margin: 10% 33%;
+  color: rgb(255, 255, 255);
   padding: 15px 32px;
   text-align: center;
-  text-decoration: none;
   display: flex;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .backup {
@@ -538,7 +541,7 @@ font-family: 'Questrial', sans-serif; */
   font-size: 20px;
   margin: 4px 0;
   font-size: 16px;
-  width: 12%;
+  width: 16%;
   padding: 10px;
 }
 .acbuinput {
@@ -588,7 +591,6 @@ font-family: 'Questrial', sans-serif; */
   width:100%;
   text-align: center;
   margin-top:10px;
-
 }
 .inner {
   display: inline-block;

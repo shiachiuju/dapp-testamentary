@@ -52,7 +52,7 @@ class TestaManagePage extends Component{
         this.setState({ password })
         const len = await this.state.mainContract.methods.returnlen().call()
         this.setState({ len })
-        for(let i=1;i<=this.state.len;i++) {
+        for(let i=0;i<this.state.len;i++) {
             const checkbenes = await this.state.mainContract.methods.getBeneficiary(i).call()
             const a = this.state.benes
             a.push({mail: checkbenes[0],rate: checkbenes[1]})
@@ -213,6 +213,16 @@ class TestaManagePage extends Component{
                 </thead>
                 {this.state.benes.map((val, key) =>{
                 if (this.state.value.length === 0) {
+                    if(key===0){
+                        return(
+                            <tbody className="font">
+                            <tr>
+                                <td>{val.mail}</td>
+                                <td>{val.rate}</td>
+                            </tr>
+                        </tbody>
+                        )
+                    }else{
                     var beneId=`bene-${key}`
                     return(
                         <tbody className="font">
@@ -233,11 +243,21 @@ class TestaManagePage extends Component{
                                 {/* <td></td> */}
                             </tr>
                         </tbody>
-                    )
+                    )}
                 }
                 })}
                 {this.state.benes.map((val, key) =>{
                 if(this.state.value.length !== 0){
+                    if(key===0){
+                        return(
+                            <tbody className="font">
+                            <tr>
+                                <td>{val.mail}</td>
+                                <td>{val.rate}</td>
+                            </tr>
+                        </tbody>
+                        )
+                    }else{
                     var beneId=`bene-${key}`
                     var a = <button type="button" class="mobtn font"
                             onClick={
@@ -317,7 +337,7 @@ class TestaManagePage extends Component{
                                 {/* <td>{b}</td> */}
                             </tr>
                         </tbody>
-                    )
+                    )}
                     }
                 })}
                 </table>
