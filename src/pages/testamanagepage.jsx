@@ -113,7 +113,6 @@ class TestaManagePage extends Component{
         })
         .once('error', (error) => {
         })
-
     }
     addBene=(e)=>{
         this.setState((prevState)=>({
@@ -1307,7 +1306,7 @@ class TestaManagePage extends Component{
                                 const newrate = val.newrate
                                 const rate = val.rate
                                 if (newrate !== "" && newrate !== undefined && rate !== newrate){
-                                    this.modify(i+1,mail,idnumber,newrate)
+                                    this.modify(i,mail,newrate)
                                 }
                             }
                         }        
